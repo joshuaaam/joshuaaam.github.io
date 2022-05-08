@@ -1,19 +1,31 @@
 ---
 layout: post
-title: "Getting Started"
+title: "秋日的东山岛"
 author: "Paul Le"
 categories: journal
 tags: [documentation,sample]
-image: forest.jpg
+image: DSC_0803.JPG
 ---
 
-# Lagrange
+# 「 金銮湾日出 」
 
-Lagrange is a minimalist Jekyll theme for running a personal blog or site for free through [Github Pages](https://pages.github.com/), or on your own server. Everything that you will ever need to know about this Jekyll theme is included in the README below, which you can also find in [the demo site](https://lenpaul.github.io/Lagrange/). For a guide on how to start a blog or personal website using Jekyll and GitHub Pages, please check out [this article](https://paulle.ca/how-to-start-a-blog-or-personal-website-using-jekyll-and-github-pages).
+在网上看攻略，听大家说金銮湾的日出很美，有”天空之镜“的美誉，于是决定在离开前看一次金銮湾的日出
 
-![alt text](https://user-images.githubusercontent.com/8409329/32631384-17107870-c56e-11e7-932f-deeb7c12e4db.png "Lagrange Demo Image")
+<!-- Lagrange is a minimalist Jekyll theme for running a personal blog or site for free through [Github Pages](https://pages.github.com/), or on your own server. Everything that you will ever need to know about this Jekyll theme is included in the README below, which you can also find in [the demo site](https://lenpaul.github.io/Lagrange/). For a guide on how to start a blog or personal website using Jekyll and GitHub Pages, please check out [this article](https://paulle.ca/how-to-start-a-blog-or-personal-website-using-jekyll-and-github-pages). -->
 
-## Notable features
+<!-- ![alt text](https://user-images.githubusercontent.com/8409329/32631384-17107870-c56e-11e7-932f-deeb7c12e4db.png "Lagrange Demo Image") -->
+
+
+<img src="{{site.url}}/assets/img/2022-05-05/DSC_0808.JPG">
+
+<img src="{{site.url}}/assets/img/2022-05-05/DSC_0803.JPG">
+
+
+<!-- ![alt text](https://admin.impermanence.cn/public/upload/20220321/1647836631278.jpeg "金銮湾日出") -->
+
+
+<!-- ## Notable features
+
 
 * Compatible with GitHub Pages.
 
@@ -25,9 +37,9 @@ Lagrange is a minimalist Jekyll theme for running a personal blog or site for fr
 
 * Optimized for search engines.
 
-* LaTeX support through [MathJax](https://www.mathjax.org/).
+* LaTeX support through [MathJax](https://www.mathjax.org/). -->
 
-## Table of Contents
+<!-- ## Table of Contents
 
 1. [Introduction](#introduction)
    1. [What is Jekyll](#what-is-jekyll)
@@ -57,7 +69,7 @@ Lagrange is a minimalist Jekyll theme for running a personal blog or site for fr
 6. [Contributing](#Contributing)
 7. [Questions?](#questions)
 8. [Credits](#credits)
-9. [License](#license)
+9. [License](#license) -->
 
 ## Introduction
 
