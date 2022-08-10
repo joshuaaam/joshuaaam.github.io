@@ -1,3 +1,10 @@
+<!--
+ * @Author: g05047
+ * @Date: 2022-05-05 11:35:44
+ * @LastEditors: g05047
+ * @LastEditTime: 2022-08-10 23:39:11
+ * @Description: file content
+-->
 ---
 layout: post
 title: "Welcome to Joshuaaam!"
@@ -7,7 +14,7 @@ tags: [documentation,sample]
 image: mountains.jpg
 ---
 
-Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.
+Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.1
 
 ## Getting Started哈哈哈
 
