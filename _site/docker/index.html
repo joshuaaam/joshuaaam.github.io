@@ -1,0 +1,423 @@
+<!doctype html>
+<html>
+  <head>
+  <title>
+    
+      Docker｜Jenkins持续集成 | Joshua
+    
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+  <!-- Use Atom -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Joshua" />
+  <!-- Use RSS-2.0 -->
+  <!--<link href="/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Joshua | 东隅已逝，桑榆非晚"/>
+  //-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      });
+  </script>
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-112060364-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Docker｜Jenkins持续集成 | Joshua</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Docker｜Jenkins持续集成" />
+<meta name="author" content="Fanqiang Meng" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="docker命令 💡 Tips：语雀支持全功能 markdown 语法，可以点击文档编辑页右下角小键盘查看全部支持的语法和快捷键。" />
+<meta property="og:description" content="docker命令 💡 Tips：语雀支持全功能 markdown 语法，可以点击文档编辑页右下角小键盘查看全部支持的语法和快捷键。" />
+<link rel="canonical" href="http://localhost:4000/docker/" />
+<meta property="og:url" content="http://localhost:4000/docker/" />
+<meta property="og:site_name" content="Joshua" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-21T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Docker｜Jenkins持续集成" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Fanqiang Meng"},"dateModified":"2022-07-21T00:00:00+08:00","datePublished":"2022-07-21T00:00:00+08:00","description":"docker命令 💡 Tips：语雀支持全功能 markdown 语法，可以点击文档编辑页右下角小键盘查看全部支持的语法和快捷键。","headline":"Docker｜Jenkins持续集成","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/docker/"},"url":"http://localhost:4000/docker/"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+  <h3 class="header-title">
+    <a href="/">Joshua</a>
+    <small class="header-subtitle">东隅已逝，桑榆非晚</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      <a href="/">Home</a>
+    
+      <a href="/about.html">About</a>
+    
+      <a href="/writing.html">Writing</a>
+    
+      <a href="/contact.html">Contact</a>
+    
+  </nav>
+  <nav class="social-icons">
+    
+  
+  
+    <a href="https://www.github.com/lenpaul" target="_blank"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://www.github.com/lenpaul" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/paululele" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://www.linkedin.com/in/lenpaul/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:22553692565@qq.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+      <div class="content-container">
+        <h1>
+  Docker｜Jenkins持续集成
+</h1>
+
+<article>
+  <h2 id="docker命令">docker命令</h2>
+<blockquote>
+  <p>💡 Tips：语雀支持全功能 markdown 语法，可以点击文档编辑页右下角小键盘查看全部支持的语法和快捷键。</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="k">${</span><span class="p"> id </span><span class="k">}</span> /bin/bash
+
+<span class="c"># docker run 117723677dd5 /bin/bash</span>
+
+<span class="nt">-d</span>，# Run container <span class="k">in </span>background and print container ID
+
+<span class="nt">-i</span>, <span class="c"># Keep STDIN open even if not attached</span>
+
+<span class="nt">-t</span>, <span class="c"># Allocate a pseudo-TTY</span>
+
+<span class="nt">-p</span>, <span class="c"># Publish a container's port(s) to the host (default [])</span>
+</code></pre></div></div>
+<blockquote>
+  <p>Tips：
+-d，# Run container in background and print container ID</p>
+
+</blockquote>
+
+<h2 id="行内代码">行内代码</h2>
+<blockquote>
+  <p>💡 Tips：可通过 markdown 语法（<code class="language-plaintext highlighter-rouge">+ `code` +</code> + <code class="language-plaintext highlighter-rouge">空格</code>）或者快捷键 <code class="language-plaintext highlighter-rouge">ctrl/cmd</code> + <code class="language-plaintext highlighter-rouge">E</code>快速插入行内代码。</p>
+</blockquote>
+
+<p>在文本中使用<code class="language-plaintext highlighter-rouge">行内代码</code>，可以顺畅地显示代码变量名。</p>
+<h2 id="markdown-和快捷键全覆盖">Markdown 和快捷键全覆盖</h2>
+<blockquote>
+  <p>💡 Tips：语雀支持全功能 markdown 语法，可以点击文档编辑页右下角小键盘查看全部支持的语法和快捷键。</p>
+</blockquote>
+
+<ul>
+  <li>支持导入导出 <code class="language-plaintext highlighter-rouge">markdown</code> 文件。</li>
+  <li>支持自动识别粘贴的 <code class="language-plaintext highlighter-rouge">markdown</code> 格式内容转换为富文本。
+    <h2 id="行内代码-1">行内代码</h2>
+    <blockquote>
+      <p>💡 Tips：可通过 markdown 语法（<code class="language-plaintext highlighter-rouge">+ `code` +</code> + <code class="language-plaintext highlighter-rouge">空格</code>）或者快捷键 <code class="language-plaintext highlighter-rouge">ctrl/cmd</code> + <code class="language-plaintext highlighter-rouge">E</code>快速插入行内代码。</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>在文本中使用<code class="language-plaintext highlighter-rouge">行内代码</code>，可以顺畅地显示代码变量名。</p>
+
+<h2 id="代码块">代码块</h2>
+<blockquote>
+  <p>💡 Tips：输入<code class="language-plaintext highlighter-rouge">/代码块</code>或点击上方工具栏点击上方工具栏<img src="https://cdn.nlark.com/yuque/0/2022/png/519985/1646896088287-c8e7ef6c-2748-40d7-b53f-223b99fc5be5.png#clientId=u8726e0a6-b55e-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=22&amp;id=EuV2b&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=22&amp;originWidth=21&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=352&amp;status=done&amp;style=none&amp;taskId=u6adeff07-b08f-4f2a-9a78-84bebd06c32&amp;title=&amp;width=21" alt="image.png" />，选择「代码块」、插入代码卡片。</p>
+</blockquote>
+
+<p>代码块同时支持多种颜色主题：</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">QuickSort</span> <span class="kd">extends</span> <span class="nx">Sort</span> <span class="p">{</span>
+  <span class="nx">sort</span><span class="p">(</span><span class="nx">originalArray</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">originalArray</span><span class="p">];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Init left and right arrays.</span>
+    <span class="kd">const</span> <span class="nx">leftArray</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">const</span> <span class="nx">rightArray</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="c1">// Take the first element of array as a pivot.</span>
+    <span class="kd">const</span> <span class="nx">pivotElement</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">centerArray</span> <span class="o">=</span> <span class="p">[</span><span class="nx">pivotElement</span><span class="p">];</span>
+
+    <span class="c1">// Split all array elements between left, center and right arrays.</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">currentElement</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+
+      <span class="c1">// Call visiting callback.</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">visitingCallback</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">comparator</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">,</span> <span class="nx">pivotElement</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">centerArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">comparator</span><span class="p">.</span><span class="nx">lessThan</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">,</span> <span class="nx">pivotElement</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">leftArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">rightArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// Sort left and right arrays.</span>
+    <span class="kd">const</span> <span class="nx">leftArraySorted</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">leftArray</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">rightArraySorted</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">rightArray</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">leftArraySorted</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">centerArray</span><span class="p">,</span> <span class="nx">rightArraySorted</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">QuickSort</span> <span class="kd">extends</span> <span class="nx">Sort</span> <span class="p">{</span>
+  <span class="nx">sort</span><span class="p">(</span><span class="nx">originalArray</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">originalArray</span><span class="p">];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Init left and right arrays.</span>
+    <span class="kd">const</span> <span class="nx">leftArray</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">const</span> <span class="nx">rightArray</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="c1">// Take the first element of array as a pivot.</span>
+    <span class="kd">const</span> <span class="nx">pivotElement</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">centerArray</span> <span class="o">=</span> <span class="p">[</span><span class="nx">pivotElement</span><span class="p">];</span>
+
+    <span class="c1">// Split all array elements between left, center and right arrays.</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">currentElement</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+
+      <span class="c1">// Call visiting callback.</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">visitingCallback</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">comparator</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">,</span> <span class="nx">pivotElement</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">centerArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">comparator</span><span class="p">.</span><span class="nx">lessThan</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">,</span> <span class="nx">pivotElement</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">leftArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">rightArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// Sort left and right arrays.</span>
+    <span class="kd">const</span> <span class="nx">leftArraySorted</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">leftArray</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">rightArraySorted</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">rightArray</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">leftArraySorted</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">centerArray</span><span class="p">,</span> <span class="nx">rightArraySorted</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">QuickSort</span> <span class="kd">extends</span> <span class="nx">Sort</span> <span class="p">{</span>
+  <span class="nx">sort</span><span class="p">(</span><span class="nx">originalArray</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[...</span><span class="nx">originalArray</span><span class="p">];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Init left and right arrays.</span>
+    <span class="kd">const</span> <span class="nx">leftArray</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">const</span> <span class="nx">rightArray</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="c1">// Take the first element of array as a pivot.</span>
+    <span class="kd">const</span> <span class="nx">pivotElement</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+    <span class="kd">const</span> <span class="nx">centerArray</span> <span class="o">=</span> <span class="p">[</span><span class="nx">pivotElement</span><span class="p">];</span>
+
+    <span class="c1">// Split all array elements between left, center and right arrays.</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">currentElement</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+
+      <span class="c1">// Call visiting callback.</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">visitingCallback</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">comparator</span><span class="p">.</span><span class="nx">equal</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">,</span> <span class="nx">pivotElement</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">centerArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">comparator</span><span class="p">.</span><span class="nx">lessThan</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">,</span> <span class="nx">pivotElement</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">leftArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">rightArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentElement</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="c1">// Sort left and right arrays.</span>
+    <span class="kd">const</span> <span class="nx">leftArraySorted</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">leftArray</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">rightArraySorted</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">rightArray</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">leftArraySorted</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">centerArray</span><span class="p">,</span> <span class="nx">rightArraySorted</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h2 id="数学公式">数学公式</h2>
+<blockquote>
+  <p>💡 Tips：输入 <code class="language-plaintext highlighter-rouge">/公式</code>或点击上方工具栏点击上方工具栏<img src="https://cdn.nlark.com/yuque/0/2022/png/519985/1646896088287-c8e7ef6c-2748-40d7-b53f-223b99fc5be5.png#clientId=u8726e0a6-b55e-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=22&amp;id=Y49Cp&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=22&amp;originWidth=21&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=352&amp;status=done&amp;style=none&amp;taskId=u6adeff07-b08f-4f2a-9a78-84bebd06c32&amp;title=&amp;width=21" alt="image.png" />，选择「公式」、插入公式卡片。</p>
+</blockquote>
+
+<p>公式支持行内嵌套：<img src="https://intranetproxy.alipay.com/skylark/lark/__latex/8986e6bf4f4b4ff45d88debcfd9615ca.svg#card=math&amp;code=c%20%3D%20%5Cpm%5Csqrt%7Ba%5E2%20%2B%20b%5E2%7D&amp;id=pBGK4" alt="" />，也支持块级嵌入。
+<img src="https://intranetproxy.alipay.com/skylark/lark/__latex/45d276c520dbdf5bf9f9f3e4a7e5c480.svg#card=math&amp;code=f%28x%29%3D%5Cint_%7B-%5Cinfty%7D%5E%5Cinfty%5Cwidehat%20f%5Cxi%5C%2Ce%5E%7B2%5Cpi%20i%5Cxi%20x%7D%5C%2Cd%5Cxi%0A&amp;id=FMYMS" alt="" /></p>
+<h2 id="画板">画板</h2>
+<blockquote>
+  <p>💡 Tips：输入<code class="language-plaintext highlighter-rouge">/画板</code>或点击上方工具栏<img src="https://cdn.nlark.com/yuque/0/2022/png/519985/1646896088287-c8e7ef6c-2748-40d7-b53f-223b99fc5be5.png#clientId=u8726e0a6-b55e-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=22&amp;id=J4UvR&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=22&amp;originWidth=21&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=352&amp;status=done&amp;style=none&amp;taskId=u6adeff07-b08f-4f2a-9a78-84bebd06c32&amp;title=&amp;width=21" alt="image.png" />，选择「画板」、绘制流程图、架构图等各种图形。</p>
+</blockquote>
+
+<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2022/jpeg/141/1643261198014-1b94d73a-8d53-416b-bc0e-05c2b61793ea.jpeg" alt="" />
+<img src="https://intranetproxy.alipay.com/skylark/lark/0/2022/jpeg/141/1643260172392-f825fb81-bb39-49eb-982b-2e1467396ba4.jpeg" alt="" /></p>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2022/jpeg/956523/1657187591568-621b44f9-81f7-4be7-8c31-257d7ec9ab0a.jpeg" alt="" /></p>
+<h2 id="文本绘图">文本绘图</h2>
+<blockquote>
+  <p>💡 Tips：输入<code class="language-plaintext highlighter-rouge">/文本绘图</code>点击上方工具栏<img src="https://cdn.nlark.com/yuque/0/2022/png/519985/1646896088287-c8e7ef6c-2748-40d7-b53f-223b99fc5be5.png#clientId=u8726e0a6-b55e-4&amp;crop=0&amp;crop=0&amp;crop=1&amp;crop=1&amp;from=paste&amp;height=22&amp;id=z0jSW&amp;margin=%5Bobject%20Object%5D&amp;name=image.png&amp;originHeight=22&amp;originWidth=21&amp;originalType=binary&amp;ratio=1&amp;rotation=0&amp;showTitle=false&amp;size=352&amp;status=done&amp;style=none&amp;taskId=u6adeff07-b08f-4f2a-9a78-84bebd06c32&amp;title=&amp;width=21" alt="image.png" />，选择「文本绘图」、插入文本绘图卡片。
+支持 <a href="https://plantuml.com/">plantuml</a>、<a href="https://mermaid-js.github.io/mermaid/#/">mermaid</a> 等多种格式，点击<code class="language-plaintext highlighter-rouge">预览</code>可看到图形。具体代码样式见<a href="https://www.yuque.com/yuque/gpvawt/gantt">说明文档</a>。</p>
+</blockquote>
+
+<p><img src="https://intranetproxy.alipay.com/skylark/lark/__puml/b11b6192390c95750c4b71c2580ff529.svg#lake_card_v2=eyJ0eXBlIjoicHVtbCIsImNvZGUiOiJAc3RhcnR1bWxcblxuYXV0b251bWJlclxuXG5hY3RvciBcIueUqOaIt1wiIGFzIFVzZXJcbnBhcnRpY2lwYW50IFwi5rWP6KeI5ZmoXCIgYXMgQnJvd3NlclxucGFydGljaXBhbnQgXCLmnI3liqHnq69cIiBhcyBTZXJ2ZXIgI29yYW5nZVxuXG5hY3RpdmF0ZSBVc2VyXG5cblVzZXIgLT4gQnJvd3Nlcjog6L6T5YWlIFVSTFxuYWN0aXZhdGUgQnJvd3NlclxuXG5Ccm93c2VyIC0-IFNlcnZlcjog6K-35rGC5pyN5Yqh5ZmoXG5hY3RpdmF0ZSBTZXJ2ZXJcblxuU2VydmVyIC0-IFNlcnZlcjog5qih5p2_5riy5p-TXG5ub3RlIHJpZ2h0IG9mIFNlcnZlcjog6L-Z5piv5LiA5Liq5rOo6YeKXG5cblNlcnZlciAtPiBCcm93c2VyOiDov5Tlm54gSFRNTFxuZGVhY3RpdmF0ZSBTZXJ2ZXJcblxuQnJvd3NlciAtLT4gVXNlclxuXG5AZW5kdW1sIiwidXJsIjoiaHR0cHM6Ly9pbnRyYW5ldHByb3h5LmFsaXBheS5jb20vc2t5bGFyay9sYXJrL19fcHVtbC9iMTFiNjE5MjM5MGM5NTc1MGM0YjcxYzI1ODBmZjUyOS5zdmciLCJpZCI6Imd5WlBnIiwibWFyZ2luIjp7InRvcCI6dHJ1ZSwiYm90dG9tIjp0cnVlfSwiY2FyZCI6ImRpYWdyYW0ifQ==" alt="" /><img src="https://lark-assets-test-aliyun.oss-cn-hangzhou.aliyuncs.com/yuque/__mermaid_v3/743010bfb6962498a4b9a485b60a8305.svg#lake_card_v2=eyJ0eXBlIjoibWVybWFpZCIsImNvZGUiOiJzZXF1ZW5jZURpYWdyYW1cbiAgICBwYXJ0aWNpcGFudCBKb2huXG4gICAgcGFydGljaXBhbnQgQWxpY2VcbiAgICBBbGljZS0-PkpvaG46IEhlbGxvIEpvaG4sIGhvdyBhcmUgeW91P1xuICAgIEpvaG4tLT4-QWxpY2U6IEdyZWF0ISIsInVybCI6Imh0dHBzOi8vbGFyay1hc3NldHMtdGVzdC1hbGl5dW4ub3NzLWNuLWhhbmd6aG91LmFsaXl1bmNzLmNvbS95dXF1ZS9fX21lcm1haWRfdjMvNzQzMDEwYmZiNjk2MjQ5OGE0YjlhNDg1YjYwYTgzMDUuc3ZnIiwiaWQiOiJLQXg5diIsIm1hcmdpbiI6eyJ0b3AiOnRydWUsImJvdHRvbSI6dHJ1ZX0sImNhcmQiOiJkaWFncmFtIn0=" alt="" /></p>
+
+</article>
+
+  <span class="post-date">
+  Written on
+  
+  July
+  21st
+    ,
+  2022
+  by
+  
+    Fanqiang Meng
+  
+</span>
+
+
+
+  <div class="post-date">Feel free to share!</div>
+<div class="sharing-icons">
+  <a href="https://twitter.com/intent/tweet?text=Docker｜Jenkins持续集成&amp;url=/docker/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docker/&amp;title=Docker｜Jenkins持续集成" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+</div>
+
+
+
+  <div class="related">
+  <h1 >You may also enjoy:</h1>
+  
+  <ul class="related-posts">
+    
+      
+        
+          <li>
+            <h3>
+              <a href="/chg/">
+                阿婆六茶花谷观星台银河拍摄
+                <!--<img src="http://localhost:4000/images/">-->
+                <!--<small>July 23, 2022</small>-->
+              </a>
+            </h3>
+          </li>
+          
+        
+      
+        
+        
+      
+        
+          <li>
+            <h3>
+              <a href="/start/">
+                一切开始的地方
+                <!--<img src="http://localhost:4000/images/">-->
+                <!--<small>May 5, 2022</small>-->
+              </a>
+            </h3>
+          </li>
+          
+        
+      
+    
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+    
+  </ul>
+</div>
+
+
+
+
+      </div>
+      <footer class="footer">
+  
+  
+  
+    <a href="https://www.github.com/lenpaul" target="_blank"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://www.github.com/lenpaul" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/paululele" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://www.linkedin.com/in/lenpaul/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:22553692565@qq.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  <div class="footer-description"><a href="/">Joshua | 东隅已逝，桑榆非晚 by Fanqiang Meng</a></div>
+</footer>
+
+    </div>
+  </body>
+</html>

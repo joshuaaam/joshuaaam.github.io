@@ -1,0 +1,650 @@
+<!doctype html>
+<html>
+  <head>
+  <title>
+    
+      记录完整的项目部署 | Joshua
+    
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/syntax.css">
+  <!-- Use Atom -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Joshua" />
+  <!-- Use RSS-2.0 -->
+  <!--<link href="/rss-feed.xml" type="application/rss+xml" rel="alternate" title="Joshua | 东隅已逝，桑榆非晚"/>
+  //-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quattrocento+Sans">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      });
+  </script>
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-112060364-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+  <!-- Use Jekyll SEO plugin -->
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>记录完整的项目部署 | Joshua</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="记录完整的项目部署" />
+<meta name="author" content="Fanqiang Meng" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等" />
+<meta property="og:description" content="记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等" />
+<link rel="canonical" href="http://localhost:4000/fwq/" />
+<meta property="og:url" content="http://localhost:4000/fwq/" />
+<meta property="og:site_name" content="Joshua" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-25T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="记录完整的项目部署" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Fanqiang Meng"},"dateModified":"2021-05-25T00:00:00+08:00","datePublished":"2021-05-25T00:00:00+08:00","description":"记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等","headline":"记录完整的项目部署","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/fwq/"},"url":"http://localhost:4000/fwq/"}</script>
+<!-- End Jekyll SEO tag -->
+
+</head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+  <h3 class="header-title">
+    <a href="/">Joshua</a>
+    <small class="header-subtitle">东隅已逝，桑榆非晚</small>
+    <div class="menu">
+  <nav class="menu-content">
+    
+      <a href="/">Home</a>
+    
+      <a href="/about.html">About</a>
+    
+      <a href="/writing.html">Writing</a>
+    
+      <a href="/contact.html">Contact</a>
+    
+  </nav>
+  <nav class="social-icons">
+    
+  
+  
+    <a href="https://www.github.com/lenpaul" target="_blank"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://www.github.com/lenpaul" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/paululele" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://www.linkedin.com/in/lenpaul/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:22553692565@qq.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  </nav>
+</div>
+
+  </h3>
+</header>
+
+      <div class="content-container">
+        <h1>
+  记录完整的项目部署
+</h1>
+
+<article>
+  <p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等</p>
+
+<h3 id="配置nginx">配置nginx</h3>
+
+<h5 id="1安装各种依赖">1、安装各种依赖</h5>
+
+<pre><code class="language-linux">#gcc安装，nginx源码编译需要
+yum install gcc-c++
+
+#PCRE pcre-devel 安装，nginx 的 http 模块使用 pcre 来解析正则表达式
+yum install -y pcre pcre-devel
+
+#zlib安装，nginx 使用zlib对http包的内容进行gzip
+yum install -y zlib zlib-devel
+
+#OpenSSL 安装，强大的安全套接字层密码库，nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http）
+yum install -y openssl openssl-devel
+</code></pre>
+
+<h5 id="2用wget命令下载推荐">2、用wget命令下载（推荐）</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#下载版本号可根据目前官网最新稳定版自行调整</span>
+wget <span class="nt">-c</span> https://nginx.org/download/nginx-1.16.1.tar.gz
+</code></pre></div></div>
+
+<h5 id="3安装">3、安装</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#根目录使用ls命令可以看到下载的nginx压缩包，然后解压</span>
+<span class="nb">tar</span> <span class="nt">-zxvf</span> nginx-1.16.1.tar.gz
+
+<span class="c">#解压后进入目录</span>
+<span class="nb">cd </span>nginx-1.16.1
+
+<span class="c">#使用默认配置</span>
+./configure
+<span class="c">#有ssl模块的配置</span>
+./configure <span class="nt">--prefix</span><span class="o">=</span>/usr/local/nginx <span class="nt">--with-http_ssl_module</span>
+
+<span class="c">#编译安装</span>
+make
+make <span class="nb">install</span>
+
+<span class="c">#查找安装路径，默认都是这个路径</span>
+<span class="o">[</span>root@VM_0_12_centos ~]# pswhereis nginx
+nginx: /usr/local/nginxmake <span class="nb">install</span>
+
+<span class="c">#启动、停止nginx</span>
+<span class="nb">cd</span> /usr/local/nginx/sbin/
+./nginx     <span class="c">#启动</span>
+./nginx <span class="nt">-s</span> stop  <span class="c">#停止，直接查找nginx进程id再使用kill命令强制杀掉进程</span>
+./nginx <span class="nt">-s</span> quit  <span class="c">#退出停止，等待nginx进程处理完任务再进行停止</span>
+./nginx <span class="nt">-s</span> reload  <span class="c">#重新加载配置文件，修改nginx.conf后使用该命令，新配置即可生效</span>
+
+<span class="c">#重启nginx，建议先停止，再启动</span>
+./nginx <span class="nt">-s</span> stop
+./nginx
+
+<span class="c">#查看nginx进程，如下返回，即为成功</span>
+<span class="o">[</span>root@VM_0_12_centos ~]# ps aux|grep nginx
+root      5984  0.0  0.0 112708   976 pts/1    R+   14:41   0:00 <span class="nb">grep</span> <span class="nt">--color</span><span class="o">=</span>auto nginx
+root     18198  0.0  0.0  20552   612 ?        Ss   11:28   0:00 nginx: master process ./nginx
+nobody   18199  0.0  0.0  23088  1632 ?        S    11:28   0:00 nginx: worker process
+
+</code></pre></div></div>
+
+<h5 id="4开机自启动">4、开机自启动</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 在rc.local增加启动代码即可</span>
+vi /etc/rc.local
+
+<span class="c"># 增加一行 /usr/local/nginx/sbin/nginx，增加后保存</span>
+<span class="c">#设置执行权限</span>
+<span class="nb">cd</span> /etc
+<span class="nb">chmod </span>755 rc.local
+</code></pre></div></div>
+
+<h5 id="5nginxconf配置">5、nginx.conf配置</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service<span class="o">{</span>
+ listen       80<span class="p">;</span>
+        server_name localhost<span class="p">;</span>
+        rewrite ^<span class="o">(</span>.<span class="k">*</span><span class="o">)</span><span class="nv">$ </span>https://<span class="nv">$host$1</span> permanent<span class="p">;</span> <span class="c">#把http的域名请求转成https</span>
+        <span class="c">#charset koi8-r;</span>
+
+        <span class="c">#access_log  logs/host.access.log  main;</span>
+
+        location / <span class="o">{</span>
+            root   /usr/local/dist<span class="p">;</span> <span class="c">#前端项目地址</span>
+            index  index.html index.htm<span class="p">;</span>
+        <span class="o">}</span>
+        location /api/ <span class="o">{</span>
+            proxy_pass http://127.0.0.1:7001/<span class="p">;</span><span class="c">#代理转发地址,主要用于项目中用到的跨域接口请求</span>
+            proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+        <span class="o">}</span>      
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h5 id="6https配置">6.https配置</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service<span class="o">{</span>
+ listen       80<span class="p">;</span>
+        server_name localhost<span class="p">;</span>
+        rewrite ^<span class="o">(</span>.<span class="k">*</span><span class="o">)</span><span class="nv">$ </span>https://<span class="nv">$host$1</span> permanent<span class="p">;</span> <span class="c">#把http的域名请求转成https</span>
+        <span class="c">#charset koi8-r;</span>
+
+        <span class="c">#access_log  logs/host.access.log  main;</span>
+
+        location / <span class="o">{</span>
+            root   /usr/local/dist<span class="p">;</span> <span class="c">#前端项目地址</span>
+            index  index.html index.htm<span class="p">;</span>
+        <span class="o">}</span>     
+<span class="o">}</span>
+
+ server <span class="o">{</span>
+        listen       443 ssl<span class="p">;</span>
+        server_name  localhost<span class="p">;</span>
+
+        ssl_certificate    cert/5638172_impermanence.cn.pem<span class="p">;</span> <span class="c">#证书配置</span>
+        ssl_certificate_key  cert/5638172_impermanence.cn.key<span class="p">;</span> <span class="c">#证书配置</span>
+
+        ssl_session_cache    shared:SSL:1m<span class="p">;</span>
+        ssl_session_timeout  5m<span class="p">;</span>
+
+        ssl_ciphers  HIGH:!aNULL:!MD5<span class="p">;</span>
+        ssl_prefer_server_ciphers  on<span class="p">;</span>
+
+        location / <span class="o">{</span>
+            root   /usr/local/dist<span class="p">;</span>
+            index  index.html index.htm<span class="p">;</span>
+        <span class="o">}</span>
+        
+        <span class="c">#设置sll 要在443端口配置请求代理</span>
+        location /api/ <span class="o">{</span>
+            proxy_redirect off<span class="p">;</span>
+            proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+            proxy_set_header X-Real-IP <span class="nv">$remote_addr</span><span class="p">;</span>
+            proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+            proxy_pass http://127.0.0.1:9001/api/<span class="p">;</span>
+        <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>修改完配置到nginx/sbin 执行./nginx -s reload 重新加载配置文件 即可生效</p>
+
+<p>配置ssl nginx 配置 监听80端口 http转发到https</p>
+
+<p>配置（前端项目地址/后端请求转发 要写在443端口下） 详细代码看上面</p>
+
+<h3 id="mysql配置">mysql配置</h3>
+
+<h5 id="1输入">1、输入</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
+</code></pre></div></div>
+
+<h5 id="2安装数据源">2、安装数据源</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>mysql80-community-release-el8-1.noarch.rpm
+</code></pre></div></div>
+
+<h5 id="3检查数据源">3、检查数据源</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum repolist enabled | <span class="nb">grep</span> <span class="s2">"mysql.*-community.*"</span>
+</code></pre></div></div>
+
+<h5 id="4禁用centos8自带mysql模块">4、禁用CentOS8自带mysql模块</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum module disable mysql
+</code></pre></div></div>
+
+<h5 id="5安装数据库">5、安装数据库</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>mysql-community-server 
+</code></pre></div></div>
+
+<h5 id="6启动mysql">6、启动mysql</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service mysqld start
+
+service mysqld status
+</code></pre></div></div>
+
+<h5 id="7显示mysql的随机密码">7、显示mysql的随机密码</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'temporary password'</span> /var/log/mysqld.log
+</code></pre></div></div>
+
+<h5 id="8登录并修改mysql密码">8、登录并修改mysql密码</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+</code></pre></div></div>
+
+<h5 id="9修改密码">9、修改密码：</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ALTER USER <span class="s1">'root'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'Mfq19970913.'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>因为密码策略，密码太简单会报错</p>
+</blockquote>
+
+<p>修改策略</p>
+
+<p>修改密码长度：<code class="language-plaintext highlighter-rouge">set global validate_password.length=1;</code>（长度）
+修改密码等级：<code class="language-plaintext highlighter-rouge">set global validate_password.policy=0;</code>（等级）</p>
+
+<h5 id="10设置密码">10、设置密码</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ALTER USER <span class="s1">'root'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'19970913'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="安装node">安装node</h3>
+
+<h5 id="1找个文件夹存放node">1、找个文件夹存放node</h5>
+
+<p>cd /usr/local/</p>
+
+<h5 id="2下载node-wget-资源链接地址我是下载的10130版本要下载其他版本把版本号替换掉就好了">2、下载node： wget 资源链接地址，我是下载的10.13.0版本，要下载其他版本把版本号替换掉就好了</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://npm.taobao.org/mirrors/node/v14.17.0/node-v14.17.0-linux-x64.tar.xz
+</code></pre></div></div>
+
+<h5 id="3解压资源包">3、解压资源包</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> node-v14.17.0-linux-x64.tar.xz
+</code></pre></div></div>
+
+<h5 id="4cd-node-v10160-linux-x64bin--ls-可以看到刚刚解压出来的bin文件里有nodenpmnpx这几个文件说明node安装成功了">4、cd node-v10.16.0-linux-x64/bin/ &amp;&amp; ls 可以看到刚刚解压出来的bin文件里有node、npm、npx这几个文件,说明node安装成功了</h5>
+
+<h5 id="5nodejs虽然已经安装成功了但是还不能全局使用node命令需要建立软连接使其变为全局有点像window系统配置环境变量">5、nodejs虽然已经安装成功了，但是还不能全局使用node命令，需要建立软连接，使其变为全局，有点像window系统配置环境变量</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> /usr/local/node-v14.17.0-linux-x64/bin/node /usr/local/bin/
+
+<span class="nb">ln</span> <span class="nt">-s</span> /usr/local/node-v14.17.0-linux-x64/bin/npm /usr/local/bin/
+</code></pre></div></div>
+
+<h5 id="6最后查看版本">6、最后查看版本</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> node <span class="nt">-v</span> 
+</code></pre></div></div>
+
+<h3 id="部署egg">部署egg</h3>
+
+<h5 id="1首先先把egg项目文件夹中除了node_modules的文件放到服务器的某个目录下">1.首先先把egg项目文件夹中除了node_modules的文件放到服务器的某个目录下</h5>
+
+<h5 id="2然后确保nginx服务器上安装了mysqlnode">2.然后确保nginx服务器上安装了mysql，node</h5>
+
+<h5 id="3来到服务器中egg的目录下-执行">3.来到服务器中egg的目录下 执行</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--production</span>
+</code></pre></div></div>
+
+<h5 id="4执行npm-start">4.执行npm start</h5>
+
+<p>注意package.json 中的start配置 加上 -ignore-stderr 不然会报错</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">egg</span><span class="o">-</span><span class="nx">scripts</span> <span class="nx">start</span> <span class="o">--</span><span class="nx">port</span><span class="o">=</span><span class="mi">7001</span> <span class="o">--</span><span class="nx">daemon</span> <span class="o">--</span><span class="nx">title</span><span class="o">=</span><span class="nx">joshua_blog</span> <span class="o">--</span><span class="nx">ignore</span><span class="o">-</span><span class="nx">stderr</span>
+</code></pre></div></div>
+
+<h3 id="本地数据库迁移到服务器">本地数据库迁移到服务器</h3>
+
+<h5 id="1服务器安装mysql">1、服务器安装mysql</h5>
+
+<h5 id="2登陆mysql">2、登陆mysql</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+</code></pre></div></div>
+
+<h5 id="3创建对应本地的数据库">3、创建对应本地的数据库</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>create datebase xxx<span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="4使用数据库">4、使用数据库</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use xxx<span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="5设置编码">5、设置编码</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set </span>names utf8<span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="6导入sql文件">6、导入sql文件</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> /usr/database.sql<span class="p">;</span>
+</code></pre></div></div>
+
+<p>查看数据表</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show tables<span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="linux命令">linux命令</h3>
+
+<h5 id="解压">解压</h5>
+
+<pre><code class="language-linux">unzip xxx
+tar -zcvf xxx.tar.gz
+</code></pre>
+
+<h5 id="查看当前路径">查看当前路径</h5>
+
+<pre><code class="language-linux">pwd
+</code></pre>
+
+<h5 id="查看当前目录下文件">查看当前目录下文件</h5>
+
+<pre><code class="language-linux">ls
+</code></pre>
+
+<h5 id="创建文件夹">创建文件夹</h5>
+
+<pre><code class="language-linux">mkdir
+</code></pre>
+
+<h5 id="删除">删除</h5>
+
+<pre><code class="language-linux">rm -rf xxx
+
+-f　　　　  --force　　　　　　忽略不存在的文件，强制删除，无任何提示
+-i　　　　   --interactive　　　 进行交互式地删除
+-r | -R　   --recursive　　　  递归式地删除列出的目录下的所有目录和文件
+-v　　　    --verbose　　　　详细显示进行的步骤
+-rf        --组合命令            强制删除文件夹及内容不提示。（最常用）
+</code></pre>
+
+<h5 id="ftp">ftp</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>put <span class="nt">-r</span> 本地地址 服务器地址
+</code></pre></div></div>
+
+<h3 id="遇到的问题">遇到的问题</h3>
+
+<h5 id="source-sql文件报表-doest-exit">source sql文件报表 does’t exit</h5>
+
+<p>因为mysql版本不一致</p>
+
+<h5 id="服务器重装系统后ssh连接不上">服务器重装系统后ssh连接不上</h5>
+
+<p>删除.ssh目录下的known_hosts文件</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-rf</span> ~/.ssh/known_hosts
+</code></pre></div></div>
+
+<h5 id="启用mysql服务">启用mysql服务</h5>
+
+<p>需要先启用mysql，才能用show databases 等</p>
+
+<p>更改密码的话，更改一次符合当前策略的比较复杂的密码后才能更改策略（mysql8.0.22遇到的情况），就可以把密码改简单</p>
+
+<h5 id="silly-datetime模块的依赖没安装上导致npm-start-报错">silly-datetime模块的依赖没安装上导致npm start 报错</h5>
+
+<p>单独安装一遍依赖</p>
+
+<h5 id="413-request-entity-too-large">413 Request Entity Too Large</h5>
+
+<p>上传文件出现问题 413 Request Entity Too Large</p>
+
+<p><a href="https://so.csdn.net/so/search?q=Nginx&amp;spm=1001.2101.3001.7020">Nginx</a>默认的request body为1M，小于我们上传的大小</p>
+
+<p>解决方法</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>client_max_body_size 10m<span class="p">;</span> // 修改配置后重启nginx
+
+./nginx <span class="nt">-s</span> reload //在nginx/sbin目录下执行
+</code></pre></div></div>
+
+<h5 id="端口占用">端口占用</h5>
+
+<p>mac</p>
+
+<p>查看端口占用情况</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-i</span> 
+</code></pre></div></div>
+
+<p>centos</p>
+
+<p>查看端口占用情况</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat <span class="nt">-tunlp</span> 
+</code></pre></div></div>
+
+<p>查看指定端口</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat <span class="nt">-tunlp</span> |grep 7001
+</code></pre></div></div>
+
+<p>查看占用的进程信息</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps 29142 //后面pid
+</code></pre></div></div>
+
+<p>结束进程</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> 29142
+</code></pre></div></div>
+
+<h3 id="nginx图片转发">nginx图片转发</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server <span class="o">{</span>
+    listen 443<span class="p">;</span>
+    server_name 10.44.99.10<span class="p">;</span>
+    access_log /data/wwwlogs/access_nginx.log combined<span class="p">;</span>
+    root /data/wwwroot/default<span class="p">;</span>
+    index index.html index.htm index.php<span class="p">;</span>
+    
+    <span class="c"># 波浪线表示开启正则匹配并区分大小写，后面跟的是正则表达式</span>
+    location ~ .<span class="k">*</span><span class="se">\.</span><span class="o">(</span>gif|jpg|jpeg|png<span class="o">)</span><span class="nv">$ </span><span class="o">{</span>
+        root /opt/image/<span class="p">;</span>  <span class="c"># 这里的root是固定，并不是图片在root目录下， /opt/image/才是图片所在的路径。</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+</article>
+
+  <span class="post-date">
+  Written on
+  
+  May
+  25th,
+  2021
+  by
+  
+    Fanqiang Meng
+  
+</span>
+
+
+
+  <div class="post-date">Feel free to share!</div>
+<div class="sharing-icons">
+  <a href="https://twitter.com/intent/tweet?text=记录完整的项目部署&amp;url=/fwq/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/fwq/&amp;title=记录完整的项目部署" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+</div>
+
+
+
+  <div class="related">
+  <h1 >You may also enjoy:</h1>
+  
+  <ul class="related-posts">
+    
+      
+        
+          <li>
+            <h3>
+              <a href="/chg/">
+                阿婆六茶花谷观星台银河拍摄
+                <!--<img src="http://localhost:4000/images/">-->
+                <!--<small>July 23, 2022</small>-->
+              </a>
+            </h3>
+          </li>
+          
+        
+      
+        
+          <li>
+            <h3>
+              <a href="/docker/">
+                Docker｜Jenkins持续集成
+                <!--<img src="http://localhost:4000/images/">-->
+                <!--<small>July 21, 2022</small>-->
+              </a>
+            </h3>
+          </li>
+          
+        
+      
+        
+          <li>
+            <h3>
+              <a href="/start/">
+                一切开始的地方
+                <!--<img src="http://localhost:4000/images/">-->
+                <!--<small>May 5, 2022</small>-->
+              </a>
+            </h3>
+          </li>
+          
+        
+      
+    
+      
+        
+        
+      
+    
+  </ul>
+</div>
+
+
+
+
+      </div>
+      <footer class="footer">
+  
+  
+  
+    <a href="https://www.github.com/lenpaul" target="_blank"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://www.github.com/lenpaul" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="https://twitter.com/paululele" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="http://www.linkedin.com/in/lenpaul/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+  
+
+  
+  
+    <a href="mailto:22553692565@qq.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+  
+
+  <div class="footer-description"><a href="/">Joshua | 东隅已逝，桑榆非晚 by Fanqiang Meng</a></div>
+</footer>
+
+    </div>
+  </body>
+</html>
