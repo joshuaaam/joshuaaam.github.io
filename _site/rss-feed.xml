@@ -19,8 +19,8 @@
 </description>
 				
 				<pubDate>Sun, 24 Jul 2022 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/cxjc/</link>
-				<guid isPermaLink="true">http://localhost:4000/cxjc/</guid>
+				<link>/cxjc/</link>
+				<guid isPermaLink="true">/cxjc/</guid>
 			</item>
 		
 			<item>
@@ -35,8 +35,8 @@
 </description>
 				
 				<pubDate>Sat, 23 Jul 2022 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/chg/</link>
-				<guid isPermaLink="true">http://localhost:4000/chg/</guid>
+				<link>/chg/</link>
+				<guid isPermaLink="true">/chg/</guid>
 			</item>
 		
 			<item>
@@ -52,8 +52,8 @@
 </description>
 				
 				<pubDate>Thu, 21 Jul 2022 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/docker/</link>
-				<guid isPermaLink="true">http://localhost:4000/docker/</guid>
+				<link>/docker/</link>
+				<guid isPermaLink="true">/docker/</guid>
 			</item>
 		
 			<item>
@@ -66,8 +66,8 @@
 </description>
 				
 				<pubDate>Thu, 05 May 2022 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/start/</link>
-				<guid isPermaLink="true">http://localhost:4000/start/</guid>
+				<link>/start/</link>
+				<guid isPermaLink="true">/start/</guid>
 			</item>
 		
 			<item>
@@ -80,8 +80,8 @@
 </description>
 				
 				<pubDate>Mon, 13 Dec 2021 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/yb/</link>
-				<guid isPermaLink="true">http://localhost:4000/yb/</guid>
+				<link>/yb/</link>
+				<guid isPermaLink="true">/yb/</guid>
 			</item>
 		
 			<item>
@@ -100,8 +100,8 @@
 </description>
 				
 				<pubDate>Wed, 01 Dec 2021 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/</link>
-				<guid isPermaLink="true">http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/</guid>
+				<link>/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/</link>
+				<guid isPermaLink="true">/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/</guid>
 			</item>
 		
 			<item>
@@ -114,8 +114,8 @@
 </description>
 				
 				<pubDate>Tue, 25 May 2021 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/fwq/</link>
-				<guid isPermaLink="true">http://localhost:4000/fwq/</guid>
+				<link>/fwq/</link>
+				<guid isPermaLink="true">/fwq/</guid>
 			</item>
 		
 			<item>
@@ -130,8 +130,8 @@
 </description>
 				
 				<pubDate>Thu, 01 Oct 2020 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/dsd/</link>
-				<guid isPermaLink="true">http://localhost:4000/dsd/</guid>
+				<link>/dsd/</link>
+				<guid isPermaLink="true">/dsd/</guid>
 			</item>
 		
 			<item>
@@ -156,8 +156,8 @@ image: mountains.jpg
 </description>
 				
 				<pubDate>Fri, 01 Jan 2016 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/welcome-to-lagrange%E5%93%88/</link>
-				<guid isPermaLink="true">http://localhost:4000/welcome-to-lagrange%E5%93%88/</guid>
+				<link>/welcome-to-lagrange%E5%93%88/</link>
+				<guid isPermaLink="true">/welcome-to-lagrange%E5%93%88/</guid>
 			</item>
 		
 			<item>
@@ -170,8 +170,8 @@ image: mountains.jpg
 </description>
 				
 				<pubDate>Sat, 10 Oct 2015 00:00:00 +0800</pubDate>
-				<link>http://localhost:4000/getting-started/</link>
-				<guid isPermaLink="true">http://localhost:4000/getting-started/</guid>
+				<link>/getting-started/</link>
+				<guid isPermaLink="true">/getting-started/</guid>
 			</item>
 		
 	</channel>

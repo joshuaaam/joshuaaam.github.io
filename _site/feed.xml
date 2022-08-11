@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-12T00:40:12+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Docker + Jenkins持续集成</title><link href="http://localhost:4000/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>http://localhost:4000/cxjc</id><content type="html" xml:base="http://localhost:4000/cxjc/"><![CDATA[<h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-12T00:42:42+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Docker + Jenkins持续集成</title><link href="/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>/cxjc</id><content type="html" xml:base="/cxjc/"><![CDATA[<h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
 <blockquote>
   <p>💡 Tips：如果需要用到宿主机docker命令记得映射</p>
 </blockquote>
@@ -121,7 +121,7 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 
 <ul>
   <li></li>
-</ul>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><summary type="html"><![CDATA[拉取Jenkins镜像，运行容器 💡 Tips：如果需要用到宿主机docker命令记得映射]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_0803.jpg" /><media:content medium="image" url="http://localhost:4000/DSC_0803.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">阿婆六茶花谷观星台银河拍摄</title><link href="http://localhost:4000/chg/" rel="alternate" type="text/html" title="阿婆六茶花谷观星台银河拍摄" /><published>2022-07-23T00:00:00+08:00</published><updated>2022-07-23T00:00:00+08:00</updated><id>http://localhost:4000/chg</id><content type="html" xml:base="http://localhost:4000/chg/"><![CDATA[<blockquote>
+</ul>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><summary type="html"><![CDATA[拉取Jenkins镜像，运行容器 💡 Tips：如果需要用到宿主机docker命令记得映射]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_0803.jpg" /><media:content medium="image" url="/DSC_0803.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">阿婆六茶花谷观星台银河拍摄</title><link href="/chg/" rel="alternate" type="text/html" title="阿婆六茶花谷观星台银河拍摄" /><published>2022-07-23T00:00:00+08:00</published><updated>2022-07-23T00:00:00+08:00</updated><id>/chg</id><content type="html" xml:base="/chg/"><![CDATA[<blockquote>
   <p>拍摄于广州市从化区良口镇阿婆六村观星台</p>
 </blockquote>
 
@@ -132,7 +132,7 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 <p>上山的路在一间民宿旁边，可以问一下当地的村民，我们是傍晚上山的，这个季节银河比较早升起，八点多到的观星台，拍了半个小时左右就摸黑下山了</p>
 <blockquote>
   <p>注意：⚠️  山路很滑，下山一定要小心，特别是天黑下山</p>
-</blockquote>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><category term="pic" /><summary type="html"><![CDATA[拍摄于广州市从化区良口镇阿婆六村观星台]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_2440.jpg" /><media:content medium="image" url="http://localhost:4000/DSC_2440.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Docker｜Jenkins持续集成</title><link href="http://localhost:4000/docker/" rel="alternate" type="text/html" title="Docker｜Jenkins持续集成" /><published>2022-07-21T00:00:00+08:00</published><updated>2022-07-21T00:00:00+08:00</updated><id>http://localhost:4000/docker</id><content type="html" xml:base="http://localhost:4000/docker/"><![CDATA[<h2 id="docker命令">docker命令</h2>
+</blockquote>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><category term="pic" /><summary type="html"><![CDATA[拍摄于广州市从化区良口镇阿婆六村观星台]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_2440.jpg" /><media:content medium="image" url="/DSC_2440.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Docker｜Jenkins持续集成</title><link href="/docker/" rel="alternate" type="text/html" title="Docker｜Jenkins持续集成" /><published>2022-07-21T00:00:00+08:00</published><updated>2022-07-21T00:00:00+08:00</updated><id>/docker</id><content type="html" xml:base="/docker/"><![CDATA[<h2 id="docker命令">docker命令</h2>
 <blockquote>
   <p>💡 Tips：语雀支持全功能 markdown 语法，可以点击文档编辑页右下角小键盘查看全部支持的语法和快捷键。</p>
 </blockquote>
@@ -323,7 +323,7 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 支持 <a href="https://plantuml.com/">plantuml</a>、<a href="https://mermaid-js.github.io/mermaid/#/">mermaid</a> 等多种格式，点击<code class="language-plaintext highlighter-rouge">预览</code>可看到图形。具体代码样式见<a href="https://www.yuque.com/yuque/gpvawt/gantt">说明文档</a>。</p>
 </blockquote>
 
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/__puml/b11b6192390c95750c4b71c2580ff529.svg#lake_card_v2=eyJ0eXBlIjoicHVtbCIsImNvZGUiOiJAc3RhcnR1bWxcblxuYXV0b251bWJlclxuXG5hY3RvciBcIueUqOaIt1wiIGFzIFVzZXJcbnBhcnRpY2lwYW50IFwi5rWP6KeI5ZmoXCIgYXMgQnJvd3NlclxucGFydGljaXBhbnQgXCLmnI3liqHnq69cIiBhcyBTZXJ2ZXIgI29yYW5nZVxuXG5hY3RpdmF0ZSBVc2VyXG5cblVzZXIgLT4gQnJvd3Nlcjog6L6T5YWlIFVSTFxuYWN0aXZhdGUgQnJvd3NlclxuXG5Ccm93c2VyIC0-IFNlcnZlcjog6K-35rGC5pyN5Yqh5ZmoXG5hY3RpdmF0ZSBTZXJ2ZXJcblxuU2VydmVyIC0-IFNlcnZlcjog5qih5p2_5riy5p-TXG5ub3RlIHJpZ2h0IG9mIFNlcnZlcjog6L-Z5piv5LiA5Liq5rOo6YeKXG5cblNlcnZlciAtPiBCcm93c2VyOiDov5Tlm54gSFRNTFxuZGVhY3RpdmF0ZSBTZXJ2ZXJcblxuQnJvd3NlciAtLT4gVXNlclxuXG5AZW5kdW1sIiwidXJsIjoiaHR0cHM6Ly9pbnRyYW5ldHByb3h5LmFsaXBheS5jb20vc2t5bGFyay9sYXJrL19fcHVtbC9iMTFiNjE5MjM5MGM5NTc1MGM0YjcxYzI1ODBmZjUyOS5zdmciLCJpZCI6Imd5WlBnIiwibWFyZ2luIjp7InRvcCI6dHJ1ZSwiYm90dG9tIjp0cnVlfSwiY2FyZCI6ImRpYWdyYW0ifQ==" alt="" /><img src="https://lark-assets-test-aliyun.oss-cn-hangzhou.aliyuncs.com/yuque/__mermaid_v3/743010bfb6962498a4b9a485b60a8305.svg#lake_card_v2=eyJ0eXBlIjoibWVybWFpZCIsImNvZGUiOiJzZXF1ZW5jZURpYWdyYW1cbiAgICBwYXJ0aWNpcGFudCBKb2huXG4gICAgcGFydGljaXBhbnQgQWxpY2VcbiAgICBBbGljZS0-PkpvaG46IEhlbGxvIEpvaG4sIGhvdyBhcmUgeW91P1xuICAgIEpvaG4tLT4-QWxpY2U6IEdyZWF0ISIsInVybCI6Imh0dHBzOi8vbGFyay1hc3NldHMtdGVzdC1hbGl5dW4ub3NzLWNuLWhhbmd6aG91LmFsaXl1bmNzLmNvbS95dXF1ZS9fX21lcm1haWRfdjMvNzQzMDEwYmZiNjk2MjQ5OGE0YjlhNDg1YjYwYTgzMDUuc3ZnIiwiaWQiOiJLQXg5diIsIm1hcmdpbiI6eyJ0b3AiOnRydWUsImJvdHRvbSI6dHJ1ZX0sImNhcmQiOiJkaWFncmFtIn0=" alt="" /></p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[docker命令 💡 Tips：语雀支持全功能 markdown 语法，可以点击文档编辑页右下角小键盘查看全部支持的语法和快捷键。]]></summary></entry><entry><title type="html">一切开始的地方</title><link href="http://localhost:4000/start/" rel="alternate" type="text/html" title="一切开始的地方" /><published>2022-05-05T00:00:00+08:00</published><updated>2022-05-05T00:00:00+08:00</updated><id>http://localhost:4000/start</id><content type="html" xml:base="http://localhost:4000/start/"><![CDATA[<!-- ### 配置nginx -->
+<p><img src="https://intranetproxy.alipay.com/skylark/lark/__puml/b11b6192390c95750c4b71c2580ff529.svg#lake_card_v2=eyJ0eXBlIjoicHVtbCIsImNvZGUiOiJAc3RhcnR1bWxcblxuYXV0b251bWJlclxuXG5hY3RvciBcIueUqOaIt1wiIGFzIFVzZXJcbnBhcnRpY2lwYW50IFwi5rWP6KeI5ZmoXCIgYXMgQnJvd3NlclxucGFydGljaXBhbnQgXCLmnI3liqHnq69cIiBhcyBTZXJ2ZXIgI29yYW5nZVxuXG5hY3RpdmF0ZSBVc2VyXG5cblVzZXIgLT4gQnJvd3Nlcjog6L6T5YWlIFVSTFxuYWN0aXZhdGUgQnJvd3NlclxuXG5Ccm93c2VyIC0-IFNlcnZlcjog6K-35rGC5pyN5Yqh5ZmoXG5hY3RpdmF0ZSBTZXJ2ZXJcblxuU2VydmVyIC0-IFNlcnZlcjog5qih5p2_5riy5p-TXG5ub3RlIHJpZ2h0IG9mIFNlcnZlcjog6L-Z5piv5LiA5Liq5rOo6YeKXG5cblNlcnZlciAtPiBCcm93c2VyOiDov5Tlm54gSFRNTFxuZGVhY3RpdmF0ZSBTZXJ2ZXJcblxuQnJvd3NlciAtLT4gVXNlclxuXG5AZW5kdW1sIiwidXJsIjoiaHR0cHM6Ly9pbnRyYW5ldHByb3h5LmFsaXBheS5jb20vc2t5bGFyay9sYXJrL19fcHVtbC9iMTFiNjE5MjM5MGM5NTc1MGM0YjcxYzI1ODBmZjUyOS5zdmciLCJpZCI6Imd5WlBnIiwibWFyZ2luIjp7InRvcCI6dHJ1ZSwiYm90dG9tIjp0cnVlfSwiY2FyZCI6ImRpYWdyYW0ifQ==" alt="" /><img src="https://lark-assets-test-aliyun.oss-cn-hangzhou.aliyuncs.com/yuque/__mermaid_v3/743010bfb6962498a4b9a485b60a8305.svg#lake_card_v2=eyJ0eXBlIjoibWVybWFpZCIsImNvZGUiOiJzZXF1ZW5jZURpYWdyYW1cbiAgICBwYXJ0aWNpcGFudCBKb2huXG4gICAgcGFydGljaXBhbnQgQWxpY2VcbiAgICBBbGljZS0-PkpvaG46IEhlbGxvIEpvaG4sIGhvdyBhcmUgeW91P1xuICAgIEpvaG4tLT4-QWxpY2U6IEdyZWF0ISIsInVybCI6Imh0dHBzOi8vbGFyay1hc3NldHMtdGVzdC1hbGl5dW4ub3NzLWNuLWhhbmd6aG91LmFsaXl1bmNzLmNvbS95dXF1ZS9fX21lcm1haWRfdjMvNzQzMDEwYmZiNjk2MjQ5OGE0YjlhNDg1YjYwYTgzMDUuc3ZnIiwiaWQiOiJLQXg5diIsIm1hcmdpbiI6eyJ0b3AiOnRydWUsImJvdHRvbSI6dHJ1ZX0sImNhcmQiOiJkaWFncmFtIn0=" alt="" /></p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[docker命令 💡 Tips：语雀支持全功能 markdown 语法，可以点击文档编辑页右下角小键盘查看全部支持的语法和快捷键。]]></summary></entry><entry><title type="html">一切开始的地方</title><link href="/start/" rel="alternate" type="text/html" title="一切开始的地方" /><published>2022-05-05T00:00:00+08:00</published><updated>2022-05-05T00:00:00+08:00</updated><id>/start</id><content type="html" xml:base="/start/"><![CDATA[<!-- ### 配置nginx -->
 
 <h4 id="1写这个博客的原因">1、写这个博客的原因</h4>
 
@@ -334,11 +334,11 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 <ul>
   <li>希望能够持续的记录，向前辈看齐</li>
   <li>目前是在本地和github pages上使用，后面计划在学习docker的时候，实现自动化部署到自己的服务器吧，毕竟github被墙</li>
-</ul>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">总有一些美好值得期待</title><link href="http://localhost:4000/yb/" rel="alternate" type="text/html" title="总有一些美好值得期待" /><published>2021-12-13T00:00:00+08:00</published><updated>2021-12-13T00:00:00+08:00</updated><id>http://localhost:4000/yb</id><content type="html" xml:base="http://localhost:4000/yb/"><![CDATA[<p>记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。</p>
+</ul>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">总有一些美好值得期待</title><link href="/yb/" rel="alternate" type="text/html" title="总有一些美好值得期待" /><published>2021-12-13T00:00:00+08:00</published><updated>2021-12-13T00:00:00+08:00</updated><id>/yb</id><content type="html" xml:base="/yb/"><![CDATA[<p>记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。</p>
 
 <p>那是一张梅里日照的金山壁纸，这就是我此行的期待！</p>
 
-<!-- <img src="http://localhost:4000/assets/img/2021-12-13/5531651986782.JPG"> -->
+<!-- <img src="/assets/img/2021-12-13/5531651986782.JPG"> -->
 
 <h3 id="行程计划">行程计划</h3>
 
@@ -361,11 +361,11 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 
 <p>没想到真的看见了，而且还看到了梅里雪山的主峰-卡瓦格博！</p>
 
-<p><img src="http://localhost:4000/assets/img/2021-12-13/1647156223135.JPG" /></p>
+<p><img src="/assets/img/2021-12-13/1647156223135.JPG" /></p>
 
 <p>等到我们到达飞来寺后主峰已经被厚厚的云层遮住了 ，这让我更加坚信此行一定顺利的</p>
 
-<p>###</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/5541651987270.jpg" /><media:content medium="image" url="http://localhost:4000/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">不去天堂就去雨崩</title><link href="http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/" rel="alternate" type="text/html" title="不去天堂就去雨崩" /><published>2021-12-01T00:00:00+08:00</published><updated>2021-12-01T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9</id><content type="html" xml:base="http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/"><![CDATA[<p>共计 9 日的「雨崩」之旅，味在广州、厨出凤城。a</p>
+<p>###</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/5541651987270.jpg" /><media:content medium="image" url="/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">不去天堂就去雨崩</title><link href="/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/" rel="alternate" type="text/html" title="不去天堂就去雨崩" /><published>2021-12-01T00:00:00+08:00</published><updated>2021-12-01T00:00:00+08:00</updated><id>/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9</id><content type="html" xml:base="/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/"><![CDATA[<p>共计 9 日的「雨崩」之旅，味在广州、厨出凤城。a</p>
 <h2 id="-行程时间">⏰ 行程时间</h2>
 <blockquote>
 
@@ -705,7 +705,7 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 <h2 id="最后">最后</h2>
 <p><strong>出现任何问题都可以联系组委会，我们将提供全程<del>贴身</del>服务</strong>
 组委会1 📱   186xxxxxxxx
-组委会2 📱   159xxxxxxxx</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="pic" /><summary type="html"><![CDATA[共计 9 日的「雨崩」之旅，味在广州、厨出凤城。a ⏰ 行程时间 7月28日（周四）— 7月30日（周日）]]></summary></entry><entry><title type="html">记录完整的项目部署</title><link href="http://localhost:4000/fwq/" rel="alternate" type="text/html" title="记录完整的项目部署" /><published>2021-05-25T00:00:00+08:00</published><updated>2021-05-25T00:00:00+08:00</updated><id>http://localhost:4000/fwq</id><content type="html" xml:base="http://localhost:4000/fwq/"><![CDATA[<p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等</p>
+组委会2 📱   159xxxxxxxx</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="pic" /><summary type="html"><![CDATA[共计 9 日的「雨崩」之旅，味在广州、厨出凤城。a ⏰ 行程时间 7月28日（周四）— 7月30日（周日）]]></summary></entry><entry><title type="html">记录完整的项目部署</title><link href="/fwq/" rel="alternate" type="text/html" title="记录完整的项目部署" /><published>2021-05-25T00:00:00+08:00</published><updated>2021-05-25T00:00:00+08:00</updated><id>/fwq</id><content type="html" xml:base="/fwq/"><![CDATA[<p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等</p>
 
 <h3 id="配置nginx">配置nginx</h3>
 
@@ -1119,7 +1119,7 @@ tar -zcvf xxx.tar.gz
         root /opt/image/<span class="p">;</span>  <span class="c"># 这里的root是固定，并不是图片在root目录下， /opt/image/才是图片所在的路径。</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="linux" /><summary type="html"><![CDATA[记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等]]></summary></entry><entry><title type="html">唯日出华美而无上</title><link href="http://localhost:4000/dsd/" rel="alternate" type="text/html" title="唯日出华美而无上" /><published>2020-10-01T00:00:00+08:00</published><updated>2020-10-01T00:00:00+08:00</updated><id>http://localhost:4000/dsd</id><content type="html" xml:base="http://localhost:4000/dsd/"><![CDATA[<blockquote>
+</code></pre></div></div>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="linux" /><summary type="html"><![CDATA[记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等]]></summary></entry><entry><title type="html">唯日出华美而无上</title><link href="/dsd/" rel="alternate" type="text/html" title="唯日出华美而无上" /><published>2020-10-01T00:00:00+08:00</published><updated>2020-10-01T00:00:00+08:00</updated><id>/dsd</id><content type="html" xml:base="/dsd/"><![CDATA[<blockquote>
   <p>拍摄于东山岛金銮湾</p>
 </blockquote>
 
@@ -1129,7 +1129,7 @@ tar -zcvf xxx.tar.gz
 
 <p>在行程的最后一天，我们到金銮湾看了一场日出，见识到了这天空之镜</p>
 
-<p><img src="http://localhost:4000/assets/img/2022-05-05/DSC_0803.JPG" /></p>
+<p><img src="/assets/img/2022-05-05/DSC_0803.JPG" /></p>
 
 <p>我们到海边的时候天已经亮了，人也很多</p>
 
@@ -1139,9 +1139,9 @@ tar -zcvf xxx.tar.gz
 
 <!-- ![alt text](https://user-images.githubusercontent.com/8409329/32631384-17107870-c56e-11e7-932f-deeb7c12e4db.png "Lagrange Demo Image") -->
 
-<p><img src="http://localhost:4000/assets/img/2022-05-05/DSC_0808.JPG" /></p>
+<p><img src="/assets/img/2022-05-05/DSC_0808.JPG" /></p>
 
-<p><img src="http://localhost:4000/assets/img/2022-05-05/DSC_0804.JPG" /></p>
+<p><img src="/assets/img/2022-05-05/DSC_0804.JPG" /></p>
 
 <!-- ![alt text](https://admin.impermanence.cn/public/upload/20220321/1647836631278.jpeg "金銮湾日出") -->
 
@@ -1192,7 +1192,7 @@ tar -zcvf xxx.tar.gz
 8. [Credits](#credits)
 9. [License](#license) -->
 
-<!-- Open sourced under the [MIT license](https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md). -->]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><summary type="html"><![CDATA[拍摄于东山岛金銮湾]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_0804.JPG" /><media:content medium="image" url="http://localhost:4000/DSC_0804.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Welcome To Lagrange哈</title><link href="http://localhost:4000/welcome-to-lagrange%E5%93%88/" rel="alternate" type="text/html" title="Welcome To Lagrange哈" /><published>2016-01-01T00:00:00+08:00</published><updated>2016-01-01T00:00:00+08:00</updated><id>http://localhost:4000/welcome-to-lagrange%E5%93%88</id><content type="html" xml:base="http://localhost:4000/welcome-to-lagrange%E5%93%88/"><![CDATA[<!--
+<!-- Open sourced under the [MIT license](https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md). -->]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><summary type="html"><![CDATA[拍摄于东山岛金銮湾]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_0804.JPG" /><media:content medium="image" url="/DSC_0804.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Welcome To Lagrange哈</title><link href="/welcome-to-lagrange%E5%93%88/" rel="alternate" type="text/html" title="Welcome To Lagrange哈" /><published>2016-01-01T00:00:00+08:00</published><updated>2016-01-01T00:00:00+08:00</updated><id>/welcome-to-lagrange%E5%93%88</id><content type="html" xml:base="/welcome-to-lagrange%E5%93%88/"><![CDATA[<!--
  * @Author: g05047
  * @Date: 2022-05-05 11:35:44
  * @LastEditors: g05047
@@ -1240,7 +1240,7 @@ image: mountains.jpg
 
 <p>The Jekyll Starter Kit is a simple framework for starting your own Jekyll project using all of the best practices that I learned from building my other Jekyll themes.</p>
 
-<p>Feel free to check out <a href="https://github.com/LeNPaul/jekyll-starter-kit" target="_blank">the GitHub repository</a>, where you’ll also find instructions on how to use install and use the theme.</p>]]></content><author><name>Fanqiang Meng</name></author><summary type="html"><![CDATA[layout: post title: “Welcome to Joshuaaam!” author: “Paul Le” categories: journal tags: [documentation,sample] image: mountains.jpg —]]></summary></entry><entry><title type="html">秋日的东山岛</title><link href="http://localhost:4000/getting-started/" rel="alternate" type="text/html" title="秋日的东山岛" /><published>2015-10-10T00:00:00+08:00</published><updated>2015-10-10T00:00:00+08:00</updated><id>http://localhost:4000/getting-started</id><content type="html" xml:base="http://localhost:4000/getting-started/"><![CDATA[<h1 id="-金銮湾日出-">「 金銮湾日出 」</h1>
+<p>Feel free to check out <a href="https://github.com/LeNPaul/jekyll-starter-kit" target="_blank">the GitHub repository</a>, where you’ll also find instructions on how to use install and use the theme.</p>]]></content><author><name>Fanqiang Meng</name></author><summary type="html"><![CDATA[layout: post title: “Welcome to Joshuaaam!” author: “Paul Le” categories: journal tags: [documentation,sample] image: mountains.jpg —]]></summary></entry><entry><title type="html">秋日的东山岛</title><link href="/getting-started/" rel="alternate" type="text/html" title="秋日的东山岛" /><published>2015-10-10T00:00:00+08:00</published><updated>2015-10-10T00:00:00+08:00</updated><id>/getting-started</id><content type="html" xml:base="/getting-started/"><![CDATA[<h1 id="-金銮湾日出-">「 金銮湾日出 」</h1>
 
 <p>在网上看攻略，听大家说金銮湾的日出很美，有”天空之镜“的美誉，于是决定在离开前看一次金銮湾的日出</p>
 
@@ -1248,9 +1248,9 @@ image: mountains.jpg
 
 <!-- ![alt text](https://user-images.githubusercontent.com/8409329/32631384-17107870-c56e-11e7-932f-deeb7c12e4db.png "Lagrange Demo Image") -->
 
-<p><img src="http://localhost:4000/assets/img/2022-05-05/DSC_0808.JPG" /></p>
+<p><img src="/assets/img/2022-05-05/DSC_0808.JPG" /></p>
 
-<p><img src="http://localhost:4000/assets/img/2022-05-05/DSC_0803.JPG" /></p>
+<p><img src="/assets/img/2022-05-05/DSC_0803.JPG" /></p>
 
 <!-- ![alt text](https://admin.impermanence.cn/public/upload/20220321/1647836631278.jpeg "金銮湾日出") -->
 
@@ -1439,7 +1439,7 @@ image:
     <p>In <code class="language-plaintext highlighter-rouge">_data/settings.yml</code>, under ‘social’, comment out the rss-square that points to <code class="language-plaintext highlighter-rouge">feed.xml</code>, and uncomment the rss-square that points to <code class="language-plaintext highlighter-rouge">rss-feed.xml</code>.</p>
   </li>
   <li>
-    <p>In <code class="language-plaintext highlighter-rouge">_includes/head.html</code>, comment out <code class="language-plaintext highlighter-rouge">&lt;link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Joshua" /&gt;</code> and uncomment the line under the RSS 2.0 comment.</p>
+    <p>In <code class="language-plaintext highlighter-rouge">_includes/head.html</code>, comment out <code class="language-plaintext highlighter-rouge">&lt;link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Joshua" /&gt;</code> and uncomment the line under the RSS 2.0 comment.</p>
   </li>
 </ul>
 
@@ -1568,4 +1568,4 @@ image:
 
 <h2 id="license">License</h2>
 
-<p>Open sourced under the <a href="https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md">MIT license</a>.</p>]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[「 金銮湾日出 」]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_0803.JPG" /><media:content medium="image" url="http://localhost:4000/DSC_0803.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>Open sourced under the <a href="https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md">MIT license</a>.</p>]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[「 金銮湾日出 」]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_0803.JPG" /><media:content medium="image" url="/DSC_0803.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
