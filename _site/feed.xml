@@ -1,4 +1,127 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-10T22:59:32+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">阿婆六茶花谷观星台银河拍摄</title><link href="http://localhost:4000/chg/" rel="alternate" type="text/html" title="阿婆六茶花谷观星台银河拍摄" /><published>2022-07-23T00:00:00+08:00</published><updated>2022-07-23T00:00:00+08:00</updated><id>http://localhost:4000/chg</id><content type="html" xml:base="http://localhost:4000/chg/"><![CDATA[<blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-12T00:40:12+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Docker + Jenkins持续集成</title><link href="http://localhost:4000/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>http://localhost:4000/cxjc</id><content type="html" xml:base="http://localhost:4000/cxjc/"><![CDATA[<h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
+<blockquote>
+  <p>💡 Tips：如果需要用到宿主机docker命令记得映射</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 拉取 Jenkins 拉取镜像，这里使用支持 JDK8 的版本。</span>
+docker pull jenkins/jenkins:latest-jdk8
+
+<span class="c"># 运行容器</span>
+docker run <span class="nt">-u</span> root <span class="nt">-d</span>  <span class="nt">--name</span> dp-jenkins  jenkins/jenkins:latest-jdk8
+
+
+docker run <span class="nt">-u</span> root <span class="nt">-d</span> <span class="nt">-p</span> 9999:8080 <span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock  <span class="nt">-v</span> /usr/bin/docker:/usr/bin/docker <span class="nt">--name</span> docker-jenkins jenkins/jenkins:latest-jdk8
+</code></pre></div></div>
+<h3 id="映射宿主机docker">映射宿主机Docker</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock 
+
+<span class="nt">-v</span> /usr/bin/docker:/usr/bin/docker
+</code></pre></div></div>
+<h2 id="配置jenkins">配置Jenkins</h2>
+<blockquote>
+  <p>💡 Tips：8080端口为jenkins服务默认的web访问端口 ，-p映射宿主机的指定端口</p>
+</blockquote>
+
+<p><strong>访问服务器地址的容器映射端口查看jenkins服务</strong>
+首次登录需要默认密码
+在容器终端到提示的对应目录下使用 <code class="language-plaintext highlighter-rouge">cat</code> 命令查看<strong>初始密码</strong>
+登录后会提示安装插件，我直接安装通用的插件</p>
+<h2 id="创建jenkins任务">创建Jenkins任务</h2>
+<p>简单的配置下任务，就是项目的地址，还有账号密码或者密钥这些
+配置完就可以尝试手动构建了
+查看日志输出是否构建成功
+构建成功，在<code class="language-plaintext highlighter-rouge">Workspace</code> 中就可以看到拉下来的项目了</p>
+<h2 id="配置文件">配置文件</h2>
+<h3 id="dockerfile配置">dockerfile配置</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 依赖 nginx 容器</span>
+FROM nginx
+<span class="c"># 作者</span>
+MAINTAINER joshuaaam
+<span class="c"># 首先删除 nginx default.conf 文件</span>
+<span class="c"># RUN rm /etc/nginx/conf.d/default.conf</span>
+<span class="c"># 用本地的 default.conf 替换 nginx 镜像的默认配置</span>
+<span class="c"># ADD default.conf /etc/nginx/conf.d/</span>
+<span class="c"># 将项目打包后的 dist 目录，拷贝到 default.conf 指定的发布目录 </span>
+COPY _site/ /usr/share/nginx/html/
+</code></pre></div></div>
+<h3 id="nginx配置">nginx配置</h3>
+<blockquote>
+  <p>💡 Tips：容器默认的80端口映射到宿主机端口，在宿主机nginx配置转发</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server <span class="o">{</span>
+    listen       80<span class="p">;</span>
+    server_name  10.115.89.112<span class="p">;</span>
+    <span class="c"># 修改 docker 服务宿主机 IP</span>
+
+    location / <span class="o">{</span>
+        root   /usr/share/nginx/html<span class="p">;</span>
+        <span class="c"># 项目地址</span>
+        index  index.html index.htm<span class="p">;</span>
+        try_files <span class="nv">$uri</span> <span class="nv">$uri</span>/ /index.html <span class="o">=</span>404<span class="p">;</span>
+    <span class="o">}</span>
+
+    error_page   500 502 503 504  /50x.html<span class="p">;</span>
+    location <span class="o">=</span> /50x.html <span class="o">{</span>
+        root   html<span class="p">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h2 id="jenkins构建执行shell">Jenkins构建执行shell</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 删除历史镜像</span>
+
+<span class="nv">current_img</span><span class="o">=</span><span class="si">$(</span>docker images | <span class="nb">grep </span>dp-docker-registry:5000/dp-console | <span class="nb">awk</span> <span class="s1">'{print $3}'</span><span class="si">)</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$current_img</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+      </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_img is empty"</span>
+<span class="k">else
+      </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_img is NOT empty"</span>
+      docker rmi <span class="nt">--force</span> <span class="nv">$current_img</span>
+<span class="k">fi</span>
+
+<span class="c"># 构建镜像  -t 镜像名 -f 指定构建文件  </span>
+docker build <span class="nb">.</span> <span class="nt">-t</span> jekyll-image <span class="nt">-f</span> ./dockerfile
+
+<span class="c"># 推送镜像</span>
+<span class="c"># docker push jekyll-image</span>
+
+<span class="c"># 启动容器</span>
+docker run <span class="nt">--name</span> jekyll_web <span class="nt">-p</span> 9998:80  <span class="nt">-d</span> <span class="nt">-i</span> jekyll-image
+</code></pre></div></div>
+
+<p>重新手动构建后访问对应的映射端口就可以看到项目了</p>
+<blockquote>
+  <p>💡 Tips：这里要先配置好域名的转发</p>
+</blockquote>
+
+<h2 id="持续集成">持续集成</h2>
+<h2 id="踩坑">踩坑</h2>
+
+<ul>
+  <li><strong>在</strong><code class="language-plaintext highlighter-rouge">**docker1.13.1**</code>** 中， jenkins构建中使用dokcer 命令报错 Can’t open /etc/sysconfig/docker**</li>
+</ul>
+
+<p>原因：docker1.13.1  /usr/bin/ 下真正的binary是 docker-current，映射路径应该为<code class="language-plaintext highlighter-rouge"> -v /usr/bin/docker-current:/usr/bin/docker</code></p>
+
+<ul>
+  <li><strong>没有加构建上下文路径</strong></li>
+</ul>
+
+<p>docker build 构建镜像要记得加上构建路径，默认 <code class="language-plaintext highlighter-rouge">Dockerfile</code> 为构建文件，-f（指定构建文件）-t (指定镜像名)</p>
+
+<ul>
+  <li><strong>iptable 规则丢失，端口映射失效</strong></li>
+</ul>
+
+<p>因为重启防火墙，导致 <code class="language-plaintext highlighter-rouge">iptables</code>  规则丢失，端口映射失效，重启容器也报错
+Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed programming external connectivity on endpoint
+解决办法：重启docker后再重启容器</p>
+
+<ul>
+  <li></li>
+</ul>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><summary type="html"><![CDATA[拉取Jenkins镜像，运行容器 💡 Tips：如果需要用到宿主机docker命令记得映射]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_0803.jpg" /><media:content medium="image" url="http://localhost:4000/DSC_0803.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">阿婆六茶花谷观星台银河拍摄</title><link href="http://localhost:4000/chg/" rel="alternate" type="text/html" title="阿婆六茶花谷观星台银河拍摄" /><published>2022-07-23T00:00:00+08:00</published><updated>2022-07-23T00:00:00+08:00</updated><id>http://localhost:4000/chg</id><content type="html" xml:base="http://localhost:4000/chg/"><![CDATA[<blockquote>
   <p>拍摄于广州市从化区良口镇阿婆六村观星台</p>
 </blockquote>
 
@@ -242,7 +365,7 @@
 
 <p>等到我们到达飞来寺后主峰已经被厚厚的云层遮住了 ，这让我更加坚信此行一定顺利的</p>
 
-<p>###</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/5541651987270.jpg" /><media:content medium="image" url="http://localhost:4000/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">不去天堂就去雨崩</title><link href="http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/" rel="alternate" type="text/html" title="不去天堂就去雨崩" /><published>2021-12-01T00:00:00+08:00</published><updated>2021-12-01T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9</id><content type="html" xml:base="http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/"><![CDATA[<p>共计 9 日的「雨崩」之旅，味在广州、厨出凤城。</p>
+<p>###</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/5541651987270.jpg" /><media:content medium="image" url="http://localhost:4000/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">不去天堂就去雨崩</title><link href="http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/" rel="alternate" type="text/html" title="不去天堂就去雨崩" /><published>2021-12-01T00:00:00+08:00</published><updated>2021-12-01T00:00:00+08:00</updated><id>http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9</id><content type="html" xml:base="http://localhost:4000/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/"><![CDATA[<p>共计 9 日的「雨崩」之旅，味在广州、厨出凤城。a</p>
 <h2 id="-行程时间">⏰ 行程时间</h2>
 <blockquote>
 
@@ -582,7 +705,7 @@
 <h2 id="最后">最后</h2>
 <p><strong>出现任何问题都可以联系组委会，我们将提供全程<del>贴身</del>服务</strong>
 组委会1 📱   186xxxxxxxx
-组委会2 📱   159xxxxxxxx</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="pic" /><summary type="html"><![CDATA[共计 9 日的「雨崩」之旅，味在广州、厨出凤城。 ⏰ 行程时间 7月28日（周四）— 7月30日（周日）]]></summary></entry><entry><title type="html">记录完整的项目部署</title><link href="http://localhost:4000/fwq/" rel="alternate" type="text/html" title="记录完整的项目部署" /><published>2021-05-25T00:00:00+08:00</published><updated>2021-05-25T00:00:00+08:00</updated><id>http://localhost:4000/fwq</id><content type="html" xml:base="http://localhost:4000/fwq/"><![CDATA[<p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等</p>
+组委会2 📱   159xxxxxxxx</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="pic" /><summary type="html"><![CDATA[共计 9 日的「雨崩」之旅，味在广州、厨出凤城。a ⏰ 行程时间 7月28日（周四）— 7月30日（周日）]]></summary></entry><entry><title type="html">记录完整的项目部署</title><link href="http://localhost:4000/fwq/" rel="alternate" type="text/html" title="记录完整的项目部署" /><published>2021-05-25T00:00:00+08:00</published><updated>2021-05-25T00:00:00+08:00</updated><id>http://localhost:4000/fwq</id><content type="html" xml:base="http://localhost:4000/fwq/"><![CDATA[<p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等</p>
 
 <h3 id="配置nginx">配置nginx</h3>
 
@@ -1069,7 +1192,23 @@ tar -zcvf xxx.tar.gz
 8. [Credits](#credits)
 9. [License](#license) -->
 
-<!-- Open sourced under the [MIT license](https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md). -->]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><summary type="html"><![CDATA[拍摄于东山岛金銮湾]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_0804.JPG" /><media:content medium="image" url="http://localhost:4000/DSC_0804.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Welcome to Joshuaaam!</title><link href="http://localhost:4000/welcome-to-lagrange%E5%93%88/" rel="alternate" type="text/html" title="Welcome to Joshuaaam!" /><published>2016-01-01T00:00:00+08:00</published><updated>2016-01-01T00:00:00+08:00</updated><id>http://localhost:4000/welcome-to-lagrange%E5%93%88</id><content type="html" xml:base="http://localhost:4000/welcome-to-lagrange%E5%93%88/"><![CDATA[<p>Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.</p>
+<!-- Open sourced under the [MIT license](https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md). -->]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><summary type="html"><![CDATA[拍摄于东山岛金銮湾]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_0804.JPG" /><media:content medium="image" url="http://localhost:4000/DSC_0804.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Welcome To Lagrange哈</title><link href="http://localhost:4000/welcome-to-lagrange%E5%93%88/" rel="alternate" type="text/html" title="Welcome To Lagrange哈" /><published>2016-01-01T00:00:00+08:00</published><updated>2016-01-01T00:00:00+08:00</updated><id>http://localhost:4000/welcome-to-lagrange%E5%93%88</id><content type="html" xml:base="http://localhost:4000/welcome-to-lagrange%E5%93%88/"><![CDATA[<!--
+ * @Author: g05047
+ * @Date: 2022-05-05 11:35:44
+ * @LastEditors: g05047
+ * @LastEditTime: 2022-08-10 23:39:11
+ * @Description: file content
+-->
+<hr />
+<p>layout: post
+title: “Welcome to Joshuaaam!”
+author: “Paul Le”
+categories: journal
+tags: [documentation,sample]
+image: mountains.jpg
+—</p>
+
+<p>Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.1</p>
 
 <h2 id="getting-started哈哈哈">Getting Started哈哈哈</h2>
 
@@ -1101,7 +1240,7 @@ tar -zcvf xxx.tar.gz
 
 <p>The Jekyll Starter Kit is a simple framework for starting your own Jekyll project using all of the best practices that I learned from building my other Jekyll themes.</p>
 
-<p>Feel free to check out <a href="https://github.com/LeNPaul/jekyll-starter-kit" target="_blank">the GitHub repository</a>, where you’ll also find instructions on how to use install and use the theme.</p>]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/mountains.jpg" /><media:content medium="image" url="http://localhost:4000/mountains.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">秋日的东山岛</title><link href="http://localhost:4000/getting-started/" rel="alternate" type="text/html" title="秋日的东山岛" /><published>2015-10-10T00:00:00+08:00</published><updated>2015-10-10T00:00:00+08:00</updated><id>http://localhost:4000/getting-started</id><content type="html" xml:base="http://localhost:4000/getting-started/"><![CDATA[<h1 id="-金銮湾日出-">「 金銮湾日出 」</h1>
+<p>Feel free to check out <a href="https://github.com/LeNPaul/jekyll-starter-kit" target="_blank">the GitHub repository</a>, where you’ll also find instructions on how to use install and use the theme.</p>]]></content><author><name>Fanqiang Meng</name></author><summary type="html"><![CDATA[layout: post title: “Welcome to Joshuaaam!” author: “Paul Le” categories: journal tags: [documentation,sample] image: mountains.jpg —]]></summary></entry><entry><title type="html">秋日的东山岛</title><link href="http://localhost:4000/getting-started/" rel="alternate" type="text/html" title="秋日的东山岛" /><published>2015-10-10T00:00:00+08:00</published><updated>2015-10-10T00:00:00+08:00</updated><id>http://localhost:4000/getting-started</id><content type="html" xml:base="http://localhost:4000/getting-started/"><![CDATA[<h1 id="-金銮湾日出-">「 金銮湾日出 」</h1>
 
 <p>在网上看攻略，听大家说金銮湾的日出很美，有”天空之镜“的美誉，于是决定在离开前看一次金銮湾的日出</p>
 
@@ -1429,208 +1568,4 @@ image:
 
 <h2 id="license">License</h2>
 
-<p>Open sourced under the <a href="https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md">MIT license</a>.</p>]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[「 金銮湾日出 」]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_0803.JPG" /><media:content medium="image" url="http://localhost:4000/DSC_0803.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Text Formatting Examples</title><link href="http://localhost:4000/text-formatting-examples/" rel="alternate" type="text/html" title="Text Formatting Examples" /><published>2014-01-01T00:00:00+08:00</published><updated>2014-01-01T00:00:00+08:00</updated><id>http://localhost:4000/text-formatting-examples</id><content type="html" xml:base="http://localhost:4000/text-formatting-examples/"><![CDATA[<h1 id="markdown-support">Markdown Support</h1>
-
-<p>As always, Jekyll offers support for GitHub Flavored Markdown, which allows you to format your posts using the <a href="https://guides.github.com/features/mastering-markdown/">Markdown syntax</a>. Examples of these text formatting features can be seen below. You can find this post in the <code class="language-plaintext highlighter-rouge">_posts</code> directory.</p>
-
-<h2 id="basic-formatting">Basic Formatting</h2>
-
-<p>With Markdown, it is possible to emphasize words by making them <em>italicized</em>, using <em>astericks</em> or <em>underscores</em>, or making them <strong>bold</strong>, using <strong>double astericks</strong> or <strong>double underscores</strong>. Of course, you can combine those two formats, with both <em><strong>bold and italicized</strong></em> text, using any combination of the above syntax. You can also add a strikethrough to text using a <del>double tilde</del>.</p>
-
-<h2 id="paragraphs">Paragraphs</h2>
-
-<p>This is what a paragraph looks like. For the purpose of demonstration, the rest of this paragraph and the next paragraph after will mean absolutely nothing. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.</p>
-
-<p>Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.</p>
-
-<h2 id="headings">Headings</h2>
-
-<p>Sometimes it is useful to have different levels of headings to structure your documents. Start lines with <code class="language-plaintext highlighter-rouge">#</code> to create headings. Multiple <code class="language-plaintext highlighter-rouge">##</code> in a row denote smaller heading size. The following demonstrate the full range of heading sizes:</p>
-
-<h1 id="heading-one-h1">Heading One (h1)</h1>
-
-<h2 id="heading-two-h2">Heading Two (h2)</h2>
-
-<h3 id="heading-three-h3">Heading Three (h3)</h3>
-
-<h4 id="heading-four-h4">Heading Four (h4)</h4>
-
-<h5 id="heading-five-h5">Heading Five (h5)</h5>
-
-<h6 id="heading-six-h6">Heading Six (h6)</h6>
-
-<h2 id="links">Links</h2>
-
-<p>You can create an inline link by wrapping link text in square brackets <code class="language-plaintext highlighter-rouge">[ ]</code>, and then wrapping the URL in parentheses <code class="language-plaintext highlighter-rouge">( )</code>. For example, it is very easy to <a href="http://google.com">link to Google!</a>.</p>
-
-<h2 id="blockquotes">Blockquotes</h2>
-
-<p>Blockquotes are useful for denoting quotes, or highlighting a large block of text. Single line blockquote:</p>
-
-<blockquote>
-  <p>This quote will change your life.</p>
-</blockquote>
-
-<p>Multi line blockquote with a cite reference:</p>
-
-<blockquote>
-  <p>People think focus means saying yes to the thing you’ve got to focus on. But that’s not what it means at all. It means saying no to the hundred other good ideas that there are. You have to pick carefully. I’m actually as proud of the things we haven’t done as the things I have done. Innovation is saying no to 1,000 things.</p>
-</blockquote>
-
-<h2 id="code-and-syntax-highlighting">Code and Syntax Highlighting</h2>
-
-<p>Code blocks are part of the Markdown spec, but syntax highlighting isn’t. However, many renderers - like GitHub or most Jekyll themes - support syntax highlighting. Which languages are supported and how those language names should be written will vary from renderer to renderer. You can find the full list of supported programming languages <a href="https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers">here</a>. Also, it is possible to do <code class="language-plaintext highlighter-rouge">inline code blocks</code>, by wrapping the text in ` ` ` quotations.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>No language indicated, so no syntax highlighting.
-</code></pre></div></div>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">print_hi</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-  <span class="nb">puts</span> <span class="s2">"Hi, </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-<span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
-<span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span>
-</code></pre></div></div>
-
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// Example can be run directly in your JavaScript console</span>
-
-<span class="c1">// Create a function that takes two arguments and returns the sum of those arguments</span>
-<span class="kd">var</span> <span class="nx">adder</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span><span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">b</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">return a + b</span><span class="dl">"</span><span class="p">);</span>
-
-<span class="c1">// Call the function</span>
-<span class="nx">adder</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
-<span class="c1">// &gt; 8</span></code></pre></figure>
-
-<p>Another option is to embed your code through <a href="https://en.support.wordpress.com/gist/">Gist</a>.</p>
-
-<h2 id="images">Images</h2>
-
-<p>To add an image, use <code class="language-plaintext highlighter-rouge">![alt text](&lt;Image url&gt; "Image meta title")</code>:</p>
-
-<p><img src="http://noirve.com/wp-content/uploads/2013/10/DTTSP_Coffee.jpg" alt="alt text" title="Example" /></p>
-
-<h2 id="unordered-and-numbered-lists">Unordered and Numbered Lists</h2>
-
-<p>You can make an unordered and nested list by preceding one or more lines of text with <code class="language-plaintext highlighter-rouge">-</code>, <code class="language-plaintext highlighter-rouge">*</code>, or <code class="language-plaintext highlighter-rouge">+</code>, and indenting sublists. The following lists show the full range of possible list formats.</p>
-
-<ul>
-  <li>List item one
-    <ul>
-      <li>List item one
-        <ul>
-          <li>List item one</li>
-          <li>List item two</li>
-          <li>List item three</li>
-          <li>List item four</li>
-        </ul>
-      </li>
-      <li>List item two</li>
-      <li>List item three</li>
-      <li>List item four</li>
-    </ul>
-  </li>
-  <li>List item two</li>
-  <li>List item three</li>
-  <li>List item four</li>
-</ul>
-
-<p>Numbered lists are made by using numbers instead of bullet points.</p>
-
-<ol>
-  <li>List item one
-    <ol>
-      <li>List item one
-        <ol>
-          <li>List item one</li>
-          <li>List item two</li>
-          <li>List item three</li>
-          <li>List item four</li>
-        </ol>
-      </li>
-      <li>List item two</li>
-      <li>List item three</li>
-      <li>List item four</li>
-    </ol>
-  </li>
-  <li>List item two</li>
-  <li>List item three</li>
-  <li>List item four</li>
-</ol>
-
-<h2 id="mathjax-example">MathJax Example</h2>
-
-<p>The <a href="https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation">Schrödinger equation</a> is a partial differential equation that describes how the quantum state of a quantum system changes with time:</p>
-
-\[i\hbar\frac{\partial}{\partial t} \Psi(\mathbf{r},t) = \left [ \frac{-\hbar^2}{2\mu}\nabla^2 + V(\mathbf{r},t)\right ] \Psi(\mathbf{r},t)\]
-
-<p><a href="https://en.wikipedia.org/wiki/Joseph-Louis_Millennial">Joseph-Louis Millennial</a> was an Italian mathematician and astronomer who was responsible for the formulation of Lagrangian mechanics, which is a reformulation of Newtonian mechanics.</p>
-
-\[\frac{\mathrm{d}}{\mathrm{d}t} \left ( \frac {\partial  L}{\partial \dot{q}_j} \right ) =  \frac {\partial L}{\partial q_j}\]
-
-<h2 id="tables">Tables</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title 1</th>
-      <th style="text-align: center">Title 2</th>
-      <th style="text-align: left">Title 3</th>
-      <th style="text-align: right">Title 4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>lorem</td>
-      <td style="text-align: center">lorem ipsum</td>
-      <td style="text-align: left">lorem ipsum dolor</td>
-      <td style="text-align: right">lorem ipsum dolor sit</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor sit</td>
-      <td style="text-align: center">lorem ipsum dolor sit</td>
-      <td style="text-align: left">lorem ipsum dolor sit</td>
-      <td style="text-align: right">lorem ipsum dolor sit</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor sit</td>
-      <td style="text-align: center">lorem ipsum dolor sit</td>
-      <td style="text-align: left">lorem ipsum dolor sit</td>
-      <td style="text-align: right">lorem ipsum dolor sit</td>
-    </tr>
-    <tr>
-      <td>lorem ipsum dolor sit</td>
-      <td style="text-align: center">lorem ipsum dolor sit</td>
-      <td style="text-align: left">lorem ipsum dolor sit</td>
-      <td style="text-align: right">lorem ipsum dolor sit</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="embedding">Embedding</h2>
-
-<p>Plenty of social media sites offer the option of embedding certain parts of their site on your own site, such as YouTube and Twitter:</p>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/mthtn1X4eUY" frameborder="0" allowfullscreen=""></iframe>
-
-<p><a class="twitter-grid" data-partner="tweetdeck" href="https://twitter.com/paululele/timelines/755079130027352064">New Collection</a> <script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<h2 id="inline-html-elements">Inline HTML elements</h2>
-
-<p>HTML defines a long list of available inline tags, which you can mix with Markdown if you like. A complete list of which can be found on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">Mozilla Developer Network</a>.</p>
-
-<h2 id="horizontal-rule">Horizontal Rule</h2>
-
-<p>Can be created by having three or more hyphens <code class="language-plaintext highlighter-rouge">---</code>, asterisks <code class="language-plaintext highlighter-rouge">***</code>, or underscores <code class="language-plaintext highlighter-rouge">___</code>:</p>
-
-<hr />
-
-<h2 id="useful-resources">Useful Resources</h2>
-
-<p>More information on Markdown can be found at the following links:</p>
-
-<ul>
-  <li><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Here-Cheatsheet#code">Markdown Here Cheatsheet</a></li>
-  <li><a href="http://www.unexpected-vortices.com/sw/rippledoc/quick-markdown-example.html">Quick Markdown Example</a></li>
-  <li><a href="https://daringfireball.net/projects/markdown/basics">Markdown Basics</a></li>
-  <li><a href="https://github.github.com/gfm/">GitHub Flavoured Markdown Spec</a></li>
-  <li><a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#lists">Basic writing and formatting syntax</a></li>
-</ul>]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[Markdown Support]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/cards.jpg" /><media:content medium="image" url="http://localhost:4000/cards.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>Open sourced under the <a href="https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md">MIT license</a>.</p>]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[「 金銮湾日出 」]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/DSC_0803.JPG" /><media:content medium="image" url="http://localhost:4000/DSC_0803.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
