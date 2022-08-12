@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-12T23:49:01+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Docker + Jenkins持续集成</title><link href="/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>/cxjc</id><content type="html" xml:base="/cxjc/"><![CDATA[<h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-12T23:52:09+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Docker + Jenkins持续集成</title><link href="/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>/cxjc</id><content type="html" xml:base="/cxjc/"><![CDATA[<h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
 <blockquote>
   <p>💡 Tips：如果需要用到宿主机docker命令记得映射</p>
 </blockquote>
@@ -117,7 +117,7 @@ docker run <span class="nt">--name</span> jekyll_web <span class="nt">-p</span> 
 
 <p>因为重启防火墙，导致 <code class="language-plaintext highlighter-rouge">iptables</code>  规则丢失，端口映射失效，重启容器也报错
 Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed programming external connectivity on endpoint
-解决办法：重启docker后再重启容器</p>
+解决办法：重启docker后再重启容器就行了</p>
 
 <ul>
   <li></li>
