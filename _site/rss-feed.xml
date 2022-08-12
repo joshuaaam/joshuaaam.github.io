@@ -12,7 +12,8 @@
 					<dc:creator>Fanqiang Meng</dc:creator>
 				
 				
-					<description>&lt;h2 id=&quot;拉取jenkins镜像运行容器&quot;&gt;拉取Jenkins镜像，运行容器&lt;/h2&gt;
+					<description>&lt;p&gt;记录一下基于&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Docker | Jenkins | Github&lt;/code&gt; 实现的持续集成&lt;/p&gt;
+&lt;h2 id=&quot;拉取jenkins镜像运行容器&quot;&gt;拉取Jenkins镜像，运行容器&lt;/h2&gt;
 &lt;blockquote&gt;
   &lt;p&gt;💡 Tips：如果需要用到宿主机docker命令记得映射&lt;/p&gt;
 &lt;/blockquote&gt;

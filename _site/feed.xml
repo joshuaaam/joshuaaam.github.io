@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-12T23:52:09+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Docker + Jenkins持续集成</title><link href="/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>/cxjc</id><content type="html" xml:base="/cxjc/"><![CDATA[<h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-13T02:15:07+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Docker + Jenkins持续集成</title><link href="/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>/cxjc</id><content type="html" xml:base="/cxjc/"><![CDATA[<p>记录一下基于<code class="language-plaintext highlighter-rouge">Docker | Jenkins | Github</code> 实现的持续集成</p>
+<h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
 <blockquote>
   <p>💡 Tips：如果需要用到宿主机docker命令记得映射</p>
 </blockquote>
@@ -44,36 +45,22 @@ MAINTAINER joshuaaam
 <span class="c"># 将项目打包后的 dist 目录，拷贝到 default.conf 指定的发布目录 </span>
 COPY _site/ /usr/share/nginx/html/
 </code></pre></div></div>
-<h3 id="nginx配置">nginx配置</h3>
-<blockquote>
-  <p>💡 Tips：容器默认的80端口映射到宿主机端口，在宿主机nginx配置转发</p>
-</blockquote>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server <span class="o">{</span>
-    listen       80<span class="p">;</span>
-    server_name  10.115.89.112<span class="p">;</span>
-    <span class="c"># 修改 docker 服务宿主机 IP</span>
-
-    location / <span class="o">{</span>
-        root   /usr/share/nginx/html<span class="p">;</span>
-        <span class="c"># 项目地址</span>
-        index  index.html index.htm<span class="p">;</span>
-        try_files <span class="nv">$uri</span> <span class="nv">$uri</span>/ /index.html <span class="o">=</span>404<span class="p">;</span>
-    <span class="o">}</span>
-
-    error_page   500 502 503 504  /50x.html<span class="p">;</span>
-    location <span class="o">=</span> /50x.html <span class="o">{</span>
-        root   html<span class="p">;</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
 <h2 id="jenkins构建执行shell">Jenkins构建执行shell</h2>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 删除历史镜像</span>
 
-<span class="nv">current_img</span><span class="o">=</span><span class="si">$(</span>docker images | <span class="nb">grep </span>dp-docker-registry:5000/dp-console | <span class="nb">awk</span> <span class="s1">'{print $3}'</span><span class="si">)</span>
+<span class="nv">current_img</span><span class="o">=</span><span class="si">$(</span>docker images | <span class="nb">grep </span>jekll-image | <span class="nb">awk</span> <span class="s1">'{print $3}'</span><span class="si">)</span>
+<span class="nv">current_con</span><span class="o">=</span><span class="si">$(</span>docker ps <span class="nt">-a</span> | <span class="nb">awk</span> <span class="s1">'/jekll-image/ {print $1}'</span><span class="si">)</span>
 
-<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$current_img</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$current_con</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+      </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_con is empty"</span>
+<span class="k">else
+      </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_con is NOT empty"</span>
+      docker rmi <span class="nt">--force</span> <span class="nv">$current_con</span>
+<span class="k">fi
+
+if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$current_img</span><span class="s2">"</span> <span class="o">]</span>
 <span class="k">then
       </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_img is empty"</span>
 <span class="k">else
@@ -96,14 +83,53 @@ docker run <span class="nt">--name</span> jekyll_web <span class="nt">-p</span> 
   <p>💡 Tips：这里要先配置好域名的转发</p>
 </blockquote>
 
-<h2 id="持续集成">持续集成</h2>
+<h2 id="github-webhook">github webhook</h2>
+
+<ol>
+  <li>github生成密钥</li>
+</ol>
+
+<p>登陆Github，进入 <code class="language-plaintext highlighter-rouge">settings</code> 页面，选择 <code class="language-plaintext highlighter-rouge">Developer settings</code> 中的<code class="language-plaintext highlighter-rouge">Personnal access tokens</code> ，生成密钥</p>
+
+<p><img src="/assets/img/2022-7-24/005.png" /></p>
+
+<ol>
+  <li>Jenkins全局配置</li>
+</ol>
+
+<p>将密钥设置在Jenkins全局配置中</p>
+
+<ol>
+  <li>Github配置webhook，在项目的settings中配置webhook就是jenkins部署的地址 :) <code class="language-plaintext highlighter-rouge">例：http://ip:端口/github-webhook/</code>
+    <blockquote>
+      <p>💡 注意：结尾的/别忘了加</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p><img src="/assets/img/2022-7-24/001.png" /></p>
+
+<ol>
+  <li>Jenkins任务配置</li>
+</ol>
+
+<p><img src="/assets/img/2022-7-24/002.png" /></p>
+
+<p><img src="/assets/img/2022-7-24/003.png" /></p>
+
+<p><img src="/assets/img/2022-7-24/006.png" /></p>
+
+<p>这里的Secret text就是Github生成的密钥</p>
+
+<p>完事提交代码，就可以看到任务自动开始构建了</p>
+
 <h2 id="踩坑">踩坑</h2>
 
 <ul>
-  <li><strong>在</strong><code class="language-plaintext highlighter-rouge">**docker1.13.1**</code>** 中， jenkins构建中使用dokcer 命令报错 Can’t open /etc/sysconfig/docker**</li>
+  <li><strong>在</strong><code class="language-plaintext highlighter-rouge">**docker1.13.1**</code>** 中， jenkins构建中执行shell使用dokcer 命令报错 Can’t open /etc/sysconfig/docker**</li>
 </ul>
 
-<p>原因：docker1.13.1  /usr/bin/ 下真正的binary是 docker-current，映射路径应该为<code class="language-plaintext highlighter-rouge"> -v /usr/bin/docker-current:/usr/bin/docker</code></p>
+<p><strong>原因：</strong>docker1.13.1  /usr/bin/ 下真正的binary是 docker-current，映射路径应该为<code class="language-plaintext highlighter-rouge"> -v /usr/bin/docker-current:/usr/bin/docker</code></p>
 
 <ul>
   <li><strong>没有加构建上下文路径</strong></li>
@@ -117,11 +143,17 @@ docker run <span class="nt">--name</span> jekyll_web <span class="nt">-p</span> 
 
 <p>因为重启防火墙，导致 <code class="language-plaintext highlighter-rouge">iptables</code>  规则丢失，端口映射失效，重启容器也报错
 Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed programming external connectivity on endpoint
-解决办法：重启docker后再重启容器就行了</p>
+<strong>解决办法：</strong>重启docker后再重启容器</p>
 
 <ul>
-  <li></li>
-</ul>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><summary type="html"><![CDATA[拉取Jenkins镜像，运行容器 💡 Tips：如果需要用到宿主机docker命令记得映射]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_0803.JPG" /><media:content medium="image" url="/DSC_0803.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">阿婆六茶花谷观星台银河拍摄</title><link href="/chg/" rel="alternate" type="text/html" title="阿婆六茶花谷观星台银河拍摄" /><published>2022-07-23T00:00:00+08:00</published><updated>2022-07-23T00:00:00+08:00</updated><id>/chg</id><content type="html" xml:base="/chg/"><![CDATA[<blockquote>
+  <li><strong>jenkins执行shell删除镜像失败，如果存在容器，需要先删除容器</strong></li>
+</ul>
+
+<p>Error response from daemon: conflict: unable to delete ef1d6b961fd1 (cannot be forced) - image is being used by running container a1fc71b0491e Build step ‘Execute shell’ marked build as failure</p>
+
+<h2 id="最后总结">最后总结</h2>
+<p>最终实现了通过Docker+Jenkins+Github实现对博客项目的持续集成，现在是在本地打包生成静态文件后再提交到Github去集成，后面考虑构建能够运行项目的ruby镜像，在容器中运行项目，或者是只修改nginx配置文件
+还有就是Github不太稳定，接下来打算在Docker中搭建Gitlab</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><summary type="html"><![CDATA[记录一下基于Docker | Jenkins | Github 实现的持续集成 拉取Jenkins镜像，运行容器 💡 Tips：如果需要用到宿主机docker命令记得映射]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_0803.JPG" /><media:content medium="image" url="/DSC_0803.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">阿婆六茶花谷观星台银河拍摄</title><link href="/chg/" rel="alternate" type="text/html" title="阿婆六茶花谷观星台银河拍摄" /><published>2022-07-23T00:00:00+08:00</published><updated>2022-07-23T00:00:00+08:00</updated><id>/chg</id><content type="html" xml:base="/chg/"><![CDATA[<blockquote>
   <p>拍摄于广州市从化区良口镇阿婆六村观星台</p>
 </blockquote>
 
