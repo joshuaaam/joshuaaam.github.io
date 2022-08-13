@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>/about-the-author/</loc>
-<lastmod>2013-04-04T00:00:00+08:00</lastmod>
-</url>
-<url>
-<loc>/learning-resources/</loc>
-<lastmod>2013-10-10T00:00:00+08:00</lastmod>
-</url>
-<url>
-<loc>/text-formatting-examples/</loc>
-<lastmod>2014-01-01T00:00:00+08:00</lastmod>
-</url>
-<url>
 <loc>/getting-started/</loc>
 <lastmod>2015-10-10T00:00:00+08:00</lastmod>
 </url>
@@ -25,24 +13,16 @@
 <lastmod>2020-10-01T00:00:00+08:00</lastmod>
 </url>
 <url>
+<loc>/start/</loc>
+<lastmod>2021-05-05T00:00:00+08:00</lastmod>
+</url>
+<url>
 <loc>/fwq/</loc>
 <lastmod>2021-05-25T00:00:00+08:00</lastmod>
 </url>
 <url>
-<loc>/%E4%B8%8D%E5%8E%BB%E5%A4%A9%E5%A0%82%E5%B0%B1%E5%8E%BB%E9%9B%A8%E5%B4%A9/</loc>
-<lastmod>2021-12-01T00:00:00+08:00</lastmod>
-</url>
-<url>
 <loc>/yb/</loc>
 <lastmod>2021-12-13T00:00:00+08:00</lastmod>
-</url>
-<url>
-<loc>/start/</loc>
-<lastmod>2022-05-05T00:00:00+08:00</lastmod>
-</url>
-<url>
-<loc>/docker/</loc>
-<lastmod>2022-07-21T00:00:00+08:00</lastmod>
 </url>
 <url>
 <loc>/chg/</loc>
@@ -66,8 +46,5 @@
 </url>
 <url>
 <loc>/page2/</loc>
-</url>
-<url>
-<loc>/page3/</loc>
 </url>
 </urlset>

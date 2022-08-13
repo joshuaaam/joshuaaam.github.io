@@ -44,15 +44,17 @@
 <meta property="og:title" content="记录完整的项目部署" />
 <meta name="author" content="Fanqiang Meng" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等" />
-<meta property="og:description" content="记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等" />
+<meta name="description" content="记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置" />
+<meta property="og:description" content="记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置" />
 <meta property="og:site_name" content="Joshua" />
+<meta property="og:image" content="/forest.jpg" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-05-25T00:00:00+08:00" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="/forest.jpg" />
 <meta property="twitter:title" content="记录完整的项目部署" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Fanqiang Meng"},"dateModified":"2021-05-25T00:00:00+08:00","datePublished":"2021-05-25T00:00:00+08:00","description":"记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等","headline":"记录完整的项目部署","mainEntityOfPage":{"@type":"WebPage","@id":"/fwq/"},"url":"/fwq/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Fanqiang Meng"},"dateModified":"2021-05-25T00:00:00+08:00","datePublished":"2021-05-25T00:00:00+08:00","description":"记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置","headline":"记录完整的项目部署","image":"/forest.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"/fwq/"},"url":"/fwq/"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -113,8 +115,10 @@
   记录完整的项目部署
 </h1>
 
+  <img src="/assets/img/forest.jpg">
+
 <article>
-  <p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置等等</p>
+  <p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置</p>
 
 <h3 id="配置nginx">配置nginx</h3>
 
@@ -193,11 +197,10 @@ vi /etc/rc.local
 <h5 id="5nginxconf配置">5、nginx.conf配置</h5>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service<span class="o">{</span>
- listen       80<span class="p">;</span>
+        listen       80<span class="p">;</span>
         server_name localhost<span class="p">;</span>
         rewrite ^<span class="o">(</span>.<span class="k">*</span><span class="o">)</span><span class="nv">$ </span>https://<span class="nv">$host$1</span> permanent<span class="p">;</span> <span class="c">#把http的域名请求转成https</span>
         <span class="c">#charset koi8-r;</span>
-
         <span class="c">#access_log  logs/host.access.log  main;</span>
 
         location / <span class="o">{</span>
@@ -214,11 +217,10 @@ vi /etc/rc.local
 <h5 id="6https配置">6.https配置</h5>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service<span class="o">{</span>
- listen       80<span class="p">;</span>
+        listen       80<span class="p">;</span>
         server_name localhost<span class="p">;</span>
         rewrite ^<span class="o">(</span>.<span class="k">*</span><span class="o">)</span><span class="nv">$ </span>https://<span class="nv">$host$1</span> permanent<span class="p">;</span> <span class="c">#把http的域名请求转成https</span>
         <span class="c">#charset koi8-r;</span>
-
         <span class="c">#access_log  logs/host.access.log  main;</span>
 
         location / <span class="o">{</span>
@@ -230,7 +232,6 @@ vi /etc/rc.local
  server <span class="o">{</span>
         listen       443 ssl<span class="p">;</span>
         server_name  localhost<span class="p">;</span>
-
         ssl_certificate    cert/5638172_impermanence.cn.pem<span class="p">;</span> <span class="c">#证书配置</span>
         ssl_certificate_key  cert/5638172_impermanence.cn.key<span class="p">;</span> <span class="c">#证书配置</span>
 
@@ -258,10 +259,6 @@ vi /etc/rc.local
 </code></pre></div></div>
 
 <p>修改完配置到nginx/sbin 执行./nginx -s reload 重新加载配置文件 即可生效</p>
-
-<p>配置ssl nginx 配置 监听80端口 http转发到https</p>
-
-<p>配置（前端项目地址/后端请求转发 要写在443端口下） 详细代码看上面</p>
 
 <h3 id="mysql配置">mysql配置</h3>
 
@@ -344,7 +341,7 @@ service mysqld status
 
 <h5 id="4cd-node-v10160-linux-x64bin--ls-可以看到刚刚解压出来的bin文件里有nodenpmnpx这几个文件说明node安装成功了">4、cd node-v10.16.0-linux-x64/bin/ &amp;&amp; ls 可以看到刚刚解压出来的bin文件里有node、npm、npx这几个文件,说明node安装成功了</h5>
 
-<h5 id="5nodejs虽然已经安装成功了但是还不能全局使用node命令需要建立软连接使其变为全局有点像window系统配置环境变量">5、nodejs虽然已经安装成功了，但是还不能全局使用node命令，需要建立软连接，使其变为全局，有点像window系统配置环境变量</h5>
+<h5 id="5nodejs虽然已经安装成功了但是还不能全局使用node命令需要建立软连接">5、nodejs虽然已经安装成功了，但是还不能全局使用node命令，需要建立软连接</h5>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> /usr/local/node-v14.17.0-linux-x64/bin/node /usr/local/bin/
 
@@ -449,41 +446,39 @@ tar -zcvf xxx.tar.gz
 
 <h3 id="遇到的问题">遇到的问题</h3>
 
-<h5 id="source-sql文件报表-doest-exit">source sql文件报表 does’t exit</h5>
+<h5 id="1⃣️-source-sql文件时候报错--doest-exit">1⃣️ source sql文件时候报错  does’t exit</h5>
 
 <p>因为mysql版本不一致</p>
 
-<h5 id="服务器重装系统后ssh连接不上">服务器重装系统后ssh连接不上</h5>
+<h5 id="2⃣️-服务器重装系统后ssh连接不上">2⃣️ 服务器重装系统后ssh连接不上</h5>
 
 <p>删除.ssh目录下的known_hosts文件</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-rf</span> ~/.ssh/known_hosts
 </code></pre></div></div>
 
-<h5 id="启用mysql服务">启用mysql服务</h5>
+<h5 id="3⃣️-启用mysql服务">3⃣️ 启用mysql服务</h5>
 
 <p>需要先启用mysql，才能用show databases 等</p>
 
 <p>更改密码的话，更改一次符合当前策略的比较复杂的密码后才能更改策略（mysql8.0.22遇到的情况），就可以把密码改简单</p>
 
-<h5 id="silly-datetime模块的依赖没安装上导致npm-start-报错">silly-datetime模块的依赖没安装上导致npm start 报错</h5>
+<h5 id="4⃣️-silly-datetime模块的依赖没安装上导致npm-start-报错">4⃣️ silly-datetime模块的依赖没安装上导致npm start 报错</h5>
 
 <p>单独安装一遍依赖</p>
 
-<h5 id="413-request-entity-too-large">413 Request Entity Too Large</h5>
+<h5 id="5⃣️-413-request-entity-too-large">5⃣️ 413 Request Entity Too Large</h5>
 
 <p>上传文件出现问题 413 Request Entity Too Large</p>
 
 <p><a href="https://so.csdn.net/so/search?q=Nginx&amp;spm=1001.2101.3001.7020">Nginx</a>默认的request body为1M，小于我们上传的大小</p>
-
-<p>解决方法</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>client_max_body_size 10m<span class="p">;</span> // 修改配置后重启nginx
 
 ./nginx <span class="nt">-s</span> reload //在nginx/sbin目录下执行
 </code></pre></div></div>
 
-<h5 id="端口占用">端口占用</h5>
+<h5 id="6⃣️-端口占用">6⃣️ 端口占用</h5>
 
 <p>mac</p>
 
@@ -514,7 +509,7 @@ tar -zcvf xxx.tar.gz
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> 29142
 </code></pre></div></div>
 
-<h3 id="nginx图片转发">nginx图片转发</h3>
+<h5 id="7⃣️-nginx图片转发">7⃣️ nginx图片转发</h5>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server <span class="o">{</span>
     listen 443<span class="p">;</span>
@@ -590,10 +585,10 @@ tar -zcvf xxx.tar.gz
         
           <li>
             <h3>
-              <a href="/docker/">
-                Docker｜Jenkins持续集成
+              <a href="/yb/">
+                总有一些美好值得期待
                 <!--<img src="/images/">-->
-                <!--<small>July 21, 2022</small>-->
+                <!--<small>December 13, 2021</small>-->
               </a>
             </h3>
           </li>
