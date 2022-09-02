@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-08-14T00:18:40+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Docker + Jenkins持续集成</title><link href="/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>/cxjc</id><content type="html" xml:base="/cxjc/"><![CDATA[<p>记录一下基于<code class="language-plaintext highlighter-rouge">Docker | Jenkins | Github</code> 实现的持续集成</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-09-02T17:28:20+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Scrapy2.6 Document</title><link href="/scrapy/" rel="alternate" type="text/html" title="Scrapy2.6 Document" /><published>2022-09-02T00:00:00+08:00</published><updated>2022-09-02T00:00:00+08:00</updated><id>/scrapy</id><content type="html" xml:base="/scrapy/"><![CDATA[<p>Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.</p>
+
+<h2 id="安装scrapy">安装Scrapy</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>scrapy
+</code></pre></div></div>
+<blockquote>
+  <p>为了避免与系统包冲突，文档中是建议在虚拟环境中安装</p>
+</blockquote>
+
+<h2 id="创建scrapy项目">创建Scrapy项目</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy startproject &lt;name&gt; <span class="o">[</span>project_dir]
+</code></pre></div></div>
+<p>输入命令创建爬虫项目
+<strong>Scrapy项目目录</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lagrange/
+├── _data                      <span class="c"># Data files</span>
+|  └── settings.yml            <span class="c"># Theme settings and custom text</span>
+├── _includes                  <span class="c"># Theme includes</span>
+├── _layouts                   <span class="c"># Theme layouts (see below for details)</span>
+├── _posts                     <span class="c"># Where all your posts will go</span>
+├── assets                     <span class="c"># Style sheets and images are found here</span>
+|  ├── css                     <span class="c"># Style sheets go here</span>
+|  |  └── main.css             <span class="c"># Main CSS file</span>
+|  |  └── syntax.css           <span class="c"># Style sheet for code syntax highlighting</span>
+|  └── img                     <span class="c"># Images go here</span>
+├── menu                       <span class="c"># Menu pages</span>
+├── _config.yml                <span class="c"># Site build settings</span>
+├── Gemfile                    <span class="c"># Ruby Gemfile for managing Jekyll plugins</span>
+├── index.md                   <span class="c"># Home page</span>
+├── LICENSE.md                 <span class="c"># License for this theme</span>
+├── README.md                  <span class="c"># Includes all of the documentation for this theme</span>
+└── rss-feed.xml               <span class="c"># Generates RSS 2.0 file which Jekyll points to</span>
+</code></pre></div></div>
+
+<h2 id="创建爬虫">创建爬虫</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy genspider <span class="o">[</span><span class="nt">-t</span> template] &lt;name&gt; &lt;domain or URL&gt;
+
+<span class="c"># spiders如果從項目內部調用，則在當前文件夾或當前項目的文件夾中創建一個新蜘蛛。</span>
+<span class="c"># &lt;name&gt;參數設置為spider的，namewhile用於生成spider和spider的屬性。</span>
+<span class="c"># &lt;domain or URL&gt;allowed_domainsstart_urls</span>
+</code></pre></div></div>
+
+<h2 id="运行爬虫">运行爬虫</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy crawl &lt;spider&gt;
+</code></pre></div></div>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><category term="pic" /><summary type="html"><![CDATA[Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.]]></summary></entry><entry><title type="html">Docker + Jenkins持续集成</title><link href="/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>/cxjc</id><content type="html" xml:base="/cxjc/"><![CDATA[<p>记录一下基于<code class="language-plaintext highlighter-rouge">Docker | Jenkins | Github</code> 实现的持续集成</p>
 <h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
 <blockquote>
   <p>💡 Tips：如果需要用到宿主机docker命令记得映射</p>
@@ -191,7 +236,7 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 
 <p><img src="/assets/img/2021-12-13/1647156223135.JPG" /></p>
 
-<p>等到我们到达飞来寺后主峰已经被厚厚的云层遮住了 ，这让我更加坚信此行一定顺利的</p>
+<p>等到我们到达飞来寺后主峰已经被厚厚的云层遮住了 ，这让我更加坚信此行一定顺利的1</p>
 
 <p>###</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/5541651987270.jpg" /><media:content medium="image" url="/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">记录完整的项目部署</title><link href="/fwq/" rel="alternate" type="text/html" title="记录完整的项目部署" /><published>2021-05-25T00:00:00+08:00</published><updated>2021-05-25T00:00:00+08:00</updated><id>/fwq</id><content type="html" xml:base="/fwq/"><![CDATA[<p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置</p>
 

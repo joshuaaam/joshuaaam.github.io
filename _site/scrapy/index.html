@@ -3,7 +3,7 @@
   <head>
   <title>
     
-      阿婆六茶花谷观星台银河拍摄 | Joshua
+      Scrapy2.6 Document | Joshua
     
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,22 +39,20 @@
 
   <!-- Use Jekyll SEO plugin -->
   <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>阿婆六茶花谷观星台银河拍摄 | Joshua</title>
+<title>Scrapy2.6 Document | Joshua</title>
 <meta name="generator" content="Jekyll v4.2.2" />
-<meta property="og:title" content="阿婆六茶花谷观星台银河拍摄" />
+<meta property="og:title" content="Scrapy2.6 Document" />
 <meta name="author" content="Fanqiang Meng" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="拍摄于广州市从化区良口镇阿婆六村观星台" />
-<meta property="og:description" content="拍摄于广州市从化区良口镇阿婆六村观星台" />
+<meta name="description" content="Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing." />
+<meta property="og:description" content="Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing." />
 <meta property="og:site_name" content="Joshua" />
-<meta property="og:image" content="/DSC_2440.jpg" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-07-23T00:00:00+08:00" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="/DSC_2440.jpg" />
-<meta property="twitter:title" content="阿婆六茶花谷观星台银河拍摄" />
+<meta property="article:published_time" content="2022-09-02T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Scrapy2.6 Document" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Fanqiang Meng"},"dateModified":"2022-07-23T00:00:00+08:00","datePublished":"2022-07-23T00:00:00+08:00","description":"拍摄于广州市从化区良口镇阿婆六村观星台","headline":"阿婆六茶花谷观星台银河拍摄","image":"/DSC_2440.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"/chg/"},"url":"/chg/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Fanqiang Meng"},"dateModified":"2022-09-02T00:00:00+08:00","datePublished":"2022-09-02T00:00:00+08:00","description":"Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.","headline":"Scrapy2.6 Document","mainEntityOfPage":{"@type":"WebPage","@id":"/scrapy/"},"url":"/scrapy/"}</script>
 <!-- End Jekyll SEO tag -->
 
 </head>
@@ -112,31 +110,64 @@
 
       <div class="content-container">
         <h1>
-  阿婆六茶花谷观星台银河拍摄
+  Scrapy2.6 Document
 </h1>
 
-  <img src="/assets/img/DSC_2440.jpg">
-
 <article>
-  <blockquote>
-  <p>拍摄于广州市从化区良口镇阿婆六村观星台</p>
-</blockquote>
+  <p>Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.</p>
 
-<p>没想到把，广州也有肉眼可以看见银河的地方，地点就在广州市从化区的阿婆六茶花谷、
-观星台是在山上，上山需要走一个小时左右的山路，不少人到上面露营
-上山的路在一间民宿旁边，可以问一下当地的村民，我们是傍晚上山，八点多到的观星台，拍了半个小时左右就摸黑下山了</p>
+<h2 id="安装scrapy">安装Scrapy</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>scrapy
+</code></pre></div></div>
 <blockquote>
-  <p>注意：⚠️  山路很滑，下山一定要小心，特别是天黑下山</p>
+  <p>为了避免与系统包冲突，文档中是建议在虚拟环境中安装</p>
 </blockquote>
 
+<h2 id="创建scrapy项目">创建Scrapy项目</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy startproject &lt;name&gt; <span class="o">[</span>project_dir]
+</code></pre></div></div>
+<p>输入命令创建爬虫项目
+<strong>Scrapy项目目录</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lagrange/
+├── _data                      <span class="c"># Data files</span>
+|  └── settings.yml            <span class="c"># Theme settings and custom text</span>
+├── _includes                  <span class="c"># Theme includes</span>
+├── _layouts                   <span class="c"># Theme layouts (see below for details)</span>
+├── _posts                     <span class="c"># Where all your posts will go</span>
+├── assets                     <span class="c"># Style sheets and images are found here</span>
+|  ├── css                     <span class="c"># Style sheets go here</span>
+|  |  └── main.css             <span class="c"># Main CSS file</span>
+|  |  └── syntax.css           <span class="c"># Style sheet for code syntax highlighting</span>
+|  └── img                     <span class="c"># Images go here</span>
+├── menu                       <span class="c"># Menu pages</span>
+├── _config.yml                <span class="c"># Site build settings</span>
+├── Gemfile                    <span class="c"># Ruby Gemfile for managing Jekyll plugins</span>
+├── index.md                   <span class="c"># Home page</span>
+├── LICENSE.md                 <span class="c"># License for this theme</span>
+├── README.md                  <span class="c"># Includes all of the documentation for this theme</span>
+└── rss-feed.xml               <span class="c"># Generates RSS 2.0 file which Jekyll points to</span>
+</code></pre></div></div>
+
+<h2 id="创建爬虫">创建爬虫</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy genspider <span class="o">[</span><span class="nt">-t</span> template] &lt;name&gt; &lt;domain or URL&gt;
+
+<span class="c"># spiders如果從項目內部調用，則在當前文件夾或當前項目的文件夾中創建一個新蜘蛛。</span>
+<span class="c"># &lt;name&gt;參數設置為spider的，namewhile用於生成spider和spider的屬性。</span>
+<span class="c"># &lt;domain or URL&gt;allowed_domainsstart_urls</span>
+</code></pre></div></div>
+
+<h2 id="运行爬虫">运行爬虫</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy crawl &lt;spider&gt;
+</code></pre></div></div>
 
 </article>
 
   <span class="post-date">
   Written on
   
-  July
-  23rd
+  September
+  2nd
     ,
   2022
   by
@@ -149,8 +180,8 @@
 
   <div class="post-date">Feel free to share!</div>
 <div class="sharing-icons">
-  <a href="https://twitter.com/intent/tweet?text=阿婆六茶花谷观星台银河拍摄&amp;url=/chg/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-  <a href="https://www.facebook.com/sharer/sharer.php?u=/chg/&amp;title=阿婆六茶花谷观星台银河拍摄" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+  <a href="https://twitter.com/intent/tweet?text=Scrapy2.6 Document&amp;url=/scrapy/" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/scrapy/&amp;title=Scrapy2.6 Document" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
 </div>
 
 
@@ -162,16 +193,6 @@
     
       
         
-          <li>
-            <h3>
-              <a href="/scrapy/">
-                Scrapy2.6 Document
-                <!--<img src="/images/">-->
-                <!--<small>September 2, 2022</small>-->
-              </a>
-            </h3>
-          </li>
-          
         
       
         
@@ -188,6 +209,16 @@
         
       
         
+          <li>
+            <h3>
+              <a href="/chg/">
+                阿婆六茶花谷观星台银河拍摄
+                <!--<img src="/images/">-->
+                <!--<small>July 23, 2022</small>-->
+              </a>
+            </h3>
+          </li>
+          
         
       
     
