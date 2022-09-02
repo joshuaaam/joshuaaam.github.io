@@ -1,0 +1,55 @@
+<!--
+ * @Author: g05047
+ * @Date: 2022-09-02 17:24:59
+ * @LastEditors: g05047
+ * @LastEditTime: 2022-09-03 00:47:55
+ * @Description: file content
+-->
+<hr />
+<p>layout: post
+title: “Scrapy2.6 Document”
+author: “Fanqiang Meng”
+categories: journal
+tags: [documentation,sample,pic]</p>
+
+<hr />
+<p>Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.1</p>
+
+<h2 id="安装scrapy">安装Scrapy</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>scrapy
+</code></pre></div></div>
+<blockquote>
+  <p>为了避免与系统包冲突，文档中是建议在虚拟环境中安装</p>
+</blockquote>
+
+<h2 id="创建scrapy项目">创建Scrapy项目</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy startproject &lt;name&gt; <span class="o">[</span>project_dir]
+</code></pre></div></div>
+<p>输入命令创建爬虫项目
+<strong>Scrapy项目目录</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+tutorial
+├── scrapy.cfg                  <span class="c"># deploy configuration file</span>
+└── tutorial                    <span class="c"># project's Python module, you'll import your code from here</span>
+| ├── __init__.py               
+| ├── items.py                  <span class="c"># project items definition file</span>
+| ├── middlewares.py            <span class="c"># project middlewares file</span>
+| ├── pipelines.py              <span class="c"># project pipelines file</span>
+| ├── settings.py               <span class="c"># project settings file</span>
+| └── spiders                   <span class="c"># a directory where you'll later put your spidersdeploy configuration file</span>
+| | └── __init__.py            
+
+</code></pre></div></div>
+
+<h2 id="创建爬虫">创建爬虫</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy genspider <span class="o">[</span><span class="nt">-t</span> template] &lt;name&gt; &lt;domain or URL&gt;
+
+<span class="c"># spiders如果從項目內部調用，則在當前文件夾或當前項目的文件夾中創建一個新蜘蛛。</span>
+<span class="c"># &lt;name&gt;參數設置為spider的，namewhile用於生成spider和spider的屬性。</span>
+<span class="c"># &lt;domain or URL&gt;allowed_domainsstart_url</span>
+</code></pre></div></div>
+
+<h2 id="运行爬虫">运行爬虫</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy crawl &lt;spider&gt;
+</code></pre></div></div>

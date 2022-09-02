@@ -1,0 +1,1096 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-09-03T00:48:00+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Scrapy</title><link href="/scrapy/" rel="alternate" type="text/html" title="Scrapy" /><published>2022-09-02T00:00:00+08:00</published><updated>2022-09-02T00:00:00+08:00</updated><id>/scrapy</id><content type="html" xml:base="/scrapy/"><![CDATA[<!--
+ * @Author: g05047
+ * @Date: 2022-09-02 17:24:59
+ * @LastEditors: g05047
+ * @LastEditTime: 2022-09-03 00:47:55
+ * @Description: file content
+-->
+<hr />
+<p>layout: post
+title: “Scrapy2.6 Document”
+author: “Fanqiang Meng”
+categories: journal
+tags: [documentation,sample,pic]</p>
+
+<hr />
+<p>Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.1</p>
+
+<h2 id="安装scrapy">安装Scrapy</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>scrapy
+</code></pre></div></div>
+<blockquote>
+  <p>为了避免与系统包冲突，文档中是建议在虚拟环境中安装</p>
+</blockquote>
+
+<h2 id="创建scrapy项目">创建Scrapy项目</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy startproject &lt;name&gt; <span class="o">[</span>project_dir]
+</code></pre></div></div>
+<p>输入命令创建爬虫项目
+<strong>Scrapy项目目录</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+tutorial
+├── scrapy.cfg                  <span class="c"># deploy configuration file</span>
+└── tutorial                    <span class="c"># project's Python module, you'll import your code from here</span>
+| ├── __init__.py               
+| ├── items.py                  <span class="c"># project items definition file</span>
+| ├── middlewares.py            <span class="c"># project middlewares file</span>
+| ├── pipelines.py              <span class="c"># project pipelines file</span>
+| ├── settings.py               <span class="c"># project settings file</span>
+| └── spiders                   <span class="c"># a directory where you'll later put your spidersdeploy configuration file</span>
+| | └── __init__.py            
+
+</code></pre></div></div>
+
+<h2 id="创建爬虫">创建爬虫</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy genspider <span class="o">[</span><span class="nt">-t</span> template] &lt;name&gt; &lt;domain or URL&gt;
+
+<span class="c"># spiders如果從項目內部調用，則在當前文件夾或當前項目的文件夾中創建一個新蜘蛛。</span>
+<span class="c"># &lt;name&gt;參數設置為spider的，namewhile用於生成spider和spider的屬性。</span>
+<span class="c"># &lt;domain or URL&gt;allowed_domainsstart_url</span>
+</code></pre></div></div>
+
+<h2 id="运行爬虫">运行爬虫</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scrapy crawl &lt;spider&gt;
+</code></pre></div></div>]]></content><author><name>Fanqiang Meng</name></author><summary type="html"><![CDATA[layout: post title: “Scrapy2.6 Document” author: “Fanqiang Meng” categories: journal tags: [documentation,sample,pic]]]></summary></entry><entry><title type="html">Docker + Jenkins持续集成</title><link href="/cxjc/" rel="alternate" type="text/html" title="Docker + Jenkins持续集成" /><published>2022-07-24T00:00:00+08:00</published><updated>2022-07-24T00:00:00+08:00</updated><id>/cxjc</id><content type="html" xml:base="/cxjc/"><![CDATA[<p>记录一下基于<code class="language-plaintext highlighter-rouge">Docker | Jenkins | Github</code> 实现的持续集成</p>
+<h2 id="拉取jenkins镜像运行容器">拉取Jenkins镜像，运行容器</h2>
+<blockquote>
+  <p>💡 Tips：如果需要用到宿主机docker命令记得映射</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 拉取 Jenkins 拉取镜像，这里使用支持 JDK8 的版本。</span>
+docker pull jenkins/jenkins:latest-jdk8
+
+<span class="c"># 运行容器</span>
+docker run <span class="nt">-u</span> root <span class="nt">-d</span>  <span class="nt">--name</span> dp-jenkins  jenkins/jenkins:latest-jdk8
+
+
+docker run <span class="nt">-u</span> root <span class="nt">-d</span> <span class="nt">-p</span> 9999:8080 <span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock  <span class="nt">-v</span> /usr/bin/docker:/usr/bin/docker <span class="nt">--name</span> docker-jenkins jenkins/jenkins:latest-jdk8
+</code></pre></div></div>
+<h3 id="映射宿主机docker">映射宿主机Docker</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-v</span> /var/run/docker.sock:/var/run/docker.sock 
+
+<span class="nt">-v</span> /usr/bin/docker:/usr/bin/docker
+</code></pre></div></div>
+<h2 id="配置jenkins">配置Jenkins</h2>
+<blockquote>
+  <p>💡 Tips：8080端口为jenkins服务默认的web访问端口 ，-p映射宿主机的指定端口</p>
+</blockquote>
+
+<p><strong>访问服务器地址的容器映射端口查看jenkins服务</strong>
+首次登录需要默认密码
+在容器终端到提示的对应目录下使用 <code class="language-plaintext highlighter-rouge">cat</code> 命令查看<strong>初始密码</strong>
+登录后会提示安装插件，我直接安装通用的插件</p>
+<h2 id="创建jenkins任务">创建Jenkins任务</h2>
+<p>简单的配置下任务，就是项目的地址，还有账号密码或者密钥这些
+配置完就可以尝试手动构建了
+查看日志输出是否构建成功
+构建成功，在<code class="language-plaintext highlighter-rouge">Workspace</code> 中就可以看到拉下来的项目了</p>
+<h2 id="配置文件">配置文件</h2>
+<h3 id="dockerfile配置">dockerfile配置</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 依赖 nginx 容器</span>
+FROM nginx
+<span class="c"># 作者</span>
+MAINTAINER joshuaaam
+<span class="c"># 首先删除 nginx default.conf 文件</span>
+<span class="c"># RUN rm /etc/nginx/conf.d/default.conf</span>
+<span class="c"># 用本地的 default.conf 替换 nginx 镜像的默认配置</span>
+<span class="c"># ADD default.conf /etc/nginx/conf.d/</span>
+<span class="c"># 将项目打包后的 dist 目录，拷贝到 default.conf 指定的发布目录 </span>
+COPY _site/ /usr/share/nginx/html/
+</code></pre></div></div>
+<h2 id="jenkins构建执行shell">Jenkins构建执行shell</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 删除历史镜像</span>
+
+<span class="nv">current_img</span><span class="o">=</span><span class="si">$(</span>docker images | <span class="nb">grep </span>jekll-image | <span class="nb">awk</span> <span class="s1">'{print $3}'</span><span class="si">)</span>
+<span class="nv">current_con</span><span class="o">=</span><span class="si">$(</span>docker ps <span class="nt">-a</span> | <span class="nb">awk</span> <span class="s1">'/jekll-image/ {print $1}'</span><span class="si">)</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$current_con</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+      </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_con is empty"</span>
+<span class="k">else
+      </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_con is NOT empty"</span>
+      docker rmi <span class="nt">--force</span> <span class="nv">$current_con</span>
+<span class="k">fi
+
+if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$current_img</span><span class="s2">"</span> <span class="o">]</span>
+<span class="k">then
+      </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_img is empty"</span>
+<span class="k">else
+      </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\$</span><span class="s2">current_img is NOT empty"</span>
+      docker rmi <span class="nt">--force</span> <span class="nv">$current_img</span>
+<span class="k">fi</span>
+
+<span class="c"># 构建镜像  -t 镜像名 -f 指定构建文件  </span>
+docker build <span class="nb">.</span> <span class="nt">-t</span> jekyll-image <span class="nt">-f</span> ./dockerfile
+
+<span class="c"># 推送镜像</span>
+<span class="c"># docker push jekyll-image</span>
+
+<span class="c"># 启动容器</span>
+docker run <span class="nt">--name</span> jekyll_web <span class="nt">-p</span> 9998:80  <span class="nt">-d</span> <span class="nt">-i</span> jekyll-image
+</code></pre></div></div>
+
+<p>重新手动构建后访问对应的映射端口就可以看到项目了</p>
+<blockquote>
+  <p>💡 Tips：这里要先配置好域名的转发</p>
+</blockquote>
+
+<h2 id="github-webhook">github webhook</h2>
+
+<ol>
+  <li>github生成密钥</li>
+</ol>
+
+<p>登陆Github，进入 <code class="language-plaintext highlighter-rouge">settings</code> 页面，选择 <code class="language-plaintext highlighter-rouge">Developer settings</code> 中的<code class="language-plaintext highlighter-rouge">Personnal access tokens</code> ，生成密钥</p>
+
+<p><img src="/assets/img/2022-7-24/005.png" /></p>
+
+<ol>
+  <li>Jenkins全局配置</li>
+</ol>
+
+<p>将密钥设置在Jenkins全局配置中</p>
+
+<ol>
+  <li>Github配置webhook，在项目的settings中配置webhook就是jenkins部署的地址 :) <code class="language-plaintext highlighter-rouge">例：http://ip:端口/github-webhook/</code>
+    <blockquote>
+      <p>💡 注意：结尾的/别忘了加</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p><img src="/assets/img/2022-7-24/001.png" /></p>
+
+<ol>
+  <li>Jenkins任务配置</li>
+</ol>
+
+<p><img src="/assets/img/2022-7-24/002.png" /></p>
+
+<p><img src="/assets/img/2022-7-24/003.png" /></p>
+
+<p><img src="/assets/img/2022-7-24/006.png" /></p>
+
+<p>这里的Secret text就是Github生成的密钥</p>
+
+<p>完事提交代码，就可以看到任务自动开始构建了</p>
+
+<h2 id="踩坑">踩坑</h2>
+
+<ul>
+  <li><strong>在</strong><code class="language-plaintext highlighter-rouge">**docker1.13.1**</code>** 中， jenkins构建中执行shell使用dokcer 命令报错 Can’t open /etc/sysconfig/docker**</li>
+</ul>
+
+<p><strong>原因：</strong>docker1.13.1  /usr/bin/ 下真正的binary是 docker-current，映射路径应该为<code class="language-plaintext highlighter-rouge"> -v /usr/bin/docker-current:/usr/bin/docker</code></p>
+
+<ul>
+  <li><strong>没有加构建上下文路径</strong></li>
+</ul>
+
+<p>docker build 构建镜像要记得加上构建路径，默认 <code class="language-plaintext highlighter-rouge">Dockerfile</code> 为构建文件，-f（指定构建文件）-t (指定镜像名)</p>
+
+<ul>
+  <li><strong>iptable 规则丢失，端口映射失效</strong></li>
+</ul>
+
+<p>因为重启防火墙，导致 <code class="language-plaintext highlighter-rouge">iptables</code>  规则丢失，端口映射失效，重启容器也报错
+Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed programming external connectivity on endpoint
+<strong>解决办法：</strong>重启docker后再重启容器</p>
+
+<ul>
+  <li><strong>jenkins执行shell删除镜像失败，如果存在容器，需要先删除容器</strong></li>
+</ul>
+
+<p>Error response from daemon: conflict: unable to delete ef1d6b961fd1 (cannot be forced) - image is being used by running container a1fc71b0491e Build step ‘Execute shell’ marked build as failure</p>
+
+<h2 id="最后总结">最后总结</h2>
+<p>最终实现了基于Docker+Jenkins+Github的持续集成，现在是在本地打包生成静态文件后再提交到Github去集成，后面考虑构建能够运行项目的ruby镜像，通过jenkins来打包项目；</p>
+
+<p>还有就是Github不太稳定，接下来打算在Docker中搭建Gitlab</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><summary type="html"><![CDATA[记录一下基于Docker | Jenkins | Github 实现的持续集成 拉取Jenkins镜像，运行容器 💡 Tips：如果需要用到宿主机docker命令记得映射]]></summary></entry><entry><title type="html">阿婆六茶花谷观星台银河拍摄</title><link href="/chg/" rel="alternate" type="text/html" title="阿婆六茶花谷观星台银河拍摄" /><published>2022-07-23T00:00:00+08:00</published><updated>2022-07-23T00:00:00+08:00</updated><id>/chg</id><content type="html" xml:base="/chg/"><![CDATA[<blockquote>
+  <p>拍摄于广州市从化区良口镇阿婆六村观星台</p>
+</blockquote>
+
+<p>没想到把，广州也有肉眼可以看见银河的地方，地点就在广州市从化区的阿婆六茶花谷、
+观星台是在山上，上山需要走一个小时左右的山路，不少人到上面露营
+上山的路在一间民宿旁边，可以问一下当地的村民，我们是傍晚上山，八点多到的观星台，拍了半个小时左右就摸黑下山了</p>
+<blockquote>
+  <p>注意：⚠️  山路很滑，下山一定要小心，特别是天黑下山</p>
+</blockquote>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><category term="pic" /><summary type="html"><![CDATA[拍摄于广州市从化区良口镇阿婆六村观星台]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_2440.jpg" /><media:content medium="image" url="/DSC_2440.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">总有一些美好值得期待</title><link href="/yb/" rel="alternate" type="text/html" title="总有一些美好值得期待" /><published>2021-12-13T00:00:00+08:00</published><updated>2021-12-13T00:00:00+08:00</updated><id>/yb</id><content type="html" xml:base="/yb/"><![CDATA[<p>记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。</p>
+
+<p>那是一张梅里日照的金山壁纸，这就是我此行的期待！</p>
+
+<!-- <img src="/assets/img/2021-12-13/5531651986782.JPG"> -->
+
+<h3 id="行程计划">行程计划</h3>
+
+<ul>
+  <li>第一天广州 ✈️   丽江，在丽江集合休息一天</li>
+  <li>第二天一早到丽江客运站乘坐班车前往德钦县城，飞来寺</li>
+  <li>第三天在飞来寺蹲一波日照金山，然后坐车到徒步的起点（西当温泉），然后徒步进村，当晚入住雨崩上村</li>
+  <li>第四天从雨崩上村出发冰湖，往返还是住上村</li>
+  <li>第五天一早出发雨崩下村，找住宿短暂休整后出发神瀑</li>
+  <li>最后一天雨崩下村出发走尼农峡谷出雨崩村，徒步结束！</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="初见梅里">初见梅里</h3>
+
+<p>据说进德钦的第一眼，要是能看到梅里雪山会幸运一整年。</p>
+
+<p>我想着试试看有没有这个好运能够在进德钦就看见梅里，于是我一路上瞪大眼睛，没敢睡觉</p>
+
+<p>没想到真的看见了，而且还看到了梅里雪山的主峰-卡瓦格博！</p>
+
+<p><img src="/assets/img/2021-12-13/1647156223135.JPG" /></p>
+
+<p>等到我们到达飞来寺后主峰已经被厚厚的云层遮住了 ，这让我更加坚信此行一定顺利的1</p>
+
+<p>###</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/5541651987270.jpg" /><media:content medium="image" url="/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">记录完整的项目部署</title><link href="/fwq/" rel="alternate" type="text/html" title="记录完整的项目部署" /><published>2021-05-25T00:00:00+08:00</published><updated>2021-05-25T00:00:00+08:00</updated><id>/fwq</id><content type="html" xml:base="/fwq/"><![CDATA[<p>记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置</p>
+
+<h3 id="配置nginx">配置nginx</h3>
+
+<h5 id="1安装各种依赖">1、安装各种依赖</h5>
+
+<pre><code class="language-linux">#gcc安装，nginx源码编译需要
+yum install gcc-c++
+
+#PCRE pcre-devel 安装，nginx 的 http 模块使用 pcre 来解析正则表达式
+yum install -y pcre pcre-devel
+
+#zlib安装，nginx 使用zlib对http包的内容进行gzip
+yum install -y zlib zlib-devel
+
+#OpenSSL 安装，强大的安全套接字层密码库，nginx 不仅支持 http 协议，还支持 https（即在ssl协议上传输http）
+yum install -y openssl openssl-devel
+</code></pre>
+
+<h5 id="2用wget命令下载推荐">2、用wget命令下载（推荐）</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#下载版本号可根据目前官网最新稳定版自行调整</span>
+wget <span class="nt">-c</span> https://nginx.org/download/nginx-1.16.1.tar.gz
+</code></pre></div></div>
+
+<h5 id="3安装">3、安装</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#根目录使用ls命令可以看到下载的nginx压缩包，然后解压</span>
+<span class="nb">tar</span> <span class="nt">-zxvf</span> nginx-1.16.1.tar.gz
+
+<span class="c">#解压后进入目录</span>
+<span class="nb">cd </span>nginx-1.16.1
+
+<span class="c">#使用默认配置</span>
+./configure
+<span class="c">#有ssl模块的配置</span>
+./configure <span class="nt">--prefix</span><span class="o">=</span>/usr/local/nginx <span class="nt">--with-http_ssl_module</span>
+
+<span class="c">#编译安装</span>
+make
+make <span class="nb">install</span>
+
+<span class="c">#查找安装路径，默认都是这个路径</span>
+<span class="o">[</span>root@VM_0_12_centos ~]# pswhereis nginx
+nginx: /usr/local/nginxmake <span class="nb">install</span>
+
+<span class="c">#启动、停止nginx</span>
+<span class="nb">cd</span> /usr/local/nginx/sbin/
+./nginx     <span class="c">#启动</span>
+./nginx <span class="nt">-s</span> stop  <span class="c">#停止，直接查找nginx进程id再使用kill命令强制杀掉进程</span>
+./nginx <span class="nt">-s</span> quit  <span class="c">#退出停止，等待nginx进程处理完任务再进行停止</span>
+./nginx <span class="nt">-s</span> reload  <span class="c">#重新加载配置文件，修改nginx.conf后使用该命令，新配置即可生效</span>
+
+<span class="c">#重启nginx，建议先停止，再启动</span>
+./nginx <span class="nt">-s</span> stop
+./nginx
+
+<span class="c">#查看nginx进程，如下返回，即为成功</span>
+<span class="o">[</span>root@VM_0_12_centos ~]# ps aux|grep nginx
+root      5984  0.0  0.0 112708   976 pts/1    R+   14:41   0:00 <span class="nb">grep</span> <span class="nt">--color</span><span class="o">=</span>auto nginx
+root     18198  0.0  0.0  20552   612 ?        Ss   11:28   0:00 nginx: master process ./nginx
+nobody   18199  0.0  0.0  23088  1632 ?        S    11:28   0:00 nginx: worker process
+
+</code></pre></div></div>
+
+<h5 id="4开机自启动">4、开机自启动</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 在rc.local增加启动代码即可</span>
+vi /etc/rc.local
+
+<span class="c"># 增加一行 /usr/local/nginx/sbin/nginx，增加后保存</span>
+<span class="c">#设置执行权限</span>
+<span class="nb">cd</span> /etc
+<span class="nb">chmod </span>755 rc.local
+</code></pre></div></div>
+
+<h5 id="5nginxconf配置">5、nginx.conf配置</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service<span class="o">{</span>
+        listen       80<span class="p">;</span>
+        server_name localhost<span class="p">;</span>
+        rewrite ^<span class="o">(</span>.<span class="k">*</span><span class="o">)</span><span class="nv">$ </span>https://<span class="nv">$host$1</span> permanent<span class="p">;</span> <span class="c">#把http的域名请求转成https</span>
+        <span class="c">#charset koi8-r;</span>
+        <span class="c">#access_log  logs/host.access.log  main;</span>
+
+        location / <span class="o">{</span>
+            root   /usr/local/dist<span class="p">;</span> <span class="c">#前端项目地址</span>
+            index  index.html index.htm<span class="p">;</span>
+        <span class="o">}</span>
+        location /api/ <span class="o">{</span>
+            proxy_pass http://127.0.0.1:7001/<span class="p">;</span><span class="c">#代理转发地址,主要用于项目中用到的跨域接口请求</span>
+            proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+        <span class="o">}</span>      
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h5 id="6https配置">6.https配置</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service<span class="o">{</span>
+        listen       80<span class="p">;</span>
+        server_name localhost<span class="p">;</span>
+        rewrite ^<span class="o">(</span>.<span class="k">*</span><span class="o">)</span><span class="nv">$ </span>https://<span class="nv">$host$1</span> permanent<span class="p">;</span> <span class="c">#把http的域名请求转成https</span>
+        <span class="c">#charset koi8-r;</span>
+        <span class="c">#access_log  logs/host.access.log  main;</span>
+
+        location / <span class="o">{</span>
+            root   /usr/local/dist<span class="p">;</span> <span class="c">#前端项目地址</span>
+            index  index.html index.htm<span class="p">;</span>
+        <span class="o">}</span>     
+<span class="o">}</span>
+
+ server <span class="o">{</span>
+        listen       443 ssl<span class="p">;</span>
+        server_name  localhost<span class="p">;</span>
+        ssl_certificate    cert/5638172_impermanence.cn.pem<span class="p">;</span> <span class="c">#证书配置</span>
+        ssl_certificate_key  cert/5638172_impermanence.cn.key<span class="p">;</span> <span class="c">#证书配置</span>
+
+        ssl_session_cache    shared:SSL:1m<span class="p">;</span>
+        ssl_session_timeout  5m<span class="p">;</span>
+
+        ssl_ciphers  HIGH:!aNULL:!MD5<span class="p">;</span>
+        ssl_prefer_server_ciphers  on<span class="p">;</span>
+
+        location / <span class="o">{</span>
+            root   /usr/local/dist<span class="p">;</span>
+            index  index.html index.htm<span class="p">;</span>
+        <span class="o">}</span>
+        
+        <span class="c">#设置sll 要在443端口配置请求代理</span>
+        location /api/ <span class="o">{</span>
+            proxy_redirect off<span class="p">;</span>
+            proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+            proxy_set_header X-Real-IP <span class="nv">$remote_addr</span><span class="p">;</span>
+            proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+            proxy_pass http://127.0.0.1:9001/api/<span class="p">;</span>
+        <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>修改完配置到nginx/sbin 执行./nginx -s reload 重新加载配置文件 即可生效</p>
+
+<h3 id="mysql配置">mysql配置</h3>
+
+<h5 id="1输入">1、输入</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://dev.mysql.com/get/mysql80-community-release-el8-1.noarch.rpm
+</code></pre></div></div>
+
+<h5 id="2安装数据源">2、安装数据源</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>mysql80-community-release-el8-1.noarch.rpm
+</code></pre></div></div>
+
+<h5 id="3检查数据源">3、检查数据源</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum repolist enabled | <span class="nb">grep</span> <span class="s2">"mysql.*-community.*"</span>
+</code></pre></div></div>
+
+<h5 id="4禁用centos8自带mysql模块">4、禁用CentOS8自带mysql模块</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum module disable mysql
+</code></pre></div></div>
+
+<h5 id="5安装数据库">5、安装数据库</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>mysql-community-server 
+</code></pre></div></div>
+
+<h5 id="6启动mysql">6、启动mysql</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service mysqld start
+
+service mysqld status
+</code></pre></div></div>
+
+<h5 id="7显示mysql的随机密码">7、显示mysql的随机密码</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'temporary password'</span> /var/log/mysqld.log
+</code></pre></div></div>
+
+<h5 id="8登录并修改mysql密码">8、登录并修改mysql密码</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+</code></pre></div></div>
+
+<h5 id="9修改密码">9、修改密码：</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ALTER USER <span class="s1">'root'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'Mfq19970913.'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>因为密码策略，密码太简单会报错</p>
+</blockquote>
+
+<p>修改策略</p>
+
+<p>修改密码长度：<code class="language-plaintext highlighter-rouge">set global validate_password.length=1;</code>（长度）
+修改密码等级：<code class="language-plaintext highlighter-rouge">set global validate_password.policy=0;</code>（等级）</p>
+
+<h5 id="10设置密码">10、设置密码</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ALTER USER <span class="s1">'root'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'19970913'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="安装node">安装node</h3>
+
+<h5 id="1找个文件夹存放node">1、找个文件夹存放node</h5>
+
+<p>cd /usr/local/</p>
+
+<h5 id="2下载node-wget-资源链接地址我是下载的10130版本要下载其他版本把版本号替换掉就好了">2、下载node： wget 资源链接地址，我是下载的10.13.0版本，要下载其他版本把版本号替换掉就好了</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://npm.taobao.org/mirrors/node/v14.17.0/node-v14.17.0-linux-x64.tar.xz
+</code></pre></div></div>
+
+<h5 id="3解压资源包">3、解压资源包</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> node-v14.17.0-linux-x64.tar.xz
+</code></pre></div></div>
+
+<h5 id="4cd-node-v10160-linux-x64bin--ls-可以看到刚刚解压出来的bin文件里有nodenpmnpx这几个文件说明node安装成功了">4、cd node-v10.16.0-linux-x64/bin/ &amp;&amp; ls 可以看到刚刚解压出来的bin文件里有node、npm、npx这几个文件,说明node安装成功了</h5>
+
+<h5 id="5nodejs虽然已经安装成功了但是还不能全局使用node命令需要建立软连接">5、nodejs虽然已经安装成功了，但是还不能全局使用node命令，需要建立软连接</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> /usr/local/node-v14.17.0-linux-x64/bin/node /usr/local/bin/
+
+<span class="nb">ln</span> <span class="nt">-s</span> /usr/local/node-v14.17.0-linux-x64/bin/npm /usr/local/bin/
+</code></pre></div></div>
+
+<h5 id="6最后查看版本">6、最后查看版本</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> node <span class="nt">-v</span> 
+</code></pre></div></div>
+
+<h3 id="部署egg">部署egg</h3>
+
+<h5 id="1首先先把egg项目文件夹中除了node_modules的文件放到服务器的某个目录下">1.首先先把egg项目文件夹中除了node_modules的文件放到服务器的某个目录下</h5>
+
+<h5 id="2然后确保nginx服务器上安装了mysqlnode">2.然后确保nginx服务器上安装了mysql，node</h5>
+
+<h5 id="3来到服务器中egg的目录下-执行">3.来到服务器中egg的目录下 执行</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">--production</span>
+</code></pre></div></div>
+
+<h5 id="4执行npm-start">4.执行npm start</h5>
+
+<p>注意package.json 中的start配置 加上 -ignore-stderr 不然会报错</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">egg</span><span class="o">-</span><span class="nx">scripts</span> <span class="nx">start</span> <span class="o">--</span><span class="nx">port</span><span class="o">=</span><span class="mi">7001</span> <span class="o">--</span><span class="nx">daemon</span> <span class="o">--</span><span class="nx">title</span><span class="o">=</span><span class="nx">joshua_blog</span> <span class="o">--</span><span class="nx">ignore</span><span class="o">-</span><span class="nx">stderr</span>
+</code></pre></div></div>
+
+<h3 id="本地数据库迁移到服务器">本地数据库迁移到服务器</h3>
+
+<h5 id="1服务器安装mysql">1、服务器安装mysql</h5>
+
+<h5 id="2登陆mysql">2、登陆mysql</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+</code></pre></div></div>
+
+<h5 id="3创建对应本地的数据库">3、创建对应本地的数据库</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>create datebase xxx<span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="4使用数据库">4、使用数据库</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use xxx<span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="5设置编码">5、设置编码</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set </span>names utf8<span class="p">;</span>
+</code></pre></div></div>
+
+<h5 id="6导入sql文件">6、导入sql文件</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> /usr/database.sql<span class="p">;</span>
+</code></pre></div></div>
+
+<p>查看数据表</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show tables<span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="linux命令">linux命令</h3>
+
+<h5 id="解压">解压</h5>
+
+<pre><code class="language-linux">unzip xxx
+tar -zcvf xxx.tar.gz
+</code></pre>
+
+<h5 id="查看当前路径">查看当前路径</h5>
+
+<pre><code class="language-linux">pwd
+</code></pre>
+
+<h5 id="查看当前目录下文件">查看当前目录下文件</h5>
+
+<pre><code class="language-linux">ls
+</code></pre>
+
+<h5 id="创建文件夹">创建文件夹</h5>
+
+<pre><code class="language-linux">mkdir
+</code></pre>
+
+<h5 id="删除">删除</h5>
+
+<pre><code class="language-linux">rm -rf xxx
+
+-f　　　　  --force　　　　　　忽略不存在的文件，强制删除，无任何提示
+-i　　　　   --interactive　　　 进行交互式地删除
+-r | -R　   --recursive　　　  递归式地删除列出的目录下的所有目录和文件
+-v　　　    --verbose　　　　详细显示进行的步骤
+-rf        --组合命令            强制删除文件夹及内容不提示。（最常用）
+</code></pre>
+
+<h5 id="ftp">ftp</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>put <span class="nt">-r</span> 本地地址 服务器地址
+</code></pre></div></div>
+
+<h3 id="遇到的问题">遇到的问题</h3>
+
+<h5 id="1⃣️-source-sql文件时候报错--doest-exit">1⃣️ source sql文件时候报错  does’t exit</h5>
+
+<p>因为mysql版本不一致</p>
+
+<h5 id="2⃣️-服务器重装系统后ssh连接不上">2⃣️ 服务器重装系统后ssh连接不上</h5>
+
+<p>删除.ssh目录下的known_hosts文件</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-rf</span> ~/.ssh/known_hosts
+</code></pre></div></div>
+
+<h5 id="3⃣️-启用mysql服务">3⃣️ 启用mysql服务</h5>
+
+<p>需要先启用mysql，才能用show databases 等</p>
+
+<p>更改密码的话，更改一次符合当前策略的比较复杂的密码后才能更改策略（mysql8.0.22遇到的情况），就可以把密码改简单</p>
+
+<h5 id="4⃣️-silly-datetime模块的依赖没安装上导致npm-start-报错">4⃣️ silly-datetime模块的依赖没安装上导致npm start 报错</h5>
+
+<p>单独安装一遍依赖</p>
+
+<h5 id="5⃣️-413-request-entity-too-large">5⃣️ 413 Request Entity Too Large</h5>
+
+<p>上传文件出现问题 413 Request Entity Too Large</p>
+
+<p><a href="https://so.csdn.net/so/search?q=Nginx&amp;spm=1001.2101.3001.7020">Nginx</a>默认的request body为1M，小于我们上传的大小</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>client_max_body_size 10m<span class="p">;</span> // 修改配置后重启nginx
+
+./nginx <span class="nt">-s</span> reload //在nginx/sbin目录下执行
+</code></pre></div></div>
+
+<h5 id="6⃣️-端口占用">6⃣️ 端口占用</h5>
+
+<p>mac</p>
+
+<p>查看端口占用情况</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-i</span> 
+</code></pre></div></div>
+
+<p>centos</p>
+
+<p>查看端口占用情况</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat <span class="nt">-tunlp</span> 
+</code></pre></div></div>
+
+<p>查看指定端口</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat <span class="nt">-tunlp</span> |grep 7001
+</code></pre></div></div>
+
+<p>查看占用的进程信息</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps 29142 //后面pid
+</code></pre></div></div>
+
+<p>结束进程</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">kill</span> <span class="nt">-9</span> 29142
+</code></pre></div></div>
+
+<h5 id="7⃣️-nginx图片转发">7⃣️ nginx图片转发</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server <span class="o">{</span>
+    listen 443<span class="p">;</span>
+    server_name 10.44.99.10<span class="p">;</span>
+    access_log /data/wwwlogs/access_nginx.log combined<span class="p">;</span>
+    root /data/wwwroot/default<span class="p">;</span>
+    index index.html index.htm index.php<span class="p">;</span>
+    
+    <span class="c"># 波浪线表示开启正则匹配并区分大小写，后面跟的是正则表达式</span>
+    location ~ .<span class="k">*</span><span class="se">\.</span><span class="o">(</span>gif|jpg|jpeg|png<span class="o">)</span><span class="nv">$ </span><span class="o">{</span>
+        root /opt/image/<span class="p">;</span>  <span class="c"># 这里的root是固定，并不是图片在root目录下， /opt/image/才是图片所在的路径。</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="linux" /><summary type="html"><![CDATA[记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/forest.jpg" /><media:content medium="image" url="/forest.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">为什么写这个博客</title><link href="/start/" rel="alternate" type="text/html" title="为什么写这个博客" /><published>2021-05-05T00:00:00+08:00</published><updated>2021-05-05T00:00:00+08:00</updated><id>/start</id><content type="html" xml:base="/start/"><![CDATA[<!-- ### 配置nginx -->
+
+<h4 id="写这个博客的原因">写这个博客的原因</h4>
+
+<p>记录平时学习、旅游、拍摄</p>
+
+<!-- 因为疫情的原因，我被隔离了十来天，期间为了打发时间在网上学习（冲浪）的时候发现了一位同行前辈的个人博客，看了他的博客有些许感触，于是也开始 -->
+
+<!-- #### 2、以后的计划 -->
+
+<!-- * 希望能够持续的记录，向前辈看齐
+* 目前是在本地和github pages上使用，后面计划在学习docker的时候，实现自动化部署到自己的服务器吧，毕竟github被墙 1 -->]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">唯日出华美而无上</title><link href="/dsd/" rel="alternate" type="text/html" title="唯日出华美而无上" /><published>2020-10-01T00:00:00+08:00</published><updated>2020-10-01T00:00:00+08:00</updated><id>/dsd</id><content type="html" xml:base="/dsd/"><![CDATA[<blockquote>
+  <p>拍摄于东山岛金銮湾</p>
+</blockquote>
+
+<h2 id="天空之镜">天空之镜</h2>
+
+<p>出发前，我在网上看了很多东山岛的旅游攻略，不止一次看到了那些攻略中用“天空之境”来形容金銮湾</p>
+
+<p>在行程的最后一天，我们到金銮湾看了一场日出，见识到了这天空之镜</p>
+
+<p><img src="/assets/img/2022-05-05/DSC_0803.JPG" /></p>
+
+<p>我们到海边的时候天已经亮了，人也很多</p>
+
+<p>一路小跑穿过眼前的这片林子，生怕错过日出</p>
+
+<!-- Lagrange is a minimalist Jekyll theme for running a personal blog or site for free through [Github Pages](https://pages.github.com/), or on your own server. Everything that you will ever need to know about this Jekyll theme is included in the README below, which you can also find in [the demo site](https://lenpaul.github.io/Lagrange/). For a guide on how to start a blog or personal website using Jekyll and GitHub Pages, please check out [this article](https://paulle.ca/how-to-start-a-blog-or-personal-website-using-jekyll-and-github-pages). -->
+
+<!-- ![alt text](https://user-images.githubusercontent.com/8409329/32631384-17107870-c56e-11e7-932f-deeb7c12e4db.png "Lagrange Demo Image") -->
+
+<p><img src="/assets/img/2022-05-05/DSC_0808.JPG" /></p>
+
+<p><img src="/assets/img/2022-05-05/DSC_0804.JPG" /></p>
+
+<!-- ![alt text](https://admin.impermanence.cn/public/upload/20220321/1647836631278.jpeg "金銮湾日出") -->
+
+<!-- ## Notable features
+
+
+* Compatible with GitHub Pages.
+
+* Support for Jekyll's built-in Sass/SCSS preprocessor and data files for making customizing easier.
+
+* [Google Analytics](https://www.google.com/analytics/) support.
+
+* Commenting support powered by [Disqus](https://disqus.com/).
+
+* Optimized for search engines.
+
+* LaTeX support through [MathJax](https://www.mathjax.org/). -->
+
+<!-- ## Table of Contents
+
+1. [Introduction](#introduction)
+   1. [What is Jekyll](#what-is-jekyll)
+   2. [Never Used Jeykll Before?](#never-used-jekyll-before)
+2. [Installation](#installation)
+   1. [GitHub Pages Installation](#github-pages-installation)
+   2. [Local Installation](#local-installation)
+   3. [Directory Structure](#directory-structure)
+   4. [Starting From Scratch](#starting-from-scratch)
+3. [Configuration](#configuration)
+   1. [Sample Posts](#sample-posts)
+   2. [Site Variables](#site-variables)
+   3. [Adding Menu Pages](#adding-menu-pages)
+   4. [Posts](#posts)
+   5. [Layouts](#layouts)
+   6. [YAML Front Block Matter](#yaml-front-block-matter)
+4. [Features](#features)
+   1. [Design Considerations](#design-considerations)
+   2. [Disqus](#disqus)
+   3. [Google Analytics](#google-analytics)
+   4. [RSS Feeds](#rss-feeds)
+   5. [Social Media Icons](#social-media-icons)
+   6. [MathJax](#mathjax)
+   7. [Syntax Highlighting](#syntax-highlighting)
+   8. [Markdown](#markdown)
+5. [Everything Else](#everything-else)
+6. [Contributing](#Contributing)
+7. [Questions?](#questions)
+8. [Credits](#credits)
+9. [License](#license) -->
+
+<!-- Open sourced under the [MIT license](https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md). -->]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><summary type="html"><![CDATA[拍摄于东山岛金銮湾]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_0804.JPG" /><media:content medium="image" url="/DSC_0804.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Welcome to Joshuaaam!</title><link href="/welcome-to-lagrange%E5%93%88/" rel="alternate" type="text/html" title="Welcome to Joshuaaam!" /><published>2016-01-01T00:00:00+08:00</published><updated>2016-01-01T00:00:00+08:00</updated><id>/welcome-to-lagrange%E5%93%88</id><content type="html" xml:base="/welcome-to-lagrange%E5%93%88/"><![CDATA[<p>Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.1</p>
+
+<h2 id="getting-started哈哈哈">Getting Started哈哈哈</h2>
+
+<p><a href="/getting-started/">Getting Started</a>: getting started with installing Lagrange, whether you are completely new to using Jekyll, or simply just migrating to a new Jekyll theme.</p>
+
+<h2 id="questions">Questions?</h2>
+
+<p>This theme is completely free and open source software. You may use it however you want, as it is distributed under the <a href="http://choosealicense.com/licenses/mit/">MIT License</a>. If you are having any problems, any questions or suggestions, feel free to <a href="https://twitter.com/intent/tweet?text=My%question%about%Lagrange%is:%&amp;via=paululele">tweet at me</a>, or <a href="https://github.com/lenpaul/lagrange/issues/new">file a GitHub issue</a>.</p>
+
+<h2 id="more-jekyll">More Jekyll!</h2>
+
+<h3 id="millennial">Millennial</h3>
+
+<p>Millennial is a minimalist Jekyll blog theme that I built from scratch. The purpose of this theme is to provide a simple, clean, content-focused publishing platform for a publication or blog.</p>
+
+<p>Feel free to check out <a href="https://lenpaul.github.io/Millennial/" target="_blank">the demo</a>, where you’ll also find instructions on <a href="https://lenpaul.github.io/Millennial/documentation/getting-started.html">how to use install</a> and use the theme.</p>
+
+<h3 id="portfolio-jekyll-theme">Portfolio Jekyll Theme</h3>
+
+<p>This is a Jekyll theme built using the <a href="http://devtipsstarterkit.com/">DevTips Starter Kit</a> as a foundation for starting, and following closely the amazing tutorial by <a href="https://www.youtube.com/watch?v=T6jKLsxbFg4&amp;list=PL0CB3OvPhDA_STygmp3sDenx3UpdOMk7P">Travis Neilson over at DevTips</a>. The purpose of this theme is to provide a clean and simple website for your portfolio. Emphasis is placed on your projects, which are shown front and center on the home page.</p>
+
+<p>Everything that you will ever need to know about this Jekyll theme is included in <a href="https://github.com/LeNPaul/portfolio-jekyll-theme">the repository</a>, which you can also find in <a href="https://lenpaul.github.io/portfolio-jekyll-theme/">the demo site</a>.</p>
+
+<h3 id="jekyll-starter-kit">Jekyll Starter Kit</h3>
+
+<p>The Jekyll Starter Kit is a simple framework for starting your own Jekyll project using all of the best practices that I learned from building my other Jekyll themes.</p>
+
+<p>Feel free to check out <a href="https://github.com/LeNPaul/jekyll-starter-kit" target="_blank">the GitHub repository</a>, where you’ll also find instructions on how to use install and use the theme.</p>]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.1]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/mountains.jpg" /><media:content medium="image" url="/mountains.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">秋日的东山岛</title><link href="/getting-started/" rel="alternate" type="text/html" title="秋日的东山岛" /><published>2015-10-10T00:00:00+08:00</published><updated>2015-10-10T00:00:00+08:00</updated><id>/getting-started</id><content type="html" xml:base="/getting-started/"><![CDATA[<h1 id="-金銮湾日出-">「 金銮湾日出 」</h1>
+
+<p>在网上看攻略，听大家说金銮湾的日出很美，有”天空之镜“的美誉，于是决定在离开前看一次金銮湾的日出</p>
+
+<!-- Lagrange is a minimalist Jekyll theme for running a personal blog or site for free through [Github Pages](https://pages.github.com/), or on your own server. Everything that you will ever need to know about this Jekyll theme is included in the README below, which you can also find in [the demo site](https://lenpaul.github.io/Lagrange/). For a guide on how to start a blog or personal website using Jekyll and GitHub Pages, please check out [this article](https://paulle.ca/how-to-start-a-blog-or-personal-website-using-jekyll-and-github-pages). -->
+
+<!-- ![alt text](https://user-images.githubusercontent.com/8409329/32631384-17107870-c56e-11e7-932f-deeb7c12e4db.png "Lagrange Demo Image") -->
+
+<p><img src="/assets/img/2022-05-05/DSC_0808.JPG" /></p>
+
+<p><img src="/assets/img/2022-05-05/DSC_0803.JPG" /></p>
+
+<!-- ![alt text](https://admin.impermanence.cn/public/upload/20220321/1647836631278.jpeg "金銮湾日出") -->
+
+<!-- ## Notable features
+
+
+* Compatible with GitHub Pages.
+
+* Support for Jekyll's built-in Sass/SCSS preprocessor and data files for making customizing easier.
+
+* [Google Analytics](https://www.google.com/analytics/) support.
+
+* Commenting support powered by [Disqus](https://disqus.com/).
+
+* Optimized for search engines.
+
+* LaTeX support through [MathJax](https://www.mathjax.org/). -->
+
+<!-- ## Table of Contents
+
+1. [Introduction](#introduction)
+   1. [What is Jekyll](#what-is-jekyll)
+   2. [Never Used Jeykll Before?](#never-used-jekyll-before)
+2. [Installation](#installation)
+   1. [GitHub Pages Installation](#github-pages-installation)
+   2. [Local Installation](#local-installation)
+   3. [Directory Structure](#directory-structure)
+   4. [Starting From Scratch](#starting-from-scratch)
+3. [Configuration](#configuration)
+   1. [Sample Posts](#sample-posts)
+   2. [Site Variables](#site-variables)
+   3. [Adding Menu Pages](#adding-menu-pages)
+   4. [Posts](#posts)
+   5. [Layouts](#layouts)
+   6. [YAML Front Block Matter](#yaml-front-block-matter)
+4. [Features](#features)
+   1. [Design Considerations](#design-considerations)
+   2. [Disqus](#disqus)
+   3. [Google Analytics](#google-analytics)
+   4. [RSS Feeds](#rss-feeds)
+   5. [Social Media Icons](#social-media-icons)
+   6. [MathJax](#mathjax)
+   7. [Syntax Highlighting](#syntax-highlighting)
+   8. [Markdown](#markdown)
+5. [Everything Else](#everything-else)
+6. [Contributing](#Contributing)
+7. [Questions?](#questions)
+8. [Credits](#credits)
+9. [License](#license) -->
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Lagrange is a Jekyll theme that was built to be 100% compatible with <a href="https://pages.github.com/">GitHub Pages</a>. If you are unfamiliar with GitHub Pages, you can check out <a href="https://help.github.com/categories/github-pages-basics/">their documentation</a> for more information. <a href="http://jmcglone.com/guides/github-pages/">Jonathan McGlone’s guide</a> on creating and hosting a personal site on GitHub is also a good resource.</p>
+
+<h3 id="what-is-jekyll">What is Jekyll?</h3>
+
+<p>Jekyll is a simple, blog-aware, static site generator for personal, project, or organization sites. Basically, Jekyll takes your page content along with template files and produces a complete website. For more information, visit the <a href="https://jekyllrb.com/docs/home/">official Jekyll site</a> for their documentation. Codecademy also offers a great course on <a href="https://www.codecademy.com/learn/deploy-a-website">how to deploy a Jekyll site</a> for complete beginners.</p>
+
+<h3 id="never-used-jekyll-before">Never Used Jekyll Before?</h3>
+
+<p>The beauty of hosting your website on GitHub is that you don’t have to actually have Jekyll installed on your computer. Everything can be done through the GitHub code editor, with minimal knowledge of how to use Jekyll or the command line. All you have to do is add your posts to the <code class="language-plaintext highlighter-rouge">_posts</code> directory and edit the <code class="language-plaintext highlighter-rouge">_config.yml</code> file to change the site settings. With some rudimentary knowledge of HTML and CSS, you can even modify the site to your liking. This can all be done through the GitHub code editor, which acts like a content management system (CMS).</p>
+
+<h2 id="installation">Installation</h2>
+
+<h3 id="github-pages-installation">GitHub Pages Installation</h3>
+
+<p>To start using Jekyll right away with GitHub Pages, <a href="https://github.com/LeNPaul/Lagrange/fork">fork the Lagrange repository on GitHub</a>. From there, you can rename your repository to ‘USERNAME.github.io’, where ‘USERNAME’ is your GitHub username, and edit the <code class="language-plaintext highlighter-rouge">settings.yml</code> file in the <code class="language-plaintext highlighter-rouge">_data</code> folder to your liking. Ensure that you have a branch named <code class="language-plaintext highlighter-rouge">gh-pages</code>. Your website should be ready immediately at ‘http://USERNAME.github.io’. Note: if you are hosting several sites under the same GitHub username, then you will have to use <a href="https://help.github.com/articles/user-organization-and-project-pages/">Project Pages instead of User Pages</a> - just change the repository name to something other than ‘http://USERNAME.github.io’.</p>
+
+<p>Head over to the <code class="language-plaintext highlighter-rouge">_posts</code> directory to view all the posts that are currently on the website, and to see examples of what post files generally look like. You can simply just duplicate the template post and start adding your own content.</p>
+
+<h3 id="local-installation">Local Installation</h3>
+
+<p>For a full local installation of Lagrange, <a href="https://github.com/LeNPaul/Lagrange/archive/gh-pages.zip">download your own copy of Lagrange</a> and unzip it into it’s own directory. From there, open up your favorite command line tool, enter <code class="language-plaintext highlighter-rouge">bundle install</code>, and then enter <code class="language-plaintext highlighter-rouge">jekyll serve</code>. Your site should be up and running locally at <a href="http://localhost:4000">http://localhost:4000</a>.</p>
+
+<h3 id="directory-structure">Directory Structure</h3>
+
+<p>If you are familiar with Jekyll, then the Lagrange directory structure shouldn’t be too difficult to navigate. The following some highlights of the differences you might notice between the default directory structure. More information on what these folders and files do can be found in the <a href="https://jekyllrb.com/docs/structure/">Jekyll documentation site</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lagrange/
+├── _data                      <span class="c"># Data files</span>
+|  └── settings.yml            <span class="c"># Theme settings and custom text</span>
+├── _includes                  <span class="c"># Theme includes</span>
+├── _layouts                   <span class="c"># Theme layouts (see below for details)</span>
+├── _posts                     <span class="c"># Where all your posts will go</span>
+├── assets                     <span class="c"># Style sheets and images are found here</span>
+|  ├── css                     <span class="c"># Style sheets go here</span>
+|  |  └── main.css             <span class="c"># Main CSS file</span>
+|  |  └── syntax.css           <span class="c"># Style sheet for code syntax highlighting</span>
+|  └── img                     <span class="c"># Images go here</span>
+├── menu                       <span class="c"># Menu pages</span>
+├── _config.yml                <span class="c"># Site build settings</span>
+├── Gemfile                    <span class="c"># Ruby Gemfile for managing Jekyll plugins</span>
+├── index.md                   <span class="c"># Home page</span>
+├── LICENSE.md                 <span class="c"># License for this theme</span>
+├── README.md                  <span class="c"># Includes all of the documentation for this theme</span>
+└── rss-feed.xml               <span class="c"># Generates RSS 2.0 file which Jekyll points to</span>
+</code></pre></div></div>
+
+<h3 id="starting-from-scratch">Starting From Scratch</h3>
+
+<p>To completely start from scratch, simply delete all the files in the <code class="language-plaintext highlighter-rouge">_posts</code>, <code class="language-plaintext highlighter-rouge">assets/img</code>, and <code class="language-plaintext highlighter-rouge">menu</code> folder, and add your own content. You may also replace the <code class="language-plaintext highlighter-rouge">README.md</code> file with your own README. Everything in the <code class="language-plaintext highlighter-rouge">_data</code> folder and <code class="language-plaintext highlighter-rouge">_config.yml</code> file can be edited to suit your needs. You may also change the <code class="language-plaintext highlighter-rouge">favicon.ico</code> file to your own favicon.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<h3 id="sample-posts">Sample Posts</h3>
+
+<p>Visit the <a href="https://lenpaul.github.io/Lagrange/">the demo site</a> to find sample posts that show what different types of text formatting look like. You can find these posts in the <code class="language-plaintext highlighter-rouge">_posts</code> folder, which show what the best practices for setting up your own site are.</p>
+
+<h3 id="site-variables">Site Variables</h3>
+
+<p>To change site build settings, edit the <code class="language-plaintext highlighter-rouge">_config.yml</code> file found in the root of your repository, which you can tweak however you like. More information on configuration settings and plugins can be found on <a href="https://jekyllrb.com/docs/configuration/">the Jekyll documentation site</a>. This is also where you will be able to customize the title, description, and the author/owner of your site.</p>
+
+<p>If you are hosting your site on GitHub Pages, then committing a change to the <code class="language-plaintext highlighter-rouge">_config.yml</code> file will force a rebuild of your site with Jekyll. Any changes made should be viewable soon after. If you are hosting your site locally, then you must run <code class="language-plaintext highlighter-rouge">jekyll serve</code> again for the changes to take place.</p>
+
+<p>In the <code class="language-plaintext highlighter-rouge">settings.yml</code> file found in the <code class="language-plaintext highlighter-rouge">_data</code> folder, you will be able to customize your site settings, such as setting Disqus comments, Google Analytics, what shows up in your menu, and social media information.</p>
+
+<h3 id="adding-menu-pages">Adding Menu Pages</h3>
+
+<p>The menu pages are found in the <code class="language-plaintext highlighter-rouge">menu</code> folder in the root directory, and can be added to your menu in the <code class="language-plaintext highlighter-rouge">settings.yml</code> file.</p>
+
+<h3 id="posts">Posts</h3>
+
+<p>You will find example posts in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit any post and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+
+<p>To add new posts, simply add a file in the <code class="language-plaintext highlighter-rouge">_posts</code> directory that follows the convention of <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-name-of-post.md</code> and includes the necessary front matter. Take a look at any sample post to get an idea about how it works. If you already have a website built with Jekyll, simply copy over your posts to migrate to Lagrange.</p>
+
+<h3 id="layouts">Layouts</h3>
+
+<p>There are two main layout options that are included with Lagrange: post and page. Layouts are specified through the <a href="https://jekyllrb.com/docs/frontmatter/">YAML front block matter</a>. Any file that contains a YAML front block matter will be processed by Jekyll. For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: post
+title: "Example Post"
+---
+</code></pre></div></div>
+
+<p>Examples of what posts looks like can be found in the <code class="language-plaintext highlighter-rouge">_posts</code> directory, which includes this post you are reading right now. Posts are the basic blog post layout, which includes a header image, post content, author name, date published, social media sharing links, and related posts.</p>
+
+<p>Pages are essentially the post layout without any of the extra features of the posts layout. An example of what pages look like can be found at the <a href="https://lenpaul.github.io/Lagrange/menu/about.html">About</a> and <a href="https://lenpaul.github.io/Lagrange/menu/contact.html">Contacts</a>.</p>
+
+<p>In addition to the two main layout options above, there are also custom layouts that have been created for the <a href="https://lenpaul.github.io/Lagrange/">home page</a> and the <a href="https://lenpaul.github.io/Lagrange/menu/writing.html">archives page</a>. These are simply just page layouts with some <a href="https://shopify.github.io/liquid/">Liquid template code</a>. Check out the <code class="language-plaintext highlighter-rouge">index.html</code> file in the root directory for what the code looks like.</p>
+
+<h3 id="yaml-front-block-matter">YAML Front Block Matter</h3>
+
+<p>The recommended YAML front block is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout:
+title:
+author:
+categories:
+tags: []
+image:
+---
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">layout</code> specifies which layout to use, <code class="language-plaintext highlighter-rouge">title</code> is the page or post title, <code class="language-plaintext highlighter-rouge">categories</code> can be used to better organize your posts, <code class="language-plaintext highlighter-rouge">tags</code> are used when generating related posts based on the topic of the post, and <code class="language-plaintext highlighter-rouge">image</code> specifies which images to use. Have a look at some posts in the <code class="language-plaintext highlighter-rouge">_posts</code> directory to see how these variables are set.</p>
+
+<h2 id="features">Features</h2>
+
+<h3 id="design-considerations">Design Considerations</h3>
+
+<p>Lagrange was designed to be a minimalist theme in order for the focus to remain on your content. For example, links are signified mainly through an underline text-decoration, in order to maximize the perceived affordance of clickability (I originally just wanted to make the links a darker shade of grey).</p>
+
+<h3 id="disqus">Disqus</h3>
+
+<p>Lagrange supports comments at the end of posts through <a href="https://disqus.com/">Disqus</a>. In order to activate Disqus commenting, set <code class="language-plaintext highlighter-rouge">disqus.comments</code> to true in the <code class="language-plaintext highlighter-rouge">_data/settings.yml</code> file. If you do not have a Disqus account already, you will have to set one up, and create a profile for your website. You will be given a <code class="language-plaintext highlighter-rouge">disqus_shortname</code> that will be used to generate the appropriate comments sections for your site. More information on <a href="http://www.perfectlyrandom.org/2014/06/29/adding-disqus-to-your-jekyll-powered-github-pages/">how to set up Disqus</a>.</p>
+
+<h3 id="google-analytics">Google Analytics</h3>
+
+<p>It is possible to track your site statistics through <a href="https://www.google.com/analytics/">Google Analytics</a>. Similar to Disqus, you will have to create an account for Google Analytics, and enter the correct Google ID for your site under <code class="language-plaintext highlighter-rouge">google-ID</code> in the <code class="language-plaintext highlighter-rouge">settings.yml</code> file. More information on <a href="https://michaelsoolee.com/google-analytics-jekyll/">how to set up Google Analytics</a>.</p>
+
+<h3 id="rss-feeds">RSS Feeds</h3>
+
+<p>Atom is supported by default through <a href="https://github.com/jekyll/jekyll-feed">jekyll-feed</a>. With jekyll-feed, you can set configuration variables such as ‘title’, ‘description’, and ‘author’, in the <code class="language-plaintext highlighter-rouge">_config.yml</code> file.</p>
+
+<p>RSS 2.0 is also supported through <a href="http://www.rssboard.org/rss-autodiscovery">RSS auto-discovery</a>. The <code class="language-plaintext highlighter-rouge">rss-feed.xml</code> file (based on the template found at <a href="https://github.com/snaptortoise/jekyll-rss-feeds">jekyll-rss-feeds</a>) that the feed path points to when using RSS 2.0 is automatically generated based on the appropriate configuration variables found in <code class="language-plaintext highlighter-rouge">_data/settings.yml</code>.</p>
+
+<p>To use RSS 2.0, ensure the following is done:</p>
+
+<ul>
+  <li>
+    <p>Uncomment the last two lines in the <code class="language-plaintext highlighter-rouge">_config.yml</code> file.</p>
+  </li>
+  <li>
+    <p>In <code class="language-plaintext highlighter-rouge">_data/settings.yml</code>, under ‘social’, comment out the rss-square that points to <code class="language-plaintext highlighter-rouge">feed.xml</code>, and uncomment the rss-square that points to <code class="language-plaintext highlighter-rouge">rss-feed.xml</code>.</p>
+  </li>
+  <li>
+    <p>In <code class="language-plaintext highlighter-rouge">_includes/head.html</code>, comment out <code class="language-plaintext highlighter-rouge">&lt;link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Joshua" /&gt;</code> and uncomment the line under the RSS 2.0 comment.</p>
+  </li>
+</ul>
+
+<h3 id="social-media-icons">Social Media Icons</h3>
+
+<p>All social media icons are courtesy of <a href="http://fontawesome.io/">Font Awesome</a>. You can change which icons appear, as well as the account that they link to, in the <code class="language-plaintext highlighter-rouge">settings.yml</code> file in the <code class="language-plaintext highlighter-rouge">_data</code> folder.</p>
+
+<h3 id="mathjax">MathJax</h3>
+
+<p>Lagrange comes out of the box with <a href="https://www.mathjax.org/">MathJax</a>, which allows you to display mathematical equations in your posts through the use of <a href="http://www.andy-roberts.net/writing/latex/mathematics_1">LaTeX</a>.</p>
+
+<h3 id="syntax-highlighting">Syntax Highlighting</h3>
+
+<p>Lagrange provides syntax highlighting through <a href="https://help.github.com/articles/creating-and-highlighting-code-blocks/">fenced code blocks</a>. Syntax highlighting allows you to display source code in different colors and fonts depending on what programming language is being displayed. You can find the full list of supported programming languages <a href="https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers">here</a>. Another option is to embed your code through <a href="https://en.support.wordpress.com/gist/">Gist</a>.</p>
+
+<h3 id="markdown">Markdown</h3>
+
+<p>As always, Jekyll offers support for GitHub Flavored Markdown, which allows you to format your posts using the <a href="https://guides.github.com/features/mastering-markdown/">Markdown syntax</a>. Examples of these text formatting features can be seen below. You can find this post in the <code class="language-plaintext highlighter-rouge">_posts</code> directory as well as the <code class="language-plaintext highlighter-rouge">README.md</code> file.</p>
+
+<h2 id="everything-else">Everything Else</h2>
+
+<p>Check out the <a href="http://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>If you would like to make a feature request, or report a bug or typo in the documentation, then please <a href="https://github.com/LeNPaul/Lagrange/issues/new">submit a GitHub issue</a>. If you would like to make a contribution, then feel free to <a href="https://help.github.com/articles/about-pull-requests/">submit a pull request</a> - as a bonus, I will credit all contributors below! If this is your first pull request, it may be helpful to read up on the <a href="https://guides.github.com/introduction/flow/">GitHub Flow</a> first.</p>
+
+<p>Lagrange has been designed as a base for users to customize and fit to their own unique needs. Please keep this in mind when requesting features and/or submitting pull requests. Some examples of changes that I would love to see are things that would make the site easier to use, or better ways of doing things. Please avoid changes that do not benefit the majority of users.</p>
+
+<h2 id="questions">Questions?</h2>
+
+<p>This theme is completely free and open source software. You may use it however you want, as it is distributed under the <a href="http://choosealicense.com/licenses/mit/">MIT License</a>. If you are having any problems, any questions or suggestions, feel free to <a href="https://twitter.com/intent/tweet?text=My%question%about%Lagrange%is:%&amp;via=paululele">tweet at me</a>, or <a href="https://github.com/lenpaul/lagrange/issues/new">file a GitHub issue</a>.</p>
+
+<h2 id="credits">Credits</h2>
+
+<h3 id="creator">Creator</h3>
+
+<h4 id="paul-le">Paul Le</h4>
+
+<ul>
+  <li>
+    <p><a href="http://lenpaul.com">www.lenpaul.com</a></p>
+  </li>
+  <li>
+    <p><a href="https://twitter.com/paululele">Twitter</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/LeNPaul">GitHub</a></p>
+  </li>
+</ul>
+
+<h3 id="contributors">Contributors</h3>
+
+<ul>
+  <li>
+    <p><a href="https://github.com/nikolalukovic">nikolalukovic</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/gmemstr">gmemstr</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/lynn9388">lynn9388</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/robqiao">robqiao</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/Mauladen">Mauladen</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/dhanus">dhanus</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/mlewand">mlewand</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/Hguimaraes">Hguimaraes</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/ilhamadun">ilhamadun</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/brianclemens">brianclemens</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/leyhline">leyhline</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/aritra24">aritra24</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/DuckSoft">DuckSoft</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/larrylawl">larrylawl</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/borting">borting</a></p>
+  </li>
+</ul>
+
+<h3 id="icons--demo-images">Icons + Demo Images</h3>
+
+<ul>
+  <li>
+    <p><a href="https://deathtothestockphoto.com/">Death to Stock</a></p>
+  </li>
+  <li>
+    <p><a href="http://fontawesome.io/">Font Awesome</a></p>
+  </li>
+</ul>
+
+<h3 id="other">Other</h3>
+
+<ul>
+  <li>
+    <p><a href="https://jekyllrb.com/">Jekyll</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.freecodecamp.org">Free Code Camp</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.khanacademy.org/">Khan Academy</a></p>
+  </li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>Open sourced under the <a href="https://github.com/LeNPaul/Lagrange/blob/gh-pages/LICENSE.md">MIT license</a>.</p>]]></content><author><name>Paul Le</name></author><category term="journal" /><category term="documentation" /><category term="sample" /><summary type="html"><![CDATA[「 金銮湾日出 」]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/DSC_0803.JPG" /><media:content medium="image" url="/DSC_0803.JPG" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
