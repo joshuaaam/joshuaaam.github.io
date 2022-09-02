@@ -9,6 +9,7 @@
 # 用本地的 default.conf 替换 nginx 镜像的默认配置
 # ADD default.conf /etc/nginx/conf.d/
 
+#!/bin/bash
 FROM ubuntu:latest
 MAINTAINER Bourbon Tian "bourbon@1mcloud.com"
 ENV REFRESHED_AT 2017-06-13
