@@ -7,22 +7,12 @@
 		<atom:link href="/rss-feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
-				<title>Scrapy</title>
+				<title>Scrapy2.6 Document</title>
+				
+					<dc:creator>Fanqiang Meng</dc:creator>
 				
 				
-					<description>&lt;!--
- * @Author: g05047
- * @Date: 2022-09-02 17:24:59
- * @LastEditors: g05047
- * @LastEditTime: 2022-09-03 00:47:55
- * @Description: file content
---&gt;
-&lt;hr /&gt;
-&lt;p&gt;layout: post
-title: “Scrapy2.6 Document”
-author: “Fanqiang Meng”
-categories: journal
-tags: [documentation,sample,pic]&lt;/p&gt;
+					<description>&lt;p&gt;Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.1&lt;/p&gt;
 </description>
 				
 				<pubDate>Fri, 02 Sep 2022 00:00:00 +0800</pubDate>
