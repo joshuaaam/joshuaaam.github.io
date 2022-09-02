@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-09-02T17:28:20+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Scrapy2.6 Document</title><link href="/scrapy/" rel="alternate" type="text/html" title="Scrapy2.6 Document" /><published>2022-09-02T00:00:00+08:00</published><updated>2022-09-02T00:00:00+08:00</updated><id>/scrapy</id><content type="html" xml:base="/scrapy/"><![CDATA[<p>Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-09-02T21:53:18+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Scrapy2.6 Document</title><link href="/scrapy/" rel="alternate" type="text/html" title="Scrapy2.6 Document" /><published>2022-09-02T00:00:00+08:00</published><updated>2022-09-02T00:00:00+08:00</updated><id>/scrapy</id><content type="html" xml:base="/scrapy/"><![CDATA[<p>Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.</p>
 
 <h2 id="安装scrapy">安装Scrapy</h2>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>scrapy
@@ -13,24 +13,18 @@
 <p>输入命令创建爬虫项目
 <strong>Scrapy项目目录</strong></p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lagrange/
-├── _data                      <span class="c"># Data files</span>
-|  └── settings.yml            <span class="c"># Theme settings and custom text</span>
-├── _includes                  <span class="c"># Theme includes</span>
-├── _layouts                   <span class="c"># Theme layouts (see below for details)</span>
-├── _posts                     <span class="c"># Where all your posts will go</span>
-├── assets                     <span class="c"># Style sheets and images are found here</span>
-|  ├── css                     <span class="c"># Style sheets go here</span>
-|  |  └── main.css             <span class="c"># Main CSS file</span>
-|  |  └── syntax.css           <span class="c"># Style sheet for code syntax highlighting</span>
-|  └── img                     <span class="c"># Images go here</span>
-├── menu                       <span class="c"># Menu pages</span>
-├── _config.yml                <span class="c"># Site build settings</span>
-├── Gemfile                    <span class="c"># Ruby Gemfile for managing Jekyll plugins</span>
-├── index.md                   <span class="c"># Home page</span>
-├── LICENSE.md                 <span class="c"># License for this theme</span>
-├── README.md                  <span class="c"># Includes all of the documentation for this theme</span>
-└── rss-feed.xml               <span class="c"># Generates RSS 2.0 file which Jekyll points to</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+tutorial
+├── scrapy.cfg                  <span class="c"># deploy configuration file</span>
+└── tutorial                    <span class="c"># project's Python module, you'll import your code from here</span>
+| ├── __init__.py               
+| ├── items.py                  <span class="c"># project items definition file</span>
+| ├── middlewares.py            <span class="c"># project middlewares file</span>
+| ├── pipelines.py              <span class="c"># project pipelines file</span>
+| ├── settings.py               <span class="c"># project settings file</span>
+| └── spiders                   <span class="c"># a directory where you'll later put your spidersdeploy configuration file</span>
+| | └── __init__.py            
+
 </code></pre></div></div>
 
 <h2 id="创建爬虫">创建爬虫</h2>
