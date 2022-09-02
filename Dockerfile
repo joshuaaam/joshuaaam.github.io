@@ -9,14 +9,13 @@
 # 用本地的 default.conf 替换 nginx 镜像的默认配置
 # ADD default.conf /etc/nginx/conf.d/
 
-FROM jekyll/builder:3.8
-# FROM ubuntu:latest
-# MAINTAINER Bourbon Tian "bourbon@1mcloud.com"
-# ENV REFRESHED_AT 2017-06-13
+FROM ubuntu:latest
+MAINTAINER Bourbon Tian "bourbon@1mcloud.com"
+ENV REFRESHED_AT 2017-06-13
 
-# RUN apt-get -qq update
-# RUN apt-get -qq install ruby ruby-dev build-essential nodejs
-# RUN gem install --no-rdoc --no-ri jekyll -v 2.5.3
+RUN apt-get -qq update
+RUN apt-get -qq install ruby ruby-dev build-essential nodejs
+RUN gem install --no-rdoc --no-ri jekyll -v 2.5.3
 
 VOLUME /data
 VOLUME /var/www/html
