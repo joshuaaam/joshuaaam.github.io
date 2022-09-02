@@ -12,8 +12,7 @@
 #!/bin/bash
 FROM ubuntu:latest
 MAINTAINER Bourbon Tian "bourbon@1mcloud.com"
-ENV REFRESHED_AT 2017-06-13
-
+ENV JEKYLL_ROOTLESS false
 RUN apt-get -qq update
 RUN apt-get -qq install ruby ruby-dev build-essential nodejs
 RUN gem install --no-rdoc --no-ri jekyll -v 2.5.3
