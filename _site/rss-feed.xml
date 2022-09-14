@@ -12,7 +12,7 @@
 					<dc:creator>Fanqiang Meng</dc:creator>
 				
 				
-					<description>&lt;p&gt;Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.1&lt;/p&gt;
+					<description>&lt;p&gt;Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.&lt;/p&gt;
 </description>
 				
 				<pubDate>Fri, 02 Sep 2022 00:00:00 +0800</pubDate>
@@ -55,6 +55,20 @@
 			</item>
 		
 			<item>
+				<title>总有一些美好值得期待2</title>
+				
+					<dc:creator>Fanqiang Meng</dc:creator>
+				
+				
+					<description>&lt;p&gt;记得《航拍中国》中有这么一句话，“总有一些美好值得期待“&lt;/p&gt;
+</description>
+				
+				<pubDate>Mon, 13 Dec 2021 00:00:00 +0800</pubDate>
+				<link>/yb2/</link>
+				<guid isPermaLink="true">/yb2/</guid>
+			</item>
+		
+			<item>
 				<title>总有一些美好值得期待</title>
 				
 					<dc:creator>Fanqiang Meng</dc:creator>
@@ -74,10 +88,14 @@
 					<dc:creator>Fanqiang Meng</dc:creator>
 				
 				
-					<description>&lt;p&gt;记录一下项目部署练习以来的总结吧，包括前后端项目的部署，nginx的转发，ssl证书配置&lt;/p&gt;
+					<description>&lt;h2 id=&quot;nginx&quot;&gt;nginx&lt;/h2&gt;
+&lt;h3 id=&quot;安装依赖&quot;&gt;安装依赖&lt;/h3&gt;
+&lt;p&gt;```bash&lt;/p&gt;
+&lt;h1 id=&quot;gcc安装nginx源码编译需要&quot;&gt;gcc安装，nginx源码编译需要&lt;/h1&gt;
+&lt;p&gt;yum install gcc-c++&lt;/p&gt;
 </description>
 				
-				<pubDate>Tue, 25 May 2021 00:00:00 +0800</pubDate>
+				<pubDate>Wed, 26 May 2021 00:00:00 +0800</pubDate>
 				<link>/fwq/</link>
 				<guid isPermaLink="true">/fwq/</guid>
 			</item>
