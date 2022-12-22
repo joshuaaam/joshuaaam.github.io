@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-12-22T13:58:10+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Scrapy2.6 Document</title><link href="/scrapy/" rel="alternate" type="text/html" title="Scrapy2.6 Document" /><published>2022-09-02T00:00:00+08:00</published><updated>2022-09-02T00:00:00+08:00</updated><id>/scrapy</id><content type="html" xml:base="/scrapy/"><![CDATA[<p>Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2022-12-22T14:01:53+08:00</updated><id>/feed.xml</id><title type="html">Joshua</title><subtitle>东隅已逝，桑榆非晚</subtitle><author><name>Fanqiang Meng</name></author><entry><title type="html">Scrapy2.6 Document</title><link href="/scrapy/" rel="alternate" type="text/html" title="Scrapy2.6 Document" /><published>2022-09-02T00:00:00+08:00</published><updated>2022-09-02T00:00:00+08:00</updated><id>/scrapy</id><content type="html" xml:base="/scrapy/"><![CDATA[<p>Scrapy is a fast high-level web crawling and web scraping framework, used to crawl websites and extract structured data from their pages. It can be used for a wide range of purposes, from data mining to monitoring and automated testing.</p>
 
 <h2 id="安装scrapy">安装Scrapy</h2>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>scrapy
@@ -273,7 +273,24 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 
 <p>我们回到县城吃过饭后，就到梅里雪山的另外一个观景台雾浓顶，赶上今天天气很好，因为停电的原因门口也没人收费，于是我们在雾浓顶拍了一下午照片</p>
 
-<p>看样子明天有很大机率能看到日照金山</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》中有这么一句话，“总有一些美好值得期待“]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/5541651987270.jpg" /><media:content medium="image" url="/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">总有一些美好值得期待</title><link href="/yb/" rel="alternate" type="text/html" title="总有一些美好值得期待" /><published>2021-12-13T00:00:00+08:00</published><updated>2021-12-13T00:00:00+08:00</updated><id>/yb</id><content type="html" xml:base="/yb/"><![CDATA[<p>记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。</p>
+<p>看样子明天有很大机率能看到日照金山</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》中有这么一句话，“总有一些美好值得期待“]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/5541651987270.jpg" /><media:content medium="image" url="/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Yb</title><link href="/yb/" rel="alternate" type="text/html" title="Yb" /><published>2021-12-13T00:00:00+08:00</published><updated>2021-12-13T00:00:00+08:00</updated><id>/yb</id><content type="html" xml:base="/yb/"><![CDATA[<!--
+ * @Author: g05047
+ * @Date: 2022-05-08 12:59:01
+ * @LastEditors: g05047
+ * @LastEditTime: 2022-12-22 14:01:34
+ * @Description: file content
+-->
+<hr />
+<p>layout: post
+title: “总有一些美好值得期待”
+author: “Fanqiang Meng”
+categories: journal
+tags: [documentation,trip,pic]
+image: 5541651987270.jpg</p>
+
+<hr />
+
+<p>记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。</p>
 
 <p>那是一张梅里日照的金山壁纸，这就是我此行的期待！</p>
 
@@ -304,7 +321,7 @@ Error response from daemon: Cannot restart container e2da0a5efa1d: driver failed
 
 <p>等到我们到达飞来寺后主峰已经被厚厚的云层遮住了 ，这让我更加坚信此行一定顺利的1</p>
 
-<p>###</p>]]></content><author><name>Fanqiang Meng</name></author><category term="journal" /><category term="documentation" /><category term="trip" /><category term="pic" /><summary type="html"><![CDATA[记得《航拍中国》里有这样一句话，“总有一些美好值得期待”。那时候我给同行的伙伴看了我的手机壁纸。]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/5541651987270.jpg" /><media:content medium="image" url="/5541651987270.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">记录完整的项目部署</title><link href="/fwq/" rel="alternate" type="text/html" title="记录完整的项目部署" /><published>2021-05-26T00:00:00+08:00</published><updated>2021-05-26T00:00:00+08:00</updated><id>/fwq</id><content type="html" xml:base="/fwq/"><![CDATA[<h2 id="nginx">nginx</h2>
+<p>###</p>]]></content><author><name>Fanqiang Meng</name></author><summary type="html"><![CDATA[layout: post title: “总有一些美好值得期待” author: “Fanqiang Meng” categories: journal tags: [documentation,trip,pic] image: 5541651987270.jpg]]></summary></entry><entry><title type="html">记录完整的项目部署</title><link href="/fwq/" rel="alternate" type="text/html" title="记录完整的项目部署" /><published>2021-05-26T00:00:00+08:00</published><updated>2021-05-26T00:00:00+08:00</updated><id>/fwq</id><content type="html" xml:base="/fwq/"><![CDATA[<h2 id="nginx">nginx</h2>
 <h3 id="安装依赖">安装依赖</h3>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># gcc安装，nginx源码编译需要</span>
 yum <span class="nb">install </span>gcc-c++
