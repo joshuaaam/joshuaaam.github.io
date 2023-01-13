@@ -4,7 +4,7 @@ title: "秋日的东山岛"
 author: "Paul Le"
 categories: journal
 tags: [documentation,sample]
-image: DSC_0803.JPG
+# image: DSC_0803.JPG
 ---
 
 # 「 金銮湾日出 」
@@ -20,24 +20,16 @@ image: DSC_0803.JPG
 
 <img src="{{site.url}}/assets/img/2022-05-05/DSC_0803.JPG">
 
-
-<!-- ![alt text](https://admin.impermanence.cn/public/upload/20220321/1647836631278.jpeg "金銮湾日出") -->
-
-
-<!-- ## Notable features
+![DSC_0903](https://joshuaaam.oss-cn-guangzhou.aliyuncs.com/DSC_0903.JPG)
 
 
 * Compatible with GitHub Pages.
-
 * Support for Jekyll's built-in Sass/SCSS preprocessor and data files for making customizing easier.
-
 * [Google Analytics](https://www.google.com/analytics/) support.
-
 * Commenting support powered by [Disqus](https://disqus.com/).
-
 * Optimized for search engines.
-
-* LaTeX support through [MathJax](https://www.mathjax.org/). -->
+* LaTeX support through [MathJax](https://www.mathjax.org/).
+* 
 
 <!-- ## Table of Contents
 

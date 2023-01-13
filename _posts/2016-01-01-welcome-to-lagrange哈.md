@@ -4,12 +4,12 @@ title: "Welcome to Joshuaaam!"
 author: "Paul Le"
 categories: journal
 tags: [documentation,sample]
-image: mountains.jpg
+# image: mountains.jpg
 ---
 
 Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.1
 
-## Getting Started哈哈哈
+## Getting Started
 
 [Getting Started]({{ site.github.url }}{% post_url 2015-10-10-getting-started %}): getting started with installing Lagrange, whether you are completely new to using Jekyll, or simply just migrating to a new Jekyll theme.
 

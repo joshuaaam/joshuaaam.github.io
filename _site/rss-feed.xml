@@ -7,6 +7,34 @@
 		<atom:link href="/rss-feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>webpack</title>
+				
+					<dc:creator>Fanqiang Meng</dc:creator>
+				
+				
+					<description>&lt;p&gt;​&lt;/p&gt;
+</description>
+				
+				<pubDate>Tue, 10 Jan 2023 00:00:00 +0800</pubDate>
+				<link>/webpack/</link>
+				<guid isPermaLink="true">/webpack/</guid>
+			</item>
+		
+			<item>
+				<title>Typora搭配PicGo上传图片到阿里云OSS</title>
+				
+					<dc:creator>Fanqiang Meng</dc:creator>
+				
+				
+					<description>&lt;p&gt;​		自从用Jekyll来写博客后，发现方便是挺方便，直接用语雀或者Typora写完后放到Jekyll目录里build一下就ok了，但是有一个很明显的痛点，每次都要手动插入本地图片，这样不仅工作量大，而且图片都放在项目中文件体积越来越大，每次Jenkins构建任务光拉项目就很久了，我在想能不能用网络图片来代替，于是我就找到了PicGo&lt;/p&gt;
+</description>
+				
+				<pubDate>Wed, 28 Dec 2022 00:00:00 +0800</pubDate>
+				<link>/picgo/</link>
+				<guid isPermaLink="true">/picgo/</guid>
+			</item>
+		
+			<item>
 				<title>Scrapy2.6 Document</title>
 				
 					<dc:creator>Fanqiang Meng</dc:creator>
@@ -34,8 +62,8 @@
 </description>
 				
 				<pubDate>Sun, 24 Jul 2022 00:00:00 +0800</pubDate>
-				<link>/cxjc/</link>
-				<guid isPermaLink="true">/cxjc/</guid>
+				<link>/jenkins/</link>
+				<guid isPermaLink="true">/jenkins/</guid>
 			</item>
 		
 			<item>
@@ -44,14 +72,12 @@
 					<dc:creator>Fanqiang Meng</dc:creator>
 				
 				
-					<description>&lt;blockquote&gt;
-  &lt;p&gt;拍摄于广州市从化区良口镇阿婆六村观星台&lt;/p&gt;
-&lt;/blockquote&gt;
+					<description>&lt;p&gt;&lt;img src=&quot;https://joshuaaam.oss-cn-guangzhou.aliyuncs.com/img/DSC_2423.jpg&quot; alt=&quot;DSC_2423&quot; /&gt;&lt;/p&gt;
 </description>
 				
 				<pubDate>Sat, 23 Jul 2022 00:00:00 +0800</pubDate>
-				<link>/chg/</link>
-				<guid isPermaLink="true">/chg/</guid>
+				<link>/stars/</link>
+				<guid isPermaLink="true">/stars/</guid>
 			</item>
 		
 			<item>
@@ -120,42 +146,15 @@
 					<dc:creator>Paul Le</dc:creator>
 				
 				
-					<description>&lt;blockquote&gt;
+					<description>&lt;p&gt;&lt;img src=&quot;https://joshuaaam.oss-cn-guangzhou.aliyuncs.com/img/DSC_0804.JPG&quot; alt=&quot;DSC_0804&quot; /&gt;&lt;/p&gt;
+&lt;blockquote&gt;
   &lt;p&gt;拍摄于东山岛金銮湾&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
 				
 				<pubDate>Thu, 01 Oct 2020 00:00:00 +0800</pubDate>
-				<link>/dsd/</link>
-				<guid isPermaLink="true">/dsd/</guid>
-			</item>
-		
-			<item>
-				<title>Welcome to Joshuaaam!</title>
-				
-					<dc:creator>Paul Le</dc:creator>
-				
-				
-					<description>&lt;p&gt;Lagrange is a minimalist Jekyll theme. The purpose of this theme is to provide a simple, clean, content-focused blogging platform for your personal site or blog. Below you can find everything you need to get started.1&lt;/p&gt;
-</description>
-				
-				<pubDate>Fri, 01 Jan 2016 00:00:00 +0800</pubDate>
-				<link>/welcome-to-lagrange%E5%93%88/</link>
-				<guid isPermaLink="true">/welcome-to-lagrange%E5%93%88/</guid>
-			</item>
-		
-			<item>
-				<title>秋日的东山岛</title>
-				
-					<dc:creator>Paul Le</dc:creator>
-				
-				
-					<description>&lt;h1 id=&quot;-金銮湾日出-&quot;&gt;「 金銮湾日出 」&lt;/h1&gt;
-</description>
-				
-				<pubDate>Sat, 10 Oct 2015 00:00:00 +0800</pubDate>
-				<link>/getting-started/</link>
-				<guid isPermaLink="true">/getting-started/</guid>
+				<link>/dongshandao/</link>
+				<guid isPermaLink="true">/dongshandao/</guid>
 			</item>
 		
 	</channel>
